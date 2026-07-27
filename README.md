@@ -4,16 +4,19 @@
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/wakeward/github-app-permissions-graph/badge)](https://securityscorecards.dev/viewer/?uri=github.com/wakeward/github-app-permissions-graph)
 [![License](https://img.shields.io/github/license/wakeward/github-app-permissions-graph)](LICENSE)
 
-A structured, source-of-truth data model for GitHub App permission risk:
-severity, technical dependencies between permissions, and named "toxic
-combination" attack techniques - plus the tooling to keep it fresh and to
-score a specific app's declared permissions against it.
+A structured data model for GitHub App permission risk: severity, technical
+dependencies between permissions, and named "toxic combination" attack
+techniques - plus the tooling to keep it fresh and to score a specific app's
+declared permissions against it.
 
-This replaces a spreadsheet that couldn't express "permission X at write
-requires permission Y at read" as a first-class relationship, and had no way
-to distinguish a verified dependency from a guess. The model here is:
-**structured YAML (source of truth) -> generated views** (Mermaid graphs,
-markdown tables, per-app risk reports).
+**Current status:** `data/permissions/*.yaml` is **draft seed data** only -
+seeded from an incomplete working spreadsheet, not a verified catalog. The
+canonical permission graph will come from `octokit/app-permissions` plus
+dependency detection (`fetch-inventory`, `detect-overlap`). Severity and
+toxic-combination judgments get layered on once that technical base is solid.
+
+The model is: **structured YAML (source of truth) -> generated views** (Mermaid
+graphs, markdown tables, per-app risk reports).
 
 ## Why Go, and why a separate repo from `gh-app-check`
 
@@ -55,7 +58,7 @@ cmd/                              # one small binary per pipeline step
   detect-overlap/                 # Type A (category-overlap) dependency detection
   scrape-prose/                   # Type B (prose) dependency drafts, High/Critical scope by default
   build/                          # merge everything, validate, render docs/
-  migrate-csv/                    # one-time: import the original CSV + Enterprise screenshot
+  migrate-csv/                    # optional one-time: import a working spreadsheet as draft seed YAML
   migrate-toxic-combinations/     # one-time: import the toxic-combinations CSV + writeup
   evaluate-app/                   # score one app's permissions against toxic-combinations.yaml
 pkg/
@@ -68,8 +71,7 @@ pkg/
   ghapps/                         # thin client for public GET /apps/{app_slug}
   data/                           # go:embed of the built, resolved JSON - the compiled-in consumption path
 data/
-  permissions/                    # *.yaml, one file per category (account, enterprise, organization, repository, user)
-  sources/raw/                    # original CSVs/writeups, kept for provenance
+  permissions/                    # *.yaml draft seed (see data/permissions/README.md) - NOT canonical yet
   dependencies-manual.yaml        # human-reviewed "requires" edges (highest precedence)
   toxic-combinations.yaml         # named attack techniques unlocked by permission co-occurrence
   generated/                      # endpoints-inventory.json, overlap-dependencies.yaml, scraped-dependencies-draft.yaml

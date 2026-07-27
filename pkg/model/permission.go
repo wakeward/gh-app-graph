@@ -5,8 +5,9 @@
 // see the root README's "Relationship to gh-app-check" section.
 package model
 
-// Severity is the risk severity assigned to a permission on its own, before
-// considering any combination with other permissions.
+// Severity is the risk severity assigned to a permission at a specific
+// access level, on its own, before considering any combination with other
+// permissions.
 type Severity string
 
 const (
@@ -14,6 +15,13 @@ const (
 	SeverityHigh     Severity = "High"
 	SeverityMedium   Severity = "Medium"
 	SeverityLow      Severity = "Low"
+	// SeverityInformational: the permission grants no meaningful standalone
+	// risk (e.g. read-only access to something already public, or a no-op
+	// access level like "Followers: read").
+	SeverityInformational Severity = "Informational"
+	// SeverityUnknown: not yet assessed - always paired with
+	// NeedsInvestigation: true. Never rely on this value for scoring.
+	SeverityUnknown Severity = "Unknown"
 )
 
 // ImpactPlane categorizes a permission by what it affects if abused: the
@@ -29,14 +37,22 @@ const (
 )
 
 // DocStatus records how well-documented a permission is in GitHub's public
-// docs. Some Enterprise permissions are visible in the App creation UI but
-// have no published REST endpoints yet.
+// docs.
 type DocStatus string
 
 const (
-	DocStatusDocumented          DocStatus = "documented"
+	DocStatusDocumented DocStatus = "documented"
+	// DocStatusUndocumentedPreview: visible in the App creation UI (often
+	// marked "Preview") but with no published REST endpoints yet.
 	DocStatusUndocumentedPreview DocStatus = "undocumented_preview"
-	DocStatusUnconfirmedKey      DocStatus = "unconfirmed_key"
+	// DocStatusUnconfirmedKey: the api_key is inferred (from an endpoint
+	// path, go-github's schema, etc.) but not confirmed against a live
+	// GitHub App manifest or permissions picker.
+	DocStatusUnconfirmedKey DocStatus = "unconfirmed_key"
+	// DocStatusDisputed: independent signals disagree on whether this is a
+	// real, current permission (e.g. present in one source, absent from the
+	// live UI and from go-github's schema).
+	DocStatusDisputed DocStatus = "disputed"
 )
 
 // AccessLevel is the grant level for a permission. GitHub Apps can only ever
@@ -49,17 +65,26 @@ const (
 	AccessWrite AccessLevel = "write"
 )
 
+// AccessLevelDetail is the risk assessment for one specific access level of
+// a permission. Severity commonly differs between read and write for the
+// same permission (e.g. Administration read is reconnaissance-level,
+// Administration write is Critical), so this is tracked per access level
+// rather than once per permission.
+type AccessLevelDetail struct {
+	Access        AccessLevel `yaml:"access" json:"access"`
+	Severity      Severity    `yaml:"severity" json:"severity"`
+	SecurityNotes string      `yaml:"security_notes,omitempty" json:"security_notes,omitempty"`
+}
+
 // Permission is one entry from data/permissions/*.yaml: a single named
 // GitHub App permission and everything known about its standalone risk.
 type Permission struct {
-	Name               string      `yaml:"name" json:"name"`
-	APIKey             string      `yaml:"api_key" json:"api_key"`
-	Category           string      `yaml:"category" json:"category"`
-	AccessLevels       []string    `yaml:"access_levels" json:"access_levels"`
-	Overview           string      `yaml:"overview" json:"overview"`
-	Severity           Severity    `yaml:"severity" json:"severity"`
-	SecurityNotes      string      `yaml:"security_notes" json:"security_notes"`
-	NeedsInvestigation bool        `yaml:"needs_investigation" json:"needs_investigation"`
-	DocStatus          DocStatus   `yaml:"doc_status" json:"doc_status"`
-	ImpactPlane        ImpactPlane `yaml:"impact_plane" json:"impact_plane"`
+	Name               string              `yaml:"name" json:"name"`
+	APIKey             string              `yaml:"api_key" json:"api_key"`
+	Category           string              `yaml:"category" json:"category"`
+	Overview           string              `yaml:"overview" json:"overview"`
+	AccessLevels       []AccessLevelDetail `yaml:"access_levels" json:"access_levels"`
+	NeedsInvestigation bool                `yaml:"needs_investigation" json:"needs_investigation"`
+	DocStatus          DocStatus           `yaml:"doc_status" json:"doc_status"`
+	ImpactPlane        ImpactPlane         `yaml:"impact_plane" json:"impact_plane"`
 }

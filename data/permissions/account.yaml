@@ -1,0 +1,254 @@
+# DRAFT - NOT CANONICAL. Seeded from an incomplete working spreadsheet plus
+# Enterprise UI observations. Severity/impact_plane are starting notes only.
+# Reconcile or replace once fetch-inventory + detect-overlap land.
+# See data/permissions/README.md
+- name: Blocking users
+  api_key: blocking
+  category: account
+  overview: Block and unblock other user accounts.
+  access_levels:
+    - access: write
+      severity: Low
+      security_notes: Nuisance vector - Assume it cannot block Admins
+    - access: read
+      severity: Informational
+  needs_investigation: true
+  doc_status: documented
+  impact_plane: governance_identity
+- name: Codespaces
+  api_key: codespaces
+  category: account
+  overview: Manage user codespaces.
+  access_levels:
+    - access: write
+      severity: High
+      security_notes: Spin up malicious compute environments as the user
+    - access: read
+      severity: Low
+      security_notes: Enumerate user environments to potential target for future exploitation
+  needs_investigation: false
+  doc_status: documented
+  impact_plane: data_execution
+- name: Codespaces lifecycle admin
+  api_key: codespaces_lifecycle_admin
+  category: account
+  overview: Administer lifecycle of user codespaces.
+  access_levels:
+    - access: write
+      severity: Medium
+      security_notes: Distrupt or deny development for a user
+    - access: read
+      severity: Low
+      security_notes: Enumerate user development workflows
+  needs_investigation: false
+  doc_status: documented
+  impact_plane: data_execution
+- name: Codespaces secrets
+  api_key: codespaces_secrets
+  category: account
+  overview: Manage user codespaces secrets.
+  access_levels:
+    - access: write
+      severity: Critical
+      security_notes: Exfiltrate or overwrite personal environment secrets
+    - access: read
+      severity: High
+      security_notes: Exfiltrate personal environment secrets
+  needs_investigation: false
+  doc_status: documented
+  impact_plane: data_execution
+- name: Codespaces user secrets
+  api_key: codespaces_user_secrets
+  category: account
+  overview: Manage user-level codespaces secrets.
+  access_levels:
+    - access: write
+      severity: Critical
+      security_notes: Exfiltrate or overwrite personal environment secrets across all of the user's codespaces.
+    - access: read
+      severity: High
+      security_notes: Exfiltrate personal environment secrets across all of the user's codespaces
+  needs_investigation: false
+  doc_status: documented
+  impact_plane: data_execution
+- name: Copilot messages
+  api_key: copilot_messages
+  category: account
+  overview: Access a user's Copilot Chat messages.
+  access_levels:
+    - access: read
+      severity: High
+      security_notes: Read access could exfiltrate proprietary code snippets or sensitive content pasted into Copilot Chat
+  needs_investigation: false
+  doc_status: documented
+  impact_plane: data_execution
+- name: Email addresses
+  api_key: emails
+  category: account
+  overview: View user email addresses.
+  access_levels:
+    - access: read
+      severity: Low
+      security_notes: User enumeration and reconnaissance
+  needs_investigation: false
+  doc_status: documented
+  impact_plane: governance_identity
+- name: Followers
+  api_key: followers
+  category: account
+  overview: Manage followers.
+  access_levels:
+    - access: write
+      severity: Informational
+    - access: read
+      severity: Informational
+  needs_investigation: false
+  doc_status: documented
+  impact_plane: governance_identity
+- name: Gists
+  api_key: gists
+  category: account
+  overview: Manage gists.
+  access_levels:
+    - access: write
+      severity: Medium
+      security_notes: Could alter code snippets or host malicious scripts under a trusted user's name
+    - access: read
+      severity: Low
+      security_notes: User reconnaissance
+  needs_investigation: false
+  doc_status: documented
+  impact_plane: data_execution
+- name: Git signing SSH public keys
+  api_key: git_signing_ssh_public_keys
+  category: account
+  overview: Manage SSH public keys used for commit signing.
+  access_levels:
+    - access: write
+      severity: High
+      security_notes: Could inject a key to forge signed commits as the user, undermining commit provenance
+    - access: read
+      severity: Unknown
+      security_notes: What does RO allow? [FI]
+  needs_investigation: true
+  doc_status: documented
+  impact_plane: data_execution
+- name: GPG keys
+  api_key: gpg_keys
+  category: account
+  overview: Manage a user's GPG keys.
+  access_levels:
+    - access: write
+      severity: Critical
+      security_notes: Could inject a GPG key to forge signed commits/tags as the user, or delete legitimate keys to break verification
+    - access: read
+      severity: Unknown
+      security_notes: What does RO allow? [FI]
+  needs_investigation: true
+  doc_status: documented
+  impact_plane: data_execution
+- name: Interaction limits
+  api_key: interaction_limits
+  category: account
+  overview: Manage a user's interaction limits (rate-limiting comments/PRs from certain users).
+  access_levels:
+    - access: write
+      severity: Low
+      security_notes: Could be used to lock out legitimate contributors (nuisance/DoS); limited security impact
+    - access: read
+      severity: Informational
+  needs_investigation: false
+  doc_status: documented
+  impact_plane: control
+- name: Git SSH keys
+  api_key: keys
+  category: account
+  overview: Manage a user's Git SSH authentication keys.
+  access_levels:
+    - access: write
+      severity: Critical
+      security_notes: Could add an attacker-controlled SSH key to impersonate the user for git operations against any repo they can access
+    - access: read
+      severity: Unknown
+      security_notes: What does RO allow? [FI]
+  needs_investigation: true
+  doc_status: documented
+  impact_plane: data_execution
+- name: Notifications
+  api_key: notifications
+  category: account
+  overview: Manage notifications. NOT FOUND in go-github's permission schema and NOT FOUND in the live GitHub App permissions UI (2026-07-24) - two independent negative signals suggest this may not be a real, current GitHub App permission (possibly deprecated, or a hallucinated entry from the original sheet). Recommend verifying with GitHub support/docs before relying on this row in automated rules; consider removing if unconfirmed.
+  access_levels:
+    - access: write
+      severity: Low
+      security_notes: Could suppress security or review notifications to hide actions [FI]
+    - access: read
+      severity: Low
+      security_notes: User enumeration and reconnaissance [FI]
+  needs_investigation: true
+  doc_status: disputed
+  impact_plane: governance_identity
+- name: Plan
+  api_key: plan
+  category: account
+  overview: View user plan.
+  access_levels:
+    - access: read
+      severity: Low
+      security_notes: Information disclosure
+  needs_investigation: false
+  doc_status: documented
+  impact_plane: governance_identity
+- name: Profile
+  api_key: profile
+  category: account
+  overview: Manage user profile.
+  access_levels:
+    - access: write
+      severity: Low
+      security_notes: Defacement or social engineering
+    - access: read
+      severity: Low
+      security_notes: User enumeration and reconnaissance if user profile is private only
+  needs_investigation: false
+  doc_status: documented
+  impact_plane: governance_identity
+- name: Starring
+  api_key: starring
+  category: account
+  overview: Manage starred repos.
+  access_levels:
+    - access: write
+      severity: Medium
+      security_notes: Use a legitimate account to inflate malicious repository "trust" and visibility and lower user trust
+    - access: read
+      severity: Low
+      security_notes: User enumeration and reconnaissance
+  needs_investigation: false
+  doc_status: documented
+  impact_plane: governance_identity
+- name: User events
+  api_key: user_events
+  category: account
+  overview: View a user's public events feed.
+  access_levels:
+    - access: read
+      severity: Low
+      security_notes: User enumeration and reconnaissance
+  needs_investigation: false
+  doc_status: documented
+  impact_plane: governance_identity
+- name: Watching
+  api_key: watching
+  category: account
+  overview: Manage watched repos.
+  access_levels:
+    - access: write
+      severity: Medium
+      security_notes: Substitute a legitimate project with a typo-squatted repository with the intent of tricking the user to use it in future projects
+    - access: read
+      severity: Low
+      security_notes: User enumeration and reconnaissance
+  needs_investigation: false
+  doc_status: documented
+  impact_plane: governance_identity

@@ -41,7 +41,7 @@ type RequiredPermission struct {
 // ToxicCombination (see toxic.go) which is a risk-correlation rule rather
 // than a functional requirement.
 type DependencyEdge struct {
-	Permission string                `yaml:"permission" json:"permission"`
-	Access     AccessLevel           `yaml:"access" json:"access"`
-	Requires   []RequiredPermission  `yaml:"requires" json:"requires"`
+	Permission string               `yaml:"permission" json:"permission"`
+	Access     AccessLevel          `yaml:"access" json:"access"`
+	Requires   []RequiredPermission `yaml:"requires" json:"requires"`
 }

@@ -31,3 +31,6 @@ go.work
 
 # GoReleaser output (future release-engineering pass)
 /dist
+
+# Personal working documents (spreadsheets, screenshots) - never commit
+data/sources/raw/
