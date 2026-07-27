@@ -1,0 +1,10 @@
+# Example input for `cmd/evaluate-app`: a hand-written permission set for an
+# internal GitHub App. Copy this file, rename it, and fill in the actual
+# declared permissions to get a risk report without needing the app to be
+# public (cmd/evaluate-app also supports fetching a public third-party app's
+# permissions live via GET /apps/{app_slug} instead of a local file).
+name: example-internal-app
+permissions:
+  contents: write
+  administration: write
+  workflows: write

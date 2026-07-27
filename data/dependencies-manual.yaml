@@ -1,0 +1,9 @@
+# Human-reviewed "requires" dependency edges - the highest-precedence source
+# in the merge (manual > scraped-draft > overlap-detected). See
+# pkg/model/dependency.go for the schema and docs/methodology.md for how an
+# edge earns promotion into this file from
+# data/generated/scraped-dependencies-draft.yaml.
+#
+# Empty until the manual-review-pass todo promotes confirmed Type B edges
+# here.
+[]
