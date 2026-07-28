@@ -1,0 +1,2582 @@
+{
+  "build_meta": {
+    "built_at": "2026-07-28T20:36:54.646038125Z",
+    "github_docs_api_version": "2026-03-10",
+    "permission_count": 106,
+    "dependency_edge_count": 20,
+    "toxic_combination_count": 0,
+    "draft_data_notice": "permissions metadata is DRAFT seed data; dependencies include auto-detected Type A overlaps from octokit/app-permissions (subset of live GitHub permissions)."
+  },
+  "permissions": [
+    {
+      "name": "Actions",
+      "api_key": "actions",
+      "category": "repository",
+      "overview": "Manage workflows, workflow runs, and artifacts.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Write access allows triggering workflows with malicious inputs or altering artifacts."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Write access allows triggering workflows with malicious inputs or altering artifacts."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Actions variables",
+      "api_key": "actions_variables",
+      "category": "repository",
+      "overview": "Manage repository Actions and Dependabot variables.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Could manipulate CI/CD logic dependent on variables."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Could manipulate CI/CD logic dependent on variables."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Administration",
+      "api_key": "administration",
+      "category": "repository",
+      "overview": "Manage access, delete repos, change visibility, and manage branch protections.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Full control over the repository lifecycle. Attackers can disable branch protections to force-merge bad code."
+        },
+        {
+          "access": "read",
+          "severity": "Critical",
+          "security_notes": "Full control over the repository lifecycle. Attackers can disable branch protections to force-merge bad code."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Agent secrets",
+      "api_key": "agent_secrets",
+      "category": "repository",
+      "overview": "Manage repository-level secrets for agent tasks. UNCONFIRMED KEY - inferred from docs.github.com endpoint /repos/{owner}/{repo}/agents/secrets; verify before use in automated rules.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Write access allows overwriting secrets used by agent-driven automation to pivot to other systems."
+        },
+        {
+          "access": "read",
+          "severity": "Critical",
+          "security_notes": "Write access allows overwriting secrets used by agent-driven automation to pivot to other systems."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "unconfirmed_key",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Agent variables",
+      "api_key": "agent_variables",
+      "category": "repository",
+      "overview": "Manage repository-level variables for agent tasks. UNCONFIRMED KEY; verify before use in automated rules.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Configuration manipulation of agent-driven automation."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Configuration manipulation of agent-driven automation."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "unconfirmed_key",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Attestations",
+      "api_key": "attestations",
+      "category": "repository",
+      "overview": "Manage build provenance attestations and artifact signing records for the repository.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Write access could allow forging or deleting attestations, undermining SLSA/provenance trust in the software supply chain."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Write access could allow forging or deleting attestations, undermining SLSA/provenance trust in the software supply chain."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Blocking users",
+      "api_key": "blocking",
+      "category": "account",
+      "overview": "Block and unblock other user accounts.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Nuisance vector - Assume it cannot block Admins"
+        },
+        {
+          "access": "read",
+          "severity": "Informational"
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Checks",
+      "api_key": "checks",
+      "category": "repository",
+      "overview": "Access check runs and check suites.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Can be used to forge a 'passing' CI pipeline, bypassing deployment gates."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Can be used to forge a 'passing' CI pipeline, bypassing deployment gates."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Code quality",
+      "api_key": "code_quality",
+      "category": "repository",
+      "overview": "View code quality findings for the repository. UNCONFIRMED KEY; verify before use in automated rules.",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Unknown"
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "unconfirmed_key",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Codespaces",
+      "api_key": "codespaces",
+      "category": "account",
+      "overview": "Manage user codespaces.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Spin up malicious compute environments as the user"
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Enumerate user environments to potential target for future exploitation"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Codespaces lifecycle admin",
+      "api_key": "codespaces_lifecycle_admin",
+      "category": "account",
+      "overview": "Administer lifecycle of user codespaces.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Distrupt or deny development for a user"
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Enumerate user development workflows"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Codespaces metadata",
+      "api_key": "codespaces_metadata",
+      "category": "repository",
+      "overview": "Access devcontainer configuration and available machine types for repository codespaces.",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Read-only reconnaissance of dev environment configuration."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Codespaces secrets",
+      "api_key": "codespaces_secrets",
+      "category": "account",
+      "overview": "Manage user codespaces secrets.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Exfiltrate or overwrite personal environment secrets"
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Exfiltrate personal environment secrets"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Codespaces user secrets",
+      "api_key": "codespaces_user_secrets",
+      "category": "account",
+      "overview": "Manage user-level codespaces secrets.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Exfiltrate or overwrite personal environment secrets across all of the user's codespaces."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Exfiltrate personal environment secrets across all of the user's codespaces"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Content references",
+      "api_key": "content_references",
+      "category": "repository",
+      "overview": "Manage content attachments (content references) added to issues by GitHub Apps.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Primarily used for rich link previews; limited blast radius beyond spam/phishing content injection."
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Primarily used for rich link previews; limited blast radius beyond spam/phishing content injection."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Contents",
+      "api_key": "contents",
+      "category": "repository",
+      "overview": "Access repository contents (source code), commits, and branches.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Write access allows direct source code modification (supply chain poisoning). Read access allows exfiltration of IP."
+        },
+        {
+          "access": "read",
+          "severity": "Critical",
+          "security_notes": "Write access allows direct source code modification (supply chain poisoning). Read access allows exfiltration of IP."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Copilot agent settings",
+      "api_key": "copilot_agent_settings",
+      "category": "repository",
+      "overview": "View the Copilot coding agent's configuration for the repository. UNCONFIRMED KEY; verify before use in automated rules.",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Read-only reconnaissance of agent configuration."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "unconfirmed_key",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Copilot messages",
+      "api_key": "copilot_messages",
+      "category": "account",
+      "overview": "Access a user's Copilot Chat messages.",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Read access could exfiltrate proprietary code snippets or sensitive content pasted into Copilot Chat"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Dependabot secrets",
+      "api_key": "dependabot_secrets",
+      "category": "repository",
+      "overview": "Manage repository-level Dependabot secrets - distinct from the existing organization-level Dependabot secrets row above.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Write access allows overwriting secrets used by dependency-update PRs to pivot to CI/CD or cloud credentials."
+        },
+        {
+          "access": "read",
+          "severity": "Critical",
+          "security_notes": "Write access allows overwriting secrets used by dependency-update PRs to pivot to CI/CD or cloud credentials."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Deployments",
+      "api_key": "deployments",
+      "category": "repository",
+      "overview": "Manage repository deployments and deployment statuses.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Write access could allow triggering unauthorized deployments to production."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Write access could allow triggering unauthorized deployments to production."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Discussions",
+      "api_key": "discussions",
+      "category": "repository",
+      "overview": "Manage GitHub Discussions in the repository.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Primarily a spam/phishing vector."
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Primarily a spam/phishing vector."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Email addresses",
+      "api_key": "emails",
+      "category": "account",
+      "overview": "View user email addresses.",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "User enumeration and reconnaissance"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Enterprise AI controls",
+      "api_key": "enterprise_ai_controls",
+      "category": "enterprise",
+      "overview": "Manage enterprise-wide AI controls configuration. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Could weaken AI safety/data-handling controls (e.g. Copilot data retention, model access) enterprise-wide. (Read-only access level and its severity are inferred, not confirmed.)"
+        },
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Could weaken AI safety/data-handling controls (e.g. Copilot data retention, model access) enterprise-wide."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Enterprise Copilot metrics",
+      "api_key": "enterprise_copilot_metrics",
+      "category": "enterprise",
+      "overview": "View enterprise Copilot metrics. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Information disclosure only, enterprise-wide scope - distinct from the org-scoped organization_copilot_metrics. (Read-only access level and its severity are inferred, not confirmed.)"
+        },
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Information disclosure only, enterprise-wide scope - distinct from the org-scoped organization_copilot_metrics."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Copilot usage records",
+      "api_key": "enterprise_copilot_usage_records",
+      "category": "enterprise",
+      "overview": "View enterprise Copilot API usage records. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Information disclosure only (usage stats, not code content) - but at enterprise-wide scope. (Read-only access level and its severity are inferred, not confirmed.)"
+        },
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Information disclosure only (usage stats, not code content) - but at enterprise-wide scope."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Enterprise credentials",
+      "api_key": "enterprise_credentials",
+      "category": "enterprise",
+      "overview": "View and manage enterprise credentials. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "UI label is ambiguous about scope, but \"manage\" + \"credentials\" + enterprise-wide reach implies direct identity/credential exposure or manipulation - treat as Critical until the real endpoint clarifies scope. (Read-only access level and its severity are inferred, not confirmed.)"
+        },
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "UI label is ambiguous about scope, but \"manage\" + \"credentials\" + enterprise-wide reach implies direct identity/credential exposure or manipulation - treat as Critical until the real endpoint clarifies scope."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Enterprise custom organization roles",
+      "api_key": "enterprise_custom_organization_roles",
+      "category": "enterprise",
+      "overview": "Create, edit, delete and list custom organization roles at the enterprise level. View system organization roles. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Privilege escalation across every organization in the enterprise, not just one. (Read-only access level and its severity are inferred, not confirmed.)"
+        },
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Privilege escalation across every organization in the enterprise, not just one."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Custom properties",
+      "api_key": "enterprise_custom_properties",
+      "category": "enterprise",
+      "overview": "Manage enterprise custom properties. (Preview)",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Configuration manipulation. [FI]"
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "User enumeration and reconnaissance"
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Custom enterprise roles",
+      "api_key": "enterprise_custom_roles",
+      "category": "enterprise",
+      "overview": "Manage enterprise custom roles and assignments. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Privilege escalation vector - can grant elevated roles across the whole enterprise, not just one org. (Read-only access level and its severity are inferred, not confirmed.)"
+        },
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Privilege escalation vector - can grant elevated roles across the whole enterprise, not just one org."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Enterprise innersource vulnerabilities",
+      "api_key": "enterprise_innersource_vulnerabilities",
+      "category": "enterprise",
+      "overview": "View and manage innersource vulnerabilities across the enterprise. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Same class of risk as repository-level vulnerability_alerts (suppress/hide findings) but at enterprise-wide blast radius. (Read-only access level and its severity are inferred, not confirmed.)"
+        },
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Same class of risk as repository-level vulnerability_alerts (suppress/hide findings) but at enterprise-wide blast radius."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Enterprise custom properties for organizations",
+      "api_key": "enterprise_organization_custom_properties",
+      "category": "enterprise",
+      "overview": "View organization custom properties and administer definitions at the enterprise level. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Configuration manipulation, enterprise-wide - distinct from the repo-scoped enterprise_custom_properties already in the CSV. (Read-only access level and its severity are inferred, not confirmed.)"
+        },
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Configuration manipulation, enterprise-wide - distinct from the repo-scoped enterprise_custom_properties already in the CSV."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Organization installation repositories",
+      "api_key": "enterprise_organization_installation_repositories",
+      "category": "enterprise",
+      "overview": "Manage repository access for enterprise apps. (Preview)",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Controls the blast radius of enterprise apps, allowing attackers to expand app scope to sensitive repos"
+        },
+        {
+          "access": "read",
+          "severity": "Unknown",
+          "security_notes": "Controls the blast radius of enterprise apps, allowing attackers to expand app scope to sensitive repos."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Organization installations",
+      "api_key": "enterprise_organization_installations",
+      "category": "enterprise",
+      "overview": "Manage app installations across the enterprise. (Preview)",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Allows lateral movement across multiple organizations by silently installing/uninstalling apps."
+        },
+        {
+          "access": "read",
+          "severity": "Unknown",
+          "security_notes": "Allows lateral movement across multiple organizations by silently installing/uninstalling apps."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Enterprise organizations",
+      "api_key": "enterprise_organizations",
+      "category": "enterprise",
+      "overview": "Create and remove enterprise organizations. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Can create a rogue organization as an exfiltration/staging area, or delete a legitimate one - highly destructive and hard to fully undo. (Read-only access level and its severity are inferred, not confirmed.)"
+        },
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Can create a rogue organization as an exfiltration/staging area, or delete a legitimate one - highly destructive and hard to fully undo."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Enterprise people",
+      "api_key": "enterprise_people",
+      "category": "enterprise",
+      "overview": "Manage user access to the enterprise. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Identity/access control at the highest level - add or remove any user's enterprise-wide access. (Read-only access level and its severity are inferred, not confirmed.)"
+        },
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Identity/access control at the highest level - add or remove any user's enterprise-wide access."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "SCIM",
+      "api_key": "enterprise_scim",
+      "category": "enterprise",
+      "overview": "Manage SCIM provisioning for the enterprise. (Preview)",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Complete identity manipulation vector. Attackers can provision rogue accounts bypassing standard SSO."
+        },
+        {
+          "access": "read",
+          "severity": "Unknown",
+          "security_notes": "Complete identity manipulation vector. Attackers can provision rogue accounts bypassing standard SSO."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Enterprise single sign-on",
+      "api_key": "enterprise_single_sign_on",
+      "category": "enterprise",
+      "overview": "View and manage enterprise single sign-on configuration. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Could disable or reconfigure SSO enforcement, enabling account takeover or bypass of the enterprise's primary identity control. (Read-only access level and its severity are inferred, not confirmed.)"
+        },
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Could disable or reconfigure SSO enforcement, enabling account takeover or bypass of the enterprise's primary identity control."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Enterprise teams",
+      "api_key": "enterprise_teams",
+      "category": "enterprise",
+      "overview": "Create, edit, remove and view enterprise teams. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Could restructure team-based access grants across the enterprise to establish persistence or remove legitimate access. (Read-only access level and its severity are inferred, not confirmed.)"
+        },
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Could restructure team-based access grants across the enterprise to establish persistence or remove legitimate access."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "undocumented_preview",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Environments",
+      "api_key": "environments",
+      "category": "repository",
+      "overview": "Manage environments and environment protection rules.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Can manipulate approval requirements for production deployments."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Can manipulate approval requirements for production deployments."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Followers",
+      "api_key": "followers",
+      "category": "account",
+      "overview": "Manage followers.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Informational"
+        },
+        {
+          "access": "read",
+          "severity": "Informational"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Gists",
+      "api_key": "gists",
+      "category": "account",
+      "overview": "Manage gists.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Could alter code snippets or host malicious scripts under a trusted user's name"
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "User reconnaissance"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Git signing SSH public keys",
+      "api_key": "git_signing_ssh_public_keys",
+      "category": "account",
+      "overview": "Manage SSH public keys used for commit signing.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Could inject a key to forge signed commits as the user, undermining commit provenance"
+        },
+        {
+          "access": "read",
+          "severity": "Unknown",
+          "security_notes": "What does RO allow? [FI]"
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "GPG keys",
+      "api_key": "gpg_keys",
+      "category": "account",
+      "overview": "Manage a user's GPG keys.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Could inject a GPG key to forge signed commits/tags as the user, or delete legitimate keys to break verification"
+        },
+        {
+          "access": "read",
+          "severity": "Unknown",
+          "security_notes": "What does RO allow? [FI]"
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Interaction limits",
+      "api_key": "interaction_limits",
+      "category": "account",
+      "overview": "Manage a user's interaction limits (rate-limiting comments/PRs from certain users).",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Could be used to lock out legitimate contributors (nuisance/DoS); limited security impact"
+        },
+        {
+          "access": "read",
+          "severity": "Informational"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Issues",
+      "api_key": "issues",
+      "category": "repository",
+      "overview": "Manage issues, assignees, labels, and milestones.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Can inject XSS payloads into developer workflow tools or spam issue trackers."
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Can inject XSS payloads into developer workflow tools or spam issue trackers."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Git SSH keys",
+      "api_key": "keys",
+      "category": "account",
+      "overview": "Manage a user's Git SSH authentication keys.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Could add an attacker-controlled SSH key to impersonate the user for git operations against any repo they can access"
+        },
+        {
+          "access": "read",
+          "severity": "Unknown",
+          "security_notes": "What does RO allow? [FI]"
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Members",
+      "api_key": "members",
+      "category": "organization",
+      "overview": "Manage organization members and teams.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Allows adding an attacker's identity directly to the org, bypassing IdP."
+        },
+        {
+          "access": "read",
+          "severity": "Critical",
+          "security_notes": "Allows adding an attacker's identity directly to the org, bypassing IdP."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Merge queues",
+      "api_key": "merge_queues",
+      "category": "repository",
+      "overview": "Manage merge queues.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Could disrupt CI/CD flow or force bad code into the queue."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Could disrupt CI/CD flow or force bad code into the queue."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Metadata",
+      "api_key": "metadata",
+      "category": "repository",
+      "overview": "Access basic repository metadata. (Mandatory baseline).",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Baseline visibility. Cannot see code, just names, labels, and configurations."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Notifications",
+      "api_key": "notifications",
+      "category": "account",
+      "overview": "Manage notifications. NOT FOUND in go-github's permission schema and NOT FOUND in the live GitHub App permissions UI (2026-07-24) - two independent negative signals suggest this may not be a real, current GitHub App permission (possibly deprecated, or a hallucinated entry from the original sheet). Recommend verifying with GitHub support/docs before relying on this row in automated rules; consider removing if unconfirmed.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Could suppress security or review notifications to hide actions [FI]"
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "User enumeration and reconnaissance [FI]"
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "disputed",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Actions variables",
+      "api_key": "organization_actions_variables",
+      "category": "organization",
+      "overview": "Manage organization-level Actions variables.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Could manipulate CI/CD logic dependent on variables across the organization such as manipulate endpoint or inject variables. Specalative and the impact is project dependant."
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Information disclosure"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Administration",
+      "api_key": "organization_administration",
+      "category": "organization",
+      "overview": "Manage org-level settings, access, and rules.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Can change org-wide policies, invite malicious users, or disable SAML/SSO."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Enumerate org-wide policies and rules to determine a weakness or where to focus a takeover of in-use third party libraries or components."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Agent secrets",
+      "api_key": "organization_agent_secrets",
+      "category": "organization",
+      "overview": "Manage organization-level secrets for agent tasks. UNCONFIRMED KEY - inferred from docs.github.com endpoint /orgs/{org}/agents/secrets; verify against a live GitHub App manifest before use in automated rules.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Blast radius spans agent-driven automation across the whole organization - same class of risk as organization Actions secrets."
+        },
+        {
+          "access": "read",
+          "severity": "Critical",
+          "security_notes": "Blast radius spans agent-driven automation across the whole organization - same class of risk as organization Actions secrets."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "unconfirmed_key",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Agent variables",
+      "api_key": "organization_agent_variables",
+      "category": "organization",
+      "overview": "Manage organization-level variables for agent tasks. UNCONFIRMED KEY; verify before use in automated rules.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Configuration manipulation of agent-driven automation."
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Information disclosure"
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "unconfirmed_key",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Announcement banners",
+      "api_key": "organization_announcement_banners",
+      "category": "organization",
+      "overview": "Manage organization-wide announcement banners.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Primarily a defacement/phishing vector (could post a fake banner directing users to a malicious link)."
+        },
+        {
+          "access": "read",
+          "severity": "Informational",
+          "security_notes": "Information disclosure (speculative)"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "control"
+    },
+    {
+      "name": "API Insights",
+      "api_key": "organization_api_insights",
+      "category": "organization",
+      "overview": "View organization-wide REST API usage statistics.",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Reconnaissance"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Campaigns",
+      "api_key": "organization_campaigns",
+      "category": "organization",
+      "overview": "Manage GitHub Campaigns (security-fix-tracking initiatives) for the organization. UNCONFIRMED KEY; verify before use in automated rules.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Informational",
+          "security_notes": "LOW. Could disrupt org-wide vulnerability remediation tracking, but no direct code/secret access."
+        },
+        {
+          "access": "read",
+          "severity": "Informational",
+          "security_notes": "LOW. Could disrupt org-wide vulnerability remediation tracking, but no direct code/secret access."
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "unconfirmed_key",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Codespaces",
+      "api_key": "organization_codespaces",
+      "category": "organization",
+      "overview": "Manage codespaces for the organization.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Could deploy malicious codespaces inside the org network boundary."
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Reconnaissance"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Codespaces lifecycle admin",
+      "api_key": "organization_codespaces_lifecycle_admin",
+      "category": "organization",
+      "overview": "Administer lifecycle of organization codespaces.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Can terminate or modify developer environments."
+        },
+        {
+          "access": "read",
+          "severity": "Informational"
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Codespaces secrets",
+      "api_key": "organization_codespaces_secrets",
+      "category": "organization",
+      "overview": "Manage organization-level codespaces secrets.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Exposes secrets to developer environments."
+        },
+        {
+          "access": "read",
+          "severity": "Critical",
+          "security_notes": "Exposes secrets to developer environments."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Codespaces settings",
+      "api_key": "organization_codespaces_settings",
+      "category": "organization",
+      "overview": "Manage codespaces settings for the organization.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Configuration manipulation - Need to see what this could contain\nSecret Extraction via Access Policy Manipulation\nData Exposure via Port Forwarding Policies\nCryptojacking and Financial Exhaustion\nUnauthorized Access to Private Repositories"
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Reconnaissance and Information disclosure"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Copilot agent settings",
+      "api_key": "organization_copilot_agent_settings",
+      "category": "organization",
+      "overview": "Manage which repositories the Copilot coding agent can access, org-wide. UNCONFIRMED KEY; verify before use in automated rules.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Could expand the Copilot coding agent's blast radius to sensitive repositories it shouldn't touch."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Could expand the Copilot coding agent's blast radius to sensitive repositories it shouldn't touch."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "unconfirmed_key",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Copilot content exclusion",
+      "api_key": "organization_copilot_content_exclusion",
+      "category": "organization",
+      "overview": "Manage which files/paths are excluded from Copilot's context, org-wide. UNCONFIRMED KEY; verify before use in automated rules.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Write access could remove exclusions protecting sensitive files, exposing them to Copilot's context window."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Write access could remove exclusions protecting sensitive files, exposing them to Copilot's context window."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "unconfirmed_key",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Copilot metrics",
+      "api_key": "organization_copilot_metrics",
+      "category": "organization",
+      "overview": "View Copilot usage metrics for the organization. Confirmed via the live GitHub App permissions UI (2026-07-24) as the only Copilot-related scope actually offered there - the previously-listed blanket 'organization_copilot' key does not exist as a selectable permission and has been removed from this sheet.",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Information disclosure only (usage stats, not code content)."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Copilot seat management",
+      "api_key": "organization_copilot_seat_management",
+      "category": "organization",
+      "overview": "Manage Copilot seat assignments for the organization. Confirmed as a field in go-github's permission schema, but NOT observed in the live GitHub App permissions UI (2026-07-24) - may be an API-only/internal permission not exposed as a selectable app scope, or gated behind an enterprise feature flag. Treat with lower confidence than other go-github-confirmed rows until seen granted to a real installation.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Could grant/revoke Copilot access as a billing-abuse or denial-of-service vector against developers."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Could grant/revoke Copilot access as a billing-abuse or denial-of-service vector against developers."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "disputed",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Copilot Spaces",
+      "api_key": "organization_copilot_spaces",
+      "category": "organization",
+      "overview": "Manage Copilot Spaces (curated context collections) for the organization. UNCONFIRMED KEY; verify before use in automated rules.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Could inject malicious/misleading context into a shared Copilot Space used by many developers (indirect prompt injection vector)."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Could inject malicious/misleading context into a shared Copilot Space used by many developers (indirect prompt injection vector)."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "unconfirmed_key",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Custom organization roles",
+      "api_key": "organization_custom_org_roles",
+      "category": "organization",
+      "overview": "Manage custom organization-level roles - distinct from the 'Custom repository roles' permission (organization_custom_roles), which manages custom roles for repositories, not the organization itself.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Can create hidden, over-privileged organization roles to establish persistence."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Can create hidden, over-privileged organization roles to establish persistence."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Custom properties",
+      "api_key": "organization_custom_properties",
+      "category": "organization",
+      "overview": "Manage custom organization properties.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Configuration manipulation."
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Configuration manipulation."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Custom repository roles",
+      "api_key": "organization_custom_roles",
+      "category": "organization",
+      "overview": "Manage custom repository roles.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Can create hidden, over-privileged roles to establish persistence."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Can create hidden, over-privileged roles to establish persistence."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Dependabot secrets",
+      "api_key": "organization_dependabot_secrets",
+      "category": "organization",
+      "overview": "Manage organization-level Dependabot secrets.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Allows pivoting via compromised dependency update PRs."
+        },
+        {
+          "access": "read",
+          "severity": "Critical",
+          "security_notes": "Allows pivoting via compromised dependency update PRs."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Dependabot variables",
+      "api_key": "organization_dependabot_variables",
+      "category": "organization",
+      "overview": "Manage organization-level Dependabot variables.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Configuration manipulation."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Configuration manipulation."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Events",
+      "api_key": "organization_events",
+      "category": "organization",
+      "overview": "View organization events.",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Reconnaissance value."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Webhooks",
+      "api_key": "organization_hooks",
+      "category": "organization",
+      "overview": "Manage organization-level webhooks.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Can exfiltrate org-wide activity data."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Can exfiltrate org-wide activity data."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Knowledge bases",
+      "api_key": "organization_knowledge_bases",
+      "category": "organization",
+      "overview": "Manage organization Copilot knowledge bases.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Could poison Copilot's retrieved context with misleading documentation (indirect prompt injection vector) - worth a closer look given AI-assistant use cases."
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Could poison Copilot's retrieved context with misleading documentation (indirect prompt injection vector) - worth a closer look given AI-assistant use cases."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Network configurations",
+      "api_key": "organization_network_configurations",
+      "category": "organization",
+      "overview": "Manage hosted-runner network configurations for the organization. UNCONFIRMED KEY; verify before use in automated rules.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Could redirect Actions runner network traffic through an attacker-controlled configuration."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Could redirect Actions runner network traffic through an attacker-controlled configuration."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "unconfirmed_key",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Packages",
+      "api_key": "organization_packages",
+      "category": "organization",
+      "overview": "Manage packages published to GitHub Packages at the organization level - distinct from the repository-level 'Packages' permission (packages).",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Write access can push malicious images/packages to internal registries org-wide, beyond a single repository's blast radius."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Write access can push malicious images/packages to internal registries org-wide, beyond a single repository's blast radius."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Personal access token requests",
+      "api_key": "organization_personal_access_token_requests",
+      "category": "organization",
+      "overview": "Manage requests for fine-grained PATs in the org.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Could approve malicious token requests for persistence."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Could approve malicious token requests for persistence."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Personal access tokens",
+      "api_key": "organization_personal_access_tokens",
+      "category": "organization",
+      "overview": "Manage fine-grained PATs in the org.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Could revoke legitimate tokens (DoS) or manipulate scope."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Could revoke legitimate tokens (DoS) or manipulate scope."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Plan",
+      "api_key": "organization_plan",
+      "category": "organization",
+      "overview": "View the organization's billing plan.",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Information disclosure."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Pre-receive hooks",
+      "api_key": "organization_pre_receive_hooks",
+      "category": "organization",
+      "overview": "Manage pre-receive hooks for the organization (GitHub Enterprise Server).",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Pre-receive hooks run server-side on every push; a malicious hook is a direct path to arbitrary code execution on the Git server infrastructure."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Pre-receive hooks run server-side on every push; a malicious hook is a direct path to arbitrary code execution on the Git server infrastructure."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Private registries",
+      "api_key": "organization_private_registries",
+      "category": "organization",
+      "overview": "Manage organization-level private package registry credentials. UNCONFIRMED KEY; verify before use in automated rules.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Write access could overwrite registry credentials to redirect builds to a malicious package source (dependency substitution)."
+        },
+        {
+          "access": "read",
+          "severity": "Critical",
+          "security_notes": "Write access could overwrite registry credentials to redirect builds to a malicious package source (dependency substitution)."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "unconfirmed_key",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Projects",
+      "api_key": "organization_projects",
+      "category": "organization",
+      "overview": "Manage organization-level projects.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Project tracking manipulation."
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Project tracking manipulation."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Secrets",
+      "api_key": "organization_secrets",
+      "category": "organization",
+      "overview": "Manage organization-level Actions secrets.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Blast radius spans the entire organization's CI/CD pipelines."
+        },
+        {
+          "access": "read",
+          "severity": "Critical",
+          "security_notes": "Blast radius spans the entire organization's CI/CD pipelines."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Self-hosted runners",
+      "api_key": "organization_self_hosted_runners",
+      "category": "organization",
+      "overview": "Manage self-hosted runners.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Could register malicious runners (Runner Poisoning) to steal OIDC tokens or secrets."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Could register malicious runners (Runner Poisoning) to steal OIDC tokens or secrets."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Blocking users",
+      "api_key": "organization_user_blocking",
+      "category": "organization",
+      "overview": "Manage blocked users for the organization.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Prevent incident response?"
+        },
+        {
+          "access": "read",
+          "severity": "Informational"
+        }
+      ],
+      "needs_investigation": true,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Packages",
+      "api_key": "packages",
+      "category": "repository",
+      "overview": "Manage packages published to GitHub Packages.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Write access can push malicious images/packages to internal registries."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Write access can push malicious images/packages to internal registries."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Pages",
+      "api_key": "pages",
+      "category": "repository",
+      "overview": "Manage GitHub Pages statuses, configuration, and builds.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Could be used to deface documentation or host malicious payloads."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Could be used to deface documentation or host malicious payloads."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Plan",
+      "api_key": "plan",
+      "category": "account",
+      "overview": "View user plan.",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Information disclosure"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Profile",
+      "api_key": "profile",
+      "category": "account",
+      "overview": "Manage user profile.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Defacement or social engineering"
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "User enumeration and reconnaissance if user profile is private only"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Pull Requests",
+      "api_key": "pull_requests",
+      "category": "repository",
+      "overview": "Manage pull requests, reviews, and review comments.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Write access allows an app to approve its own malicious PRs."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Write access allows an app to approve its own malicious PRs."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Security advisories",
+      "api_key": "repository_advisories",
+      "category": "repository",
+      "overview": "Manage repository security advisories (draft GHSAs, CVE requests).",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Write access could allow an attacker to prematurely disclose an unpatched vulnerability, or suppress/alter a legitimate advisory before a fix ships."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Write access could allow an attacker to prematurely disclose an unpatched vulnerability, or suppress/alter a legitimate advisory before a fix ships."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Custom properties",
+      "api_key": "repository_custom_properties",
+      "category": "repository",
+      "overview": "Manage custom repository properties.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Configuration manipulation."
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Configuration manipulation."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Webhooks",
+      "api_key": "repository_hooks",
+      "category": "repository",
+      "overview": "Manage repository webhooks.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Write access allows exfiltrating event payloads to external servers."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Write access allows exfiltrating event payloads to external servers."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "control"
+    },
+    {
+      "name": "Pre-receive hooks",
+      "api_key": "repository_pre_receive_hooks",
+      "category": "repository",
+      "overview": "Manage pre-receive hooks scoped to a specific repository (GitHub Enterprise Server).",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Same as the organization-level equivalent, scoped to one repository: a malicious hook executes server-side on every push."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Same as the organization-level equivalent, scoped to one repository: a malicious hook executes server-side on every push."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Projects",
+      "api_key": "repository_projects",
+      "category": "repository",
+      "overview": "Manage repository-level classic projects.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Project tracking manipulation."
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Project tracking manipulation."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Secret scanning alerts",
+      "api_key": "secret_scanning_alerts",
+      "category": "repository",
+      "overview": "Manage secret scanning alerts.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "High",
+          "security_notes": "Attackers could read alerts to find leaked credentials before you revoke them."
+        },
+        {
+          "access": "read",
+          "severity": "High",
+          "security_notes": "Attackers could read alerts to find leaked credentials before you revoke them."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Secrets",
+      "api_key": "secrets",
+      "category": "repository",
+      "overview": "Manage repository Actions and Dependabot secrets.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Write access allows overwriting secrets to capture data or pivot to cloud providers."
+        },
+        {
+          "access": "read",
+          "severity": "Critical",
+          "security_notes": "Write access allows overwriting secrets to capture data or pivot to cloud providers."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Code scanning alerts",
+      "api_key": "security_events",
+      "category": "repository",
+      "overview": "Manage code scanning (Advanced Security) alerts.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Write access allows an attacker to dismiss or suppress valid security alerts."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Write access allows an attacker to dismiss or suppress valid security alerts."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Single file",
+      "api_key": "single_file",
+      "category": "repository",
+      "overview": "Legacy permission allowing access to a single, named file in the repository (predates fine-grained permissions).",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Legacy apps using this permission can read/write one arbitrary named file per install - low blast radius per install, but the file path itself (e.g. a CI config) could still be sensitive."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Legacy apps using this permission can read/write one arbitrary named file per install - low blast radius per install, but the file path itself (e.g. a CI config) could still be sensitive."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Starring",
+      "api_key": "starring",
+      "category": "account",
+      "overview": "Manage starred repos.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Use a legitimate account to inflate malicious repository \"trust\" and visibility and lower user trust"
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "User enumeration and reconnaissance"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Commit statuses",
+      "api_key": "statuses",
+      "category": "repository",
+      "overview": "Access and update commit statuses.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Can be used to forge passing statuses to force-merge bad code."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Can be used to forge passing statuses to force-merge bad code."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Team discussions",
+      "api_key": "team_discussions",
+      "category": "organization",
+      "overview": "Manage team discussions.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Low",
+          "security_notes": "Nuisance vector."
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "Nuisance vector."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "User events",
+      "api_key": "user_events",
+      "category": "account",
+      "overview": "View a user's public events feed.",
+      "access_levels": [
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "User enumeration and reconnaissance"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Dependabot alerts",
+      "api_key": "vulnerability_alerts",
+      "category": "repository",
+      "overview": "Manage Dependabot alerts.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Attackers could suppress alerts, leaving vulnerable dependencies in place."
+        },
+        {
+          "access": "read",
+          "severity": "Medium",
+          "security_notes": "Attackers could suppress alerts, leaving vulnerable dependencies in place."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    },
+    {
+      "name": "Watching",
+      "api_key": "watching",
+      "category": "account",
+      "overview": "Manage watched repos.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Medium",
+          "security_notes": "Substitute a legitimate project with a typo-squatted repository with the intent of tricking the user to use it in future projects"
+        },
+        {
+          "access": "read",
+          "severity": "Low",
+          "security_notes": "User enumeration and reconnaissance"
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "governance_identity"
+    },
+    {
+      "name": "Workflows",
+      "api_key": "workflows",
+      "category": "repository",
+      "overview": "Update GitHub Actions workflow (.yml) files.",
+      "access_levels": [
+        {
+          "access": "write",
+          "severity": "Critical",
+          "security_notes": "Modifying a workflow file allows arbitrary code execution within the CI environment."
+        },
+        {
+          "access": "read",
+          "severity": "Critical",
+          "security_notes": "Modifying a workflow file allows arbitrary code execution within the CI environment."
+        }
+      ],
+      "needs_investigation": false,
+      "doc_status": "documented",
+      "impact_plane": "data_execution"
+    }
+  ],
+  "dependencies": [
+    {
+      "permission": "actions",
+      "access": "read",
+      "requires": [
+        {
+          "permission": "contents",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}, GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip, GET /repos/{owner}/{repo}/actions/jobs/{job_id}; +9 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#actions"
+        }
+      ]
+    },
+    {
+      "permission": "actions",
+      "access": "write",
+      "requires": [
+        {
+          "permission": "contents",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. DELETE /repos/{owner}/{repo}/actions/artifacts/{artifact_id}, DELETE /repos/{owner}/{repo}/actions/runs/{run_id}/logs, POST /repos/{owner}/{repo}/actions/runs/{run_id}/cancel; +1 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#actions"
+        }
+      ]
+    },
+    {
+      "permission": "administration",
+      "access": "write",
+      "requires": [
+        {
+          "permission": "contents",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories: POST /repos/{owner}/{repo}/forks",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#administration"
+        },
+        {
+          "permission": "contents",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories: POST /repos/{owner}/{repo}/branches/{branch}/rename",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#administration"
+        },
+        {
+          "permission": "members",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories: PUT /teams/{team_id}/repos/{owner}/{repo}",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#administration"
+        },
+        {
+          "permission": "members",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories: DELETE /teams/{team_id}/repos/{owner}/{repo}",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#administration"
+        },
+        {
+          "permission": "pages",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories: GET /repos/{owner}/{repo}/pages/health",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#administration"
+        }
+      ]
+    },
+    {
+      "permission": "checks",
+      "access": "read",
+      "requires": [
+        {
+          "permission": "contents",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. GET /repos/{owner}/{repo}/check-runs/{check_run_id}, GET /repos/{owner}/{repo}/check-runs/{check_run_id}/annotations, GET /repos/{owner}/{repo}/check-suites/{check_suite_id}; +3 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#checks"
+        }
+      ]
+    },
+    {
+      "permission": "checks",
+      "access": "write",
+      "requires": [
+        {
+          "permission": "contents",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories: POST /repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#checks"
+        }
+      ]
+    },
+    {
+      "permission": "contents",
+      "access": "read",
+      "requires": [
+        {
+          "permission": "actions",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}, GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip, GET /repos/{owner}/{repo}/actions/jobs/{job_id}; +9 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#contents"
+        },
+        {
+          "permission": "administration",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories: POST /repos/{owner}/{repo}/forks",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#contents"
+        },
+        {
+          "permission": "checks",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. GET /repos/{owner}/{repo}/check-runs/{check_run_id}, GET /repos/{owner}/{repo}/check-runs/{check_run_id}/annotations, GET /repos/{owner}/{repo}/check-suites/{check_suite_id}; +3 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#contents"
+        },
+        {
+          "permission": "single_file",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories: GET /repos/{owner}/{repo}/contents/{path}",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#contents"
+        }
+      ]
+    },
+    {
+      "permission": "contents",
+      "access": "write",
+      "requires": [
+        {
+          "permission": "actions",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. DELETE /repos/{owner}/{repo}/actions/artifacts/{artifact_id}, DELETE /repos/{owner}/{repo}/actions/runs/{run_id}/logs, POST /repos/{owner}/{repo}/actions/runs/{run_id}/cancel; +1 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#contents"
+        },
+        {
+          "permission": "administration",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories: POST /repos/{owner}/{repo}/branches/{branch}/rename",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#contents"
+        },
+        {
+          "permission": "checks",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories: POST /repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#contents"
+        },
+        {
+          "permission": "issues",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}, DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}, DELETE /reactions/{reaction_id}; +4 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#contents"
+        },
+        {
+          "permission": "pull_requests",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}, DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}, DELETE /reactions/{reaction_id}; +4 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#contents"
+        },
+        {
+          "permission": "secrets",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories: GET /repos/{owner}/{repo}/actions/secrets, GET /repos/{owner}/{repo}/actions/secrets/public-key",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#contents"
+        }
+      ]
+    },
+    {
+      "permission": "issues",
+      "access": "read",
+      "requires": [
+        {
+          "permission": "pull_requests",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. GET /repos/{owner}/{repo}/assignees, GET /repos/{owner}/{repo}/assignees/{username}, GET /repos/{owner}/{repo}/issues/comments; +12 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#issues"
+        }
+      ]
+    },
+    {
+      "permission": "issues",
+      "access": "write",
+      "requires": [
+        {
+          "permission": "contents",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}, DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}, DELETE /reactions/{reaction_id}; +4 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#issues"
+        },
+        {
+          "permission": "pull_requests",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}, DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}, DELETE /reactions/{reaction_id}; +24 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#issues"
+        }
+      ]
+    },
+    {
+      "permission": "members",
+      "access": "read",
+      "requires": [
+        {
+          "permission": "administration",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories: PUT /teams/{team_id}/repos/{owner}/{repo}",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#members"
+        },
+        {
+          "permission": "repository_projects",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories: DELETE /teams/{team_id}/projects/{project_id}",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#members"
+        }
+      ]
+    },
+    {
+      "permission": "members",
+      "access": "write",
+      "requires": [
+        {
+          "permission": "administration",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories: DELETE /teams/{team_id}/repos/{owner}/{repo}",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#members"
+        }
+      ]
+    },
+    {
+      "permission": "organization_projects",
+      "access": "read",
+      "requires": [
+        {
+          "permission": "repository_projects",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. GET /projects/columns/cards/{card_id}, GET /projects/columns/{column_id}, GET /projects/columns/{column_id}/cards; +2 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#organization-projects"
+        }
+      ]
+    },
+    {
+      "permission": "organization_projects",
+      "access": "write",
+      "requires": [
+        {
+          "permission": "repository_projects",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. DELETE /projects/columns/cards/{card_id}, DELETE /projects/columns/{column_id}, DELETE /projects/{project_id}; +8 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#organization-projects"
+        }
+      ]
+    },
+    {
+      "permission": "pages",
+      "access": "write",
+      "requires": [
+        {
+          "permission": "administration",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories: GET /repos/{owner}/{repo}/pages/health",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#pages"
+        }
+      ]
+    },
+    {
+      "permission": "pull_requests",
+      "access": "read",
+      "requires": [
+        {
+          "permission": "issues",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. GET /repos/{owner}/{repo}/assignees, GET /repos/{owner}/{repo}/assignees/{username}, GET /repos/{owner}/{repo}/issues/comments; +12 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#pull-requests"
+        }
+      ]
+    },
+    {
+      "permission": "pull_requests",
+      "access": "write",
+      "requires": [
+        {
+          "permission": "contents",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}, DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}, DELETE /reactions/{reaction_id}; +4 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#pull-requests"
+        },
+        {
+          "permission": "issues",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}, DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}, DELETE /reactions/{reaction_id}; +24 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#pull-requests"
+        }
+      ]
+    },
+    {
+      "permission": "repository_projects",
+      "access": "read",
+      "requires": [
+        {
+          "permission": "members",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories: DELETE /teams/{team_id}/projects/{project_id}",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#repository-projects"
+        },
+        {
+          "permission": "organization_projects",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. GET /projects/columns/cards/{card_id}, GET /projects/columns/{column_id}, GET /projects/columns/{column_id}/cards; +2 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#repository-projects"
+        }
+      ]
+    },
+    {
+      "permission": "repository_projects",
+      "access": "write",
+      "requires": [
+        {
+          "permission": "organization_projects",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories (e.g. DELETE /projects/columns/cards/{card_id}, DELETE /projects/columns/{column_id}, DELETE /projects/{project_id}; +8 more)",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#repository-projects"
+        }
+      ]
+    },
+    {
+      "permission": "secrets",
+      "access": "read",
+      "requires": [
+        {
+          "permission": "contents",
+          "access": "write",
+          "condition": "Same endpoint co-listed under both permission categories: GET /repos/{owner}/{repo}/actions/secrets, GET /repos/{owner}/{repo}/actions/secrets/public-key",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#secrets"
+        }
+      ]
+    },
+    {
+      "permission": "single_file",
+      "access": "read",
+      "requires": [
+        {
+          "permission": "contents",
+          "access": "read",
+          "condition": "Same endpoint co-listed under both permission categories: GET /repos/{owner}/{repo}/contents/{path}",
+          "confidence": "high",
+          "type": "category-overlap",
+          "source_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#single-file"
+        }
+      ]
+    }
+  ],
+  "toxic_combinations": []
+}
