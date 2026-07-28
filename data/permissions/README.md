@@ -10,7 +10,7 @@ truth.
 
 The real catalog will be built from:
 
-1. **`octokit/app-permissions`** (endpoint inventory via `cmd/fetch-inventory`)
+1. **`octokit/app-permissions`** (endpoint inventory via `cmd/fetch-inventory`) - baseline only; currently ~20 permissions vs many more in GitHub's live docs
 2. **Type A dependency detection** (`cmd/detect-overlap`) - endpoints listed under multiple permission categories
 3. **Type B prose scraping + human review** (`cmd/scrape-prose`) - additional permissions required per endpoint
 4. **Manual curation** - severity and toxic combinations layered on top once the technical graph is solid
