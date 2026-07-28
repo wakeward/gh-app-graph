@@ -1,0 +1,74 @@
+# Toxic permission combinations - seeded by cmd/migrate-toxic-combinations.
+# Review and edit by hand; re-run migrate only when re-importing updated sources.
+- id: arbitrary-code-execution
+  technique: Arbitrary Code Execution
+  permissions:
+    - api_key: workflows
+      access: write
+    - api_key: contents
+      access: write
+  blast_radius: Critical
+  risk_description: 'Workflows: write allows the app to create or modify GitHub Actions YAML files in the .github/workflows/ directory.'
+  exploit_path: The attacker pushes a malicious workflow file that executes arbitrary shell commands on the GitHub-hosted runner. Because the workflow runs in the context of the repository, the attacker can use this compute environment to exfiltrate environment variables, access cloud provider credentials, or launch attacks against internal infrastructure.
+  overlaps_technical_dependency: false
+  source: migrate-toxic-combinations CSV
+- id: organization-takeover
+  technique: Organization Takeover
+  permissions:
+    - api_key: organization_administration
+      access: write
+    - api_key: members
+      access: write
+  blast_radius: Critical
+  risk_description: Organization administration and Members write together enable promoting attacker accounts to Org Owner and locking out legitimate admins.
+  exploit_path: Promote an attacker-controlled account to Org Owner, then demote or remove legitimate admins.
+  overlaps_technical_dependency: false
+  source: migrate-toxic-combinations writeup supplement
+- id: status-check-forgery-merge
+  technique: Status Check Forgery Merge
+  permissions:
+    - api_key: checks
+      access: write
+    - api_key: pull_requests
+      access: write
+  blast_radius: High
+  risk_description: 'Checks: write can forge required status results; Pull requests: write can open and merge changes without human review when combined.'
+  exploit_path: Create a pull request, mark required checks as passed via the Checks API, and merge without legitimate CI or human approval.
+  overlaps_technical_dependency: false
+  source: migrate-toxic-combinations writeup supplement
+- id: stealth-backdoor
+  technique: Stealth Backdoor
+  permissions:
+    - api_key: administration
+      access: write
+    - api_key: contents
+      access: write
+  blast_radius: Critical
+  risk_description: 'Administration: write allows the app to manage repository settings, including branch protection rules'
+  exploit_path: 'An attacker can use the App to temporarily delete branch protection rules (like "require pull request reviews" or "require status checks"), push malicious code directly to the main branch using Contents: write, and then re-enable the protection rules. This allows them to inject backdoors into production code entirely undetected by standard developer workflows.'
+  overlaps_technical_dependency: true
+  source: migrate-toxic-combinations CSV
+- id: supply-chain-poisoning-via-releases-deployments
+  technique: Supply Chain Poisoning via Releases
+  permissions:
+    - api_key: contents
+      access: write
+    - api_key: deployments
+      access: write
+  blast_radius: High
+  risk_description: Allows an attacker to manipulate the final artifacts delivered to customers, bypassing the actual source code.
+  exploit_path: Instead of modifying the source code (which might be audited), the attacker waits for a legitimate build to complete, then uses the App to overwrite the release artifact (e.g., an npm package, a Docker image, or a compiled binary) with a maliciously compiled version.
+  overlaps_technical_dependency: false
+  source: migrate-toxic-combinations CSV
+- id: supply-chain-poisoning-via-releases-packages
+  technique: Supply Chain Poisoning via Releases
+  permissions:
+    - api_key: contents
+      access: write
+    - api_key: packages
+      access: write
+  blast_radius: High
+  risk_description: Allows an attacker to manipulate the final artifacts delivered to customers, bypassing the actual source code.
+  exploit_path: Instead of modifying the source code (which might be audited), the attacker waits for a legitimate build to complete, then uses the App to overwrite the release artifact (e.g., an npm package, a Docker image, or a compiled binary) with a maliciously compiled version.
+  overlaps_technical_dependency: false
+  source: migrate-toxic-combinations CSV
