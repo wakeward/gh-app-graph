@@ -2,7 +2,7 @@
   "meta": {
     "source_url": "https://raw.githubusercontent.com/octokit/app-permissions/main/generated/api.github.com.json",
     "source_repo": "octokit/app-permissions",
-    "fetched_at": "2026-07-28T20:30:45.131947456Z",
+    "fetched_at": "2026-07-28T20:38:31.65277288Z",
     "github_docs_api_version": "2026-03-10",
     "permission_count": 20,
     "endpoint_count": 440,

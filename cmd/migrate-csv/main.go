@@ -18,8 +18,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/wakeward/github-app-permissions-graph/pkg/fileio"
 	"github.com/wakeward/github-app-permissions-graph/pkg/model"
-	"gopkg.in/yaml.v3"
 )
 
 func main() {
@@ -75,7 +75,7 @@ type csvRow struct {
 }
 
 func readCSV(path string) ([]csvRow, error) {
-	f, err := os.Open(path)
+	f, err := os.Open(path) // #nosec G304 -- path is a caller-supplied CSV for one-time migration
 	if err != nil {
 		return nil, err
 	}
@@ -278,28 +278,21 @@ func writeByCategory(permissions []model.Permission, outDir string) error {
 		byCategory[p.Category] = append(byCategory[p.Category], p)
 	}
 
-	if err := os.MkdirAll(outDir, 0o755); err != nil {
+	if err := fileio.MkdirAll(outDir); err != nil {
 		return err
 	}
 
 	for category, perms := range byCategory {
 		sort.Slice(perms, func(i, j int) bool { return perms[i].APIKey < perms[j].APIKey })
 
-		var buf strings.Builder
-		buf.WriteString(fmt.Sprintf("# DRAFT %s permissions - NOT CANONICAL\n", strings.Title(category)))
-		buf.WriteString("# Seeded by cmd/migrate-csv from an incomplete working spreadsheet plus Enterprise\n")
-		buf.WriteString("# UI observations. Severity/impact_plane are starting notes only. Replace or reconcile\n")
-		buf.WriteString("# once fetch-inventory and detect-overlap produce the real endpoint graph.\n")
-		buf.WriteString("# See data/permissions/README.md\n")
-		enc := yaml.NewEncoder(&buf)
-		enc.SetIndent(2)
-		if err := enc.Encode(perms); err != nil {
-			return err
-		}
-		enc.Close()
-
+		header := fmt.Sprintf(`# DRAFT %s permissions - NOT CANONICAL
+# Seeded by cmd/migrate-csv from an incomplete working spreadsheet plus Enterprise
+# UI observations. Severity/impact_plane are starting notes only. Replace or reconcile
+# once fetch-inventory and detect-overlap produce the real endpoint graph.
+# See data/permissions/README.md
+`, strings.Title(category))
 		outPath := filepath.Join(outDir, category+".yaml")
-		if err := os.WriteFile(outPath, []byte(buf.String()), 0o644); err != nil {
+		if err := fileio.WriteYAML(outPath, header, perms); err != nil { // #nosec G117 -- api_key fields are permission identifiers
 			return err
 		}
 	}

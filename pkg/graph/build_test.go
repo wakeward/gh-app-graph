@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/wakeward/github-app-permissions-graph/pkg/fileio"
 	"github.com/wakeward/github-app-permissions-graph/pkg/model"
 )
 
@@ -51,7 +52,7 @@ func TestLoadPermissionsDir_RejectsDuplicateAPIKey(t *testing.T) {
 	dir := t.TempDir()
 	entry := "- name: A\n  api_key: dup\n  category: account\n  overview: x\n  access_levels: []\n  needs_investigation: false\n  doc_status: documented\n  impact_plane: control\n"
 	for _, name := range []string{"a.yaml", "b.yaml"} {
-		if err := os.WriteFile(filepath.Join(dir, name), []byte(entry), 0o644); err != nil {
+		if err := os.WriteFile(filepath.Join(dir, name), []byte(entry), fileio.PrivateFileMode); err != nil {
 			t.Fatal(err)
 		}
 	}

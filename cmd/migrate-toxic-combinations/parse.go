@@ -23,7 +23,7 @@ var (
 )
 
 func readCSV(path string) ([]csvRow, error) {
-	f, err := os.Open(path)
+	f, err := os.Open(path) // #nosec G304 -- path is a caller-supplied CSV for one-time migration
 	if err != nil {
 		return nil, err
 	}

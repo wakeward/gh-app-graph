@@ -15,6 +15,15 @@ canonical permission graph will come from `octokit/app-permissions` plus
 dependency detection (`fetch-inventory`, `detect-overlap`). Severity and
 toxic-combination judgments get layered on once that technical base is solid.
 
+**Bootstrap vs canonical:** `cmd/migrate-csv` and
+`cmd/migrate-toxic-combinations` are temporary importers for working
+spreadsheets and notes while the lists are still in flux. The durable source
+of truth is the YAML under `data/` (`permissions/`, `toxic-combinations.yaml`,
+`dependencies-manual.yaml`) edited and reviewed in-repo. Once curation stabilizes,
+expect those migrate commands (and their parsing logic) to be removed rather
+than kept as part of the ongoing refresh pipeline. Ongoing automation is
+`fetch-inventory` -> `detect-overlap` -> `build` plus human edits to the YAML.
+
 The model is: **structured YAML (source of truth) -> generated views** (Mermaid
 graphs, markdown tables, per-app risk reports).
 

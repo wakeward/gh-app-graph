@@ -2,18 +2,18 @@ package render
 
 import (
 	"fmt"
-	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 
+	"github.com/wakeward/github-app-permissions-graph/pkg/fileio"
 	"github.com/wakeward/github-app-permissions-graph/pkg/graph"
 	"github.com/wakeward/github-app-permissions-graph/pkg/model"
 )
 
 // WriteAll generates markdown documentation from resolved data.
 func WriteAll(docsDir string, resolved graph.Resolved) error {
-	if err := os.MkdirAll(docsDir, 0o755); err != nil {
+	if err := fileio.MkdirAll(docsDir); err != nil {
 		return err
 	}
 	deps := graph.DependencyMap(resolved.Dependencies)
@@ -27,7 +27,7 @@ func WriteAll(docsDir string, resolved graph.Resolved) error {
 	}
 	for _, f := range files {
 		path := filepath.Join(docsDir, f.name)
-		if err := os.WriteFile(path, []byte(f.content), 0o644); err != nil {
+		if err := fileio.Write(path, []byte(f.content)); err != nil {
 			return fmt.Errorf("write %s: %w", path, err)
 		}
 	}

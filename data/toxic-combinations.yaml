@@ -1,5 +1,8 @@
-# Toxic permission combinations - seeded by cmd/migrate-toxic-combinations.
-# Review and edit by hand; re-run migrate only when re-importing updated sources.
+# Toxic permission combinations
+#
+# Status: curated in-repo. Seeded initially via cmd/migrate-toxic-combinations
+# from a working CSV + writeup; edit this file directly once the list stabilizes.
+# That migrate command is bootstrap-only and planned for removal.
 - id: arbitrary-code-execution
   technique: Arbitrary Code Execution
   permissions:

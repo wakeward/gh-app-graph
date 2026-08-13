@@ -7,11 +7,13 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/wakeward/github-app-permissions-graph/pkg/fileio"
 )
 
 // FetchHTTP downloads raw octokit JSON from url.
 func FetchHTTP(url string) ([]byte, error) {
-	resp, err := http.Get(url) //nolint:gosec // URL is caller-controlled; default is a fixed GitHub raw URL
+	resp, err := http.Get(url) // #nosec G107 -- URL defaults to pinned octokit raw JSON; overridable for offline mirrors
 	if err != nil {
 		return nil, fmt.Errorf("GET %s: %w", url, err)
 	}
@@ -28,7 +30,7 @@ func FetchHTTP(url string) ([]byte, error) {
 
 // ReadFile loads raw octokit JSON from a local path (for offline/tests).
 func ReadFile(path string) ([]byte, error) {
-	body, err := os.ReadFile(path)
+	body, err := os.ReadFile(path) // #nosec G304 -- path is a caller-supplied local inventory file
 	if err != nil {
 		return nil, fmt.Errorf("read %s: %w", path, err)
 	}
@@ -42,7 +44,7 @@ func WriteJSON(path string, inv *Inventory) error {
 		return fmt.Errorf("marshal inventory: %w", err)
 	}
 	data = append(data, '\n')
-	if err := os.WriteFile(path, data, 0o644); err != nil {
+	if err := fileio.Write(path, data); err != nil {
 		return fmt.Errorf("write %s: %w", path, err)
 	}
 	return nil

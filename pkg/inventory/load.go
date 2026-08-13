@@ -8,7 +8,7 @@ import (
 
 // LoadJSON reads a normalized Inventory from path.
 func LoadJSON(path string) (*Inventory, error) {
-	data, err := os.ReadFile(path)
+	data, err := os.ReadFile(path) // #nosec G304 -- path is a caller-supplied inventory JSON file
 	if err != nil {
 		return nil, fmt.Errorf("read %s: %w", path, err)
 	}

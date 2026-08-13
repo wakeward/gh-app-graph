@@ -14,7 +14,7 @@ var writeupComboRE = regexp.MustCompile(`\[\s*([^:\]]+?)\s*:\s*(read|write)\s*\]
 // supplementFromWriteup parses the "Summary Matrix: Toxic Combinations" section
 // of the threat writeup and returns combos not already present in existing.
 func supplementFromWriteup(path string, existing []model.ToxicCombination, known map[string]struct{}) ([]model.ToxicCombination, error) {
-	data, err := os.ReadFile(path)
+	data, err := os.ReadFile(path) // #nosec G304 -- path is a caller-supplied writeup for one-time migration
 	if err != nil {
 		return nil, err
 	}

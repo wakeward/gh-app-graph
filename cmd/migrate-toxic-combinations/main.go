@@ -18,11 +18,10 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
-	"strings"
 
+	"github.com/wakeward/github-app-permissions-graph/pkg/fileio"
 	"github.com/wakeward/github-app-permissions-graph/pkg/graph"
 	"github.com/wakeward/github-app-permissions-graph/pkg/model"
-	"gopkg.in/yaml.v3"
 )
 
 func main() {
@@ -131,21 +130,16 @@ func depKey(apiKey string, access model.AccessLevel) string {
 }
 
 func writeToxicYAML(path string, combos []model.ToxicCombination) error {
-	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+	if err := fileio.MkdirAll(filepath.Dir(path)); err != nil {
 		return err
 	}
-	var buf strings.Builder
-	buf.WriteString("# Toxic permission combinations - seeded by cmd/migrate-toxic-combinations.\n")
-	buf.WriteString("# Review and edit by hand; re-run migrate only when re-importing updated sources.\n")
-	enc := yaml.NewEncoder(&buf)
-	enc.SetIndent(2)
-	if err := enc.Encode(combos); err != nil {
-		return err
-	}
-	if err := enc.Close(); err != nil {
-		return err
-	}
-	return os.WriteFile(path, []byte(buf.String()), 0o644)
+	header := `# Toxic permission combinations
+#
+# Status: curated in-repo. Seeded initially via cmd/migrate-toxic-combinations
+# from a working CSV + writeup; edit this file directly once the list stabilizes.
+# That migrate command is bootstrap-only and planned for removal.
+`
+	return fileio.WriteYAML(path, header, combos)
 }
 
 func fail(step string, err error) {
