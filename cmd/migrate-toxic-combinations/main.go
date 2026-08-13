@@ -19,9 +19,9 @@ import (
 	"path/filepath"
 	"sort"
 
-	"github.com/wakeward/github-app-permissions-graph/pkg/fileio"
-	"github.com/wakeward/github-app-permissions-graph/pkg/graph"
-	"github.com/wakeward/github-app-permissions-graph/pkg/model"
+	"github.com/wakeward/gh-app-graph/pkg/fileio"
+	"github.com/wakeward/gh-app-graph/pkg/graph"
+	"github.com/wakeward/gh-app-graph/pkg/model"
 )
 
 func main() {

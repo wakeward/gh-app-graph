@@ -3,8 +3,8 @@ package scrape
 import (
 	"testing"
 
-	"github.com/wakeward/github-app-permissions-graph/pkg/inventory"
-	"github.com/wakeward/github-app-permissions-graph/pkg/model"
+	"github.com/wakeward/gh-app-graph/pkg/inventory"
+	"github.com/wakeward/gh-app-graph/pkg/model"
 )
 
 func TestSelectTargets_DefaultHighCriticalOnly(t *testing.T) {

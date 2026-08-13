@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 
-	"github.com/wakeward/github-app-permissions-graph/pkg/model"
+	"github.com/wakeward/gh-app-graph/pkg/model"
 )
 
 func TestParseSeverity_FromColumn(t *testing.T) {

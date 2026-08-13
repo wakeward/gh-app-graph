@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/wakeward/github-app-permissions-graph/pkg/fileio"
+	"github.com/wakeward/gh-app-graph/pkg/fileio"
 )
 
 // FetchHTTP downloads raw octokit JSON from url.

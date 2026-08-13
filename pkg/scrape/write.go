@@ -1,8 +1,8 @@
 package scrape
 
 import (
-	"github.com/wakeward/github-app-permissions-graph/pkg/fileio"
-	"github.com/wakeward/github-app-permissions-graph/pkg/model"
+	"github.com/wakeward/gh-app-graph/pkg/fileio"
+	"github.com/wakeward/gh-app-graph/pkg/model"
 )
 
 // WriteDraftYAML writes Type B draft dependency edges.

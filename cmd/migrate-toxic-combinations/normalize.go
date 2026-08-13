@@ -6,7 +6,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/wakeward/github-app-permissions-graph/pkg/model"
+	"github.com/wakeward/gh-app-graph/pkg/model"
 )
 
 // nameToAPIKey maps human-readable permission labels from the CSV/writeup to

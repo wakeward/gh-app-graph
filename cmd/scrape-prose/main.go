@@ -13,9 +13,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/wakeward/github-app-permissions-graph/pkg/graph"
-	"github.com/wakeward/github-app-permissions-graph/pkg/inventory"
-	"github.com/wakeward/github-app-permissions-graph/pkg/scrape"
+	"github.com/wakeward/gh-app-graph/pkg/graph"
+	"github.com/wakeward/gh-app-graph/pkg/inventory"
+	"github.com/wakeward/gh-app-graph/pkg/scrape"
 )
 
 func main() {

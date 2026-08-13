@@ -1,6 +1,6 @@
 package main
 
-import "github.com/wakeward/github-app-permissions-graph/pkg/model"
+import "github.com/wakeward/gh-app-graph/pkg/model"
 
 // impactPlaneByAPIKey is a first-pass, hand-reviewed classification of every
 // permission's impact plane (see the threat-oriented breakdown in

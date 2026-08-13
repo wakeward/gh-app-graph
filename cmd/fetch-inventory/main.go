@@ -12,7 +12,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/wakeward/github-app-permissions-graph/pkg/inventory"
+	"github.com/wakeward/gh-app-graph/pkg/inventory"
 )
 
 func main() {

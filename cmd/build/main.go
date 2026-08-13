@@ -12,9 +12,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/wakeward/github-app-permissions-graph/pkg/graph"
-	"github.com/wakeward/github-app-permissions-graph/pkg/inventory"
-	"github.com/wakeward/github-app-permissions-graph/pkg/render"
+	"github.com/wakeward/gh-app-graph/pkg/fileio"
+	"github.com/wakeward/gh-app-graph/pkg/graph"
+	"github.com/wakeward/gh-app-graph/pkg/inventory"
+	"github.com/wakeward/gh-app-graph/pkg/render"
 )
 
 func main() {
@@ -62,6 +63,12 @@ func main() {
 	}
 	if err := render.WriteAll(*docsDir, resolved); err != nil {
 		fail("render docs", err)
+	}
+	if err := fileio.CopyFile(*resolvedJSON, "pkg/data/bundled/permissions.resolved.json"); err != nil {
+		fail("sync embedded permissions", err)
+	}
+	if err := fileio.CopyFile(*toxicJSON, "pkg/data/bundled/toxic-combinations.json"); err != nil {
+		fail("sync embedded toxic combinations", err)
 	}
 
 	fmt.Printf("build: wrote %s + %s (%d permissions, %d dependency edges, %d toxic combos)\n",

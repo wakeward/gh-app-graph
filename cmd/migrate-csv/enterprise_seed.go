@@ -1,6 +1,6 @@
 package main
 
-import "github.com/wakeward/github-app-permissions-graph/pkg/model"
+import "github.com/wakeward/gh-app-graph/pkg/model"
 
 // seedUndocumentedEnterprisePermissions returns the Enterprise permissions
 // visible in the live GitHub App creation UI ("Enterprise permissions"

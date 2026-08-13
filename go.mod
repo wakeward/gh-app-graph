@@ -1,4 +1,4 @@
-module github.com/wakeward/github-app-permissions-graph
+module github.com/wakeward/gh-app-graph
 
 go 1.26.5
 

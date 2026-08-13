@@ -7,8 +7,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/wakeward/github-app-permissions-graph/pkg/inventory"
-	"github.com/wakeward/github-app-permissions-graph/pkg/model"
+	"github.com/wakeward/gh-app-graph/pkg/inventory"
+	"github.com/wakeward/gh-app-graph/pkg/model"
 )
 
 // Fetcher downloads a docs page. Production code uses HTTP; tests inject fixtures.
@@ -21,7 +21,7 @@ func DefaultFetcher(url string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	req.Header.Set("User-Agent", "github-app-permissions-graph/scrape-prose")
+	req.Header.Set("User-Agent", "gh-app-graph/scrape-prose")
 	resp, err := client.Do(req) // #nosec G107 -- docs URLs come from inventory doc_url fields
 	if err != nil {
 		return "", fmt.Errorf("GET %s: %w", url, err)

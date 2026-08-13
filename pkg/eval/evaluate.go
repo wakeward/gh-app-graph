@@ -8,7 +8,7 @@
 // gh-app-check" section for the intended split of responsibilities.
 package eval
 
-import "github.com/wakeward/github-app-permissions-graph/pkg/model"
+import "github.com/wakeward/gh-app-graph/pkg/model"
 
 // Match is one toxic combination fully satisfied by a permission set.
 type Match struct {

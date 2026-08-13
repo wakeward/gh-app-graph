@@ -8,9 +8,9 @@ import (
 	"sort"
 	"time"
 
-	"github.com/wakeward/github-app-permissions-graph/pkg/fileio"
-	"github.com/wakeward/github-app-permissions-graph/pkg/inventory"
-	"github.com/wakeward/github-app-permissions-graph/pkg/model"
+	"github.com/wakeward/gh-app-graph/pkg/fileio"
+	"github.com/wakeward/gh-app-graph/pkg/inventory"
+	"github.com/wakeward/gh-app-graph/pkg/model"
 	"gopkg.in/yaml.v3"
 )
 

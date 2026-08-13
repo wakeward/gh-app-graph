@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-I support the latest major release of `github-app-permissions-graph`.
+I support the latest major release of `gh-app-graph`.
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -11,14 +11,14 @@ I support the latest major release of `github-app-permissions-graph`.
 
 ## Reporting a Vulnerability
 
-I take the security of `github-app-permissions-graph` seriously. If you believe you have found a security vulnerability, please report it to me as described below.
+I take the security of `gh-app-graph` seriously. If you believe you have found a security vulnerability, please report it to me as described below.
 
 ### How to Report
 
 Please do **not** report security vulnerabilities through public GitHub issues.
 
 Instead, please report them via:
-- **GitHub Security Advisories**: Use the "Report a vulnerability" button on the [Security tab](https://github.com/wakeward/github-app-permissions-graph/security/advisories).
+- **GitHub Security Advisories**: Use the "Report a vulnerability" button on the [Security tab](https://github.com/wakeward/gh-app-graph/security/advisories).
 
 ### Response Timeline
 

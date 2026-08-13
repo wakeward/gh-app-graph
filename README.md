@@ -1,8 +1,8 @@
-# github-app-permissions-graph
+# gh-app-graph
 
-[![Unit Testing](https://github.com/wakeward/github-app-permissions-graph/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/wakeward/github-app-permissions-graph/actions/workflows/unit_tests.yml)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/wakeward/github-app-permissions-graph/badge)](https://securityscorecards.dev/viewer/?uri=github.com/wakeward/github-app-permissions-graph)
-[![License](https://img.shields.io/github/license/wakeward/github-app-permissions-graph)](LICENSE)
+[![Unit Testing](https://github.com/wakeward/gh-app-graph/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/wakeward/gh-app-graph/actions/workflows/unit_tests.yml)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/wakeward/gh-app-graph/badge)](https://securityscorecards.dev/viewer/?uri=github.com/wakeward/gh-app-graph)
+[![License](https://img.shields.io/github/license/wakeward/gh-app-graph)](LICENSE)
 
 A structured data model for GitHub App permission risk: severity, technical
 dependencies between permissions, and named "toxic combination" attack
@@ -32,7 +32,7 @@ graphs, markdown tables, per-app risk reports).
 This project and [`gh-app-check`](https://github.com/wakeward/gh-app-check)
 solve different problems that happen to compose:
 
-| | `github-app-permissions-graph` (this repo) | `gh-app-check` |
+| | `gh-app-graph` (this repo) | `gh-app-check` |
 |---|---|---|
 | **Question it answers** | "What's risky about this permission, and what combinations of permissions are dangerous together?" | "What permissions does this *installed* app actually have in my org, and how is its token actually used?" |
 | **Data source** | Public, unauthenticated: GitHub's docs, `octokit/app-permissions`, and `GET /apps/{app_slug}` for any public app's *declared* permissions | Authenticated: `GET /orgs/{org}/installations` for apps *installed* in your own org, plus Code Search for workflow-token tracing |
@@ -46,8 +46,8 @@ other consumer) imports directly:
 
 ```go
 import (
-    "github.com/wakeward/github-app-permissions-graph/pkg/eval"
-    "github.com/wakeward/github-app-permissions-graph/pkg/model"
+    "github.com/wakeward/gh-app-graph/pkg/eval"
+    "github.com/wakeward/gh-app-graph/pkg/model"
 )
 
 result := eval.Evaluate(installationPermissions, toxicCombinations)

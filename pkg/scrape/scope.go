@@ -3,7 +3,7 @@ package scrape
 import (
 	"sort"
 
-	"github.com/wakeward/github-app-permissions-graph/pkg/model"
+	"github.com/wakeward/gh-app-graph/pkg/model"
 )
 
 // Target is one permission+access pair selected for prose scraping.
