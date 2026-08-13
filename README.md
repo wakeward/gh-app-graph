@@ -116,6 +116,10 @@ technical dependency; most don't. See `pkg/model/dependency.go` and
 a rating, and a hard requirement if this data is ever consumed outside this
 repo's own tooling.
 
+**Threat model work in progress:** see [`docs/threat-model-plan.md`](docs/threat-model-plan.md)
+for the planned actor/likelihood catalog, theorizing session, and validation
+program (not yet canonical).
+
 ## Development
 
 ```bash
