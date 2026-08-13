@@ -120,6 +120,10 @@ repo's own tooling.
 for the planned actor/likelihood catalog, theorizing session, and validation
 program (not yet canonical).
 
+**Long-term vision:** see [`docs/vision.md`](docs/vision.md) for the Marketplace
+catalog, public drift policy, blog series, and platform research program (future
+work - blocked on threat model and org validation).
+
 ## Development
 
 ```bash
