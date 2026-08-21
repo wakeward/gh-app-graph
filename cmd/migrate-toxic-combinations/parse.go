@@ -19,7 +19,7 @@ type csvRow struct {
 
 var (
 	grantSegmentRE = regexp.MustCompile(`^\s*([^:(]+?)\s*:\s*(read|write)\s*$`)
-	orSuffixRE     = regexp.MustCompile(`(?i)^(.+?)\s*\(or\s+(.+)\)\s*$`)
+	orSuffixRE     = regexp.MustCompile(`(?i)^(.+?)\s*\(or\s+(.+?)\)?\s*$`)
 )
 
 func readCSV(path string) ([]csvRow, error) {
@@ -44,10 +44,17 @@ func readCSV(path string) ([]csvRow, error) {
 	for i, h := range header {
 		idx[strings.TrimSpace(h)] = i
 	}
-	required := []string{"Technique", "Toxic Combination", "Risk", "Exploit Path"}
+	required := []string{"Technique", "Toxic Combination", "Exploit Path"}
 	for _, col := range required {
 		if _, ok := idx[col]; !ok {
 			return nil, fmt.Errorf("missing expected column %q", col)
+		}
+	}
+	severityCol := "Severity"
+	if _, ok := idx[severityCol]; !ok {
+		severityCol = "Risk"
+		if _, ok := idx[severityCol]; !ok {
+			return nil, fmt.Errorf("missing expected column %q or %q", "Severity", "Risk")
 		}
 	}
 
@@ -68,7 +75,7 @@ func readCSV(path string) ([]csvRow, error) {
 		rows = append(rows, csvRow{
 			Technique:   technique,
 			Combination: get(rec, "Toxic Combination"),
-			Risk:        get(rec, "Risk"),
+			Risk:        get(rec, severityCol),
 			ExploitPath: get(rec, "Exploit Path"),
 		})
 	}
@@ -84,57 +91,77 @@ func parseCombination(text string, known map[string]struct{}) ([][]model.Permiss
 		return nil, fmt.Errorf("empty combination")
 	}
 
-	// Single segment that is only an OR choice, e.g.
-	// "Organization administration: write (or Members: write)".
 	if !strings.Contains(text, "+") {
-		if m := orSuffixRE.FindStringSubmatch(text); len(m) == 3 {
-			left, err := parseGrantSegment(m[1], known)
-			if err != nil {
-				return nil, err
-			}
-			right, err := parseGrantSegment(m[2], known)
-			if err != nil {
-				return nil, err
-			}
-			return [][]model.PermissionGrant{{left}, {right}}, nil
-		}
-		grant, err := parseGrantSegment(text, known)
+		opts, err := expandPartOptions(text, known)
 		if err != nil {
 			return nil, err
 		}
-		return [][]model.PermissionGrant{{grant}}, nil
+		sets := make([][]model.PermissionGrant, len(opts))
+		for i, opt := range opts {
+			sets[i] = []model.PermissionGrant{opt}
+		}
+		return sets, nil
 	}
 
 	parts := strings.Split(text, "+")
-	base := make([]model.PermissionGrant, 0, len(parts))
-	var variants [][]model.PermissionGrant
+	bases := [][]model.PermissionGrant{{}}
 
 	for _, part := range parts {
 		part = strings.TrimSpace(part)
-		if m := orSuffixRE.FindStringSubmatch(part); len(m) == 3 {
-			left, err := parseGrantSegment(m[1], known)
-			if err != nil {
-				return nil, err
-			}
-			right, err := parseGrantSegment(m[2], known)
-			if err != nil {
-				return nil, err
-			}
-			variants = append(variants, append(append([]model.PermissionGrant{}, base...), left))
-			variants = append(variants, append(append([]model.PermissionGrant{}, base...), right))
-			continue
-		}
-		grant, err := parseGrantSegment(part, known)
+		part = strings.TrimPrefix(part, "(")
+		part = strings.TrimSuffix(part, ")")
+		part = strings.TrimSpace(part)
+
+		opts, err := expandPartOptions(part, known)
 		if err != nil {
 			return nil, err
 		}
-		base = append(base, grant)
+
+		var next [][]model.PermissionGrant
+		for _, base := range bases {
+			for _, opt := range opts {
+				next = append(next, append(append([]model.PermissionGrant{}, base...), opt))
+			}
+		}
+		bases = next
+	}
+	return bases, nil
+}
+
+// expandPartOptions returns one or more grant alternatives for a single
+// plus-separated segment (handles parenthesized OR and bare "or" joins).
+func expandPartOptions(part string, known map[string]struct{}) ([]model.PermissionGrant, error) {
+	part = strings.TrimSpace(part)
+	if part == "" {
+		return nil, fmt.Errorf("empty combination segment")
 	}
 
-	if len(variants) > 0 {
-		return variants, nil
+	if m := orSuffixRE.FindStringSubmatch(part); len(m) == 3 {
+		left, right, err := parseOrAlternatives(m[1], m[2], known)
+		if err != nil {
+			return nil, err
+		}
+		return []model.PermissionGrant{left, right}, nil
 	}
-	return [][]model.PermissionGrant{base}, nil
+
+	if strings.Contains(strings.ToLower(part), " or ") {
+		alts := strings.Split(part, " or ")
+		out := make([]model.PermissionGrant, 0, len(alts))
+		for _, alt := range alts {
+			grant, err := parseGrantSegment(strings.TrimSpace(alt), known)
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, grant)
+		}
+		return out, nil
+	}
+
+	grant, err := parseGrantSegment(part, known)
+	if err != nil {
+		return nil, err
+	}
+	return []model.PermissionGrant{grant}, nil
 }
 
 func parseGrantSegment(segment string, known map[string]struct{}) (model.PermissionGrant, error) {
@@ -151,6 +178,59 @@ func parseGrantSegment(segment string, known map[string]struct{}) (model.Permiss
 		return model.PermissionGrant{}, err
 	}
 	return model.PermissionGrant{APIKey: key, Access: access}, nil
+}
+
+// parseOrAlternatives parses "Left: write (or right)" segments. When the
+// right-hand alternative omits an access level (e.g. bare api_key), it
+// inherits the left-hand access.
+func parseOrAlternatives(leftText, rightText string, known map[string]struct{}) (model.PermissionGrant, model.PermissionGrant, error) {
+	left, err := parseGrantSegment(leftText, known)
+	if err != nil {
+		return model.PermissionGrant{}, model.PermissionGrant{}, err
+	}
+	right, err := parseGrantSegment(rightText, known)
+	if err == nil {
+		return left, right, nil
+	}
+	key, err := resolveAPIKey(strings.TrimSpace(rightText), known)
+	if err != nil {
+		return model.PermissionGrant{}, model.PermissionGrant{}, fmt.Errorf("cannot parse grant segment %q", rightText)
+	}
+	return left, model.PermissionGrant{APIKey: key, Access: left.Access}, nil
+}
+
+func normalizeSeverityWord(w string) (model.BlastRadius, bool) {
+	switch strings.ToLower(strings.TrimSpace(w)) {
+	case "critical":
+		return model.BlastRadiusCritical, true
+	case "high":
+		return model.BlastRadiusHigh, true
+	case "medium":
+		return model.BlastRadiusMedium, true
+	case "low":
+		return model.BlastRadiusMedium, true
+	default:
+		return "", false
+	}
+}
+
+func riskDescription(row csvRow) string {
+	if _, ok := normalizeSeverityWord(row.Risk); ok {
+		return fmt.Sprintf("%s (%s)", row.Technique, row.Risk)
+	}
+	return row.Risk
+}
+
+func inferComboPlatform(combo model.ToxicCombination, ghesKeys map[string]struct{}) model.PlatformAvailability {
+	if strings.Contains(strings.ToLower(combo.ExploitPath), "ghes only") {
+		return model.PlatformGHESOnly
+	}
+	for _, grant := range combo.Permissions {
+		if _, ok := ghesKeys[grant.APIKey]; ok {
+			return model.PlatformGHESOnly
+		}
+	}
+	return model.PlatformAll
 }
 
 func inferBlastRadius(technique, risk string) model.BlastRadius {
@@ -186,10 +266,6 @@ func buildFromCSV(rows []csvRow, known map[string]struct{}) ([]model.ToxicCombin
 		blast := inferBlastRadius(row.Technique, row.Risk)
 
 		for i, grants := range grantSets {
-			if len(grants) < 2 {
-				warnings = append(warnings, fmt.Sprintf("%s: skipped single-permission variant %s (need 2+ grants for a toxic combination)", row.Technique, grantSetKey(grants)))
-				continue
-			}
 		id := baseID
 		if len(grantSets) > 1 {
 			suffix := variantSuffix(grants)
@@ -206,7 +282,7 @@ func buildFromCSV(rows []csvRow, known map[string]struct{}) ([]model.ToxicCombin
 				Technique:       row.Technique,
 				Permissions:     grants,
 				BlastRadius:     blast,
-				RiskDescription: row.Risk,
+				RiskDescription: riskDescription(row),
 				ExploitPath:     row.ExploitPath,
 				Source:          "migrate-toxic-combinations CSV",
 			})
@@ -216,6 +292,9 @@ func buildFromCSV(rows []csvRow, known map[string]struct{}) ([]model.ToxicCombin
 }
 
 func variantSuffix(grants []model.PermissionGrant) string {
+	if len(grants) == 1 {
+		return grants[0].APIKey
+	}
 	keys := make(map[string]struct{}, len(grants))
 	for _, g := range grants {
 		keys[g.APIKey] = struct{}{}

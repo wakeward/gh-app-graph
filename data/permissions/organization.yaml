@@ -1,6 +1,7 @@
-# DRAFT - NOT CANONICAL. Seeded from an incomplete working spreadsheet plus
-# Enterprise UI observations. Severity/impact_plane are starting notes only.
-# Reconcile or replace once fetch-inventory + detect-overlap land.
+# DRAFT Organization permissions - NOT CANONICAL
+# Seeded by cmd/migrate-csv from an incomplete working spreadsheet plus Enterprise
+# UI observations. Severity/impact_plane are starting notes only. Replace or reconcile
+# once fetch-inventory and detect-overlap produce the real endpoint graph.
 # See data/permissions/README.md
 - name: Members
   api_key: members
@@ -9,27 +10,29 @@
   access_levels:
     - access: write
       severity: Critical
-      security_notes: Allows adding an attacker's identity directly to the org, bypassing IdP.
+      security_notes: Add attacker accounts directly to the organization, bypass SSO/IdP provisioning, or alter team administration rights.
     - access: read
-      severity: Critical
-      security_notes: Allows adding an attacker's identity directly to the org, bypassing IdP.
+      severity: Medium
+      security_notes: Enumerate member list, team hierarchies, and identify privileged administrators for targeted social engineering.
   needs_investigation: false
   doc_status: documented
   impact_plane: governance_identity
+  platform_availability: all
 - name: Actions variables
   api_key: organization_actions_variables
   category: organization
   overview: Manage organization-level Actions variables.
   access_levels:
     - access: write
-      severity: Medium
-      security_notes: Could manipulate CI/CD logic dependent on variables across the organization such as manipulate endpoint or inject variables. Specalative and the impact is project dependant.
+      severity: High
+      security_notes: Manipulate CI/CD environment variables across all organization pipelines (e.g. redirect build targets, alter registries).
     - access: read
       severity: Low
-      security_notes: Information disclosure
+      security_notes: Information disclosure of non-secret configuration variables, infrastructure URLs, and build flags.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Administration
   api_key: organization_administration
   category: organization
@@ -44,6 +47,7 @@
   needs_investigation: false
   doc_status: documented
   impact_plane: control
+  platform_availability: all
 - name: Agent secrets
   api_key: organization_agent_secrets
   category: organization
@@ -53,25 +57,27 @@
       severity: Critical
       security_notes: Blast radius spans agent-driven automation across the whole organization - same class of risk as organization Actions secrets.
     - access: read
-      severity: Critical
+      severity: Low
       security_notes: Blast radius spans agent-driven automation across the whole organization - same class of risk as organization Actions secrets.
-  needs_investigation: true
+  needs_investigation: false
   doc_status: unconfirmed_key
   impact_plane: data_execution
+  platform_availability: all
 - name: Agent variables
   api_key: organization_agent_variables
   category: organization
   overview: Manage organization-level variables for agent tasks. UNCONFIRMED KEY; verify before use in automated rules.
   access_levels:
     - access: write
-      severity: Medium
-      security_notes: Configuration manipulation of agent-driven automation.
+      severity: High
+      security_notes: Alter agent runtime configurations, endpoint URLs, and system context to induce prompt injection or rogue actions.
     - access: read
       severity: Low
-      security_notes: Information disclosure
-  needs_investigation: true
+      security_notes: Reconnaissance into autonomous agent configurations and org-level automated tasks.
+  needs_investigation: false
   doc_status: unconfirmed_key
   impact_plane: data_execution
+  platform_availability: all
 - name: Announcement banners
   api_key: organization_announcement_banners
   category: organization
@@ -79,13 +85,14 @@
   access_levels:
     - access: write
       severity: Low
-      security_notes: Primarily a defacement/phishing vector (could post a fake banner directing users to a malicious link).
+      security_notes: Defacement or spear-phishing vector (posting fake org-wide alerts directing developers to malicious login portals).
     - access: read
       severity: Informational
-      security_notes: Information disclosure (speculative)
+      security_notes: Reconnaissance on active internal org communications.
   needs_investigation: false
   doc_status: documented
   impact_plane: control
+  platform_availability: all
 - name: API Insights
   api_key: organization_api_insights
   category: organization
@@ -93,24 +100,26 @@
   access_levels:
     - access: read
       severity: Low
-      security_notes: Reconnaissance
+      security_notes: Reconnaissance on internal API traffic patterns, rate limits, and active automation clients.
   needs_investigation: false
   doc_status: documented
   impact_plane: governance_identity
+  platform_availability: all
 - name: Campaigns
   api_key: organization_campaigns
   category: organization
   overview: Manage GitHub Campaigns (security-fix-tracking initiatives) for the organization. UNCONFIRMED KEY; verify before use in automated rules.
   access_levels:
     - access: write
-      severity: Informational
-      security_notes: LOW. Could disrupt org-wide vulnerability remediation tracking, but no direct code/secret access.
+      severity: Low
+      security_notes: Disrupt org-wide security remediation tracking, close remediation initiatives prematurely, or alter campaign scopes.
     - access: read
-      severity: Informational
-      security_notes: LOW. Could disrupt org-wide vulnerability remediation tracking, but no direct code/secret access.
-  needs_investigation: true
+      severity: Low
+      security_notes: Discloses org-wide security vulnerability remediation status, outstanding tech debt, and targeted CVEs.
+  needs_investigation: false
   doc_status: unconfirmed_key
   impact_plane: governance_identity
+  platform_availability: all
 - name: Codespaces
   api_key: organization_codespaces
   category: organization
@@ -118,13 +127,14 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Could deploy malicious codespaces inside the org network boundary.
+      security_notes: Spin up unauthorized compute instances inside the org boundary for compute hijacking or internal network pivoting.
     - access: read
       severity: Low
-      security_notes: Reconnaissance
+      security_notes: Reconnaissance into active developer Codespaces and compute usage across the org.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Codespaces lifecycle admin
   api_key: organization_codespaces_lifecycle_admin
   category: organization
@@ -132,12 +142,14 @@
   access_levels:
     - access: write
       severity: Medium
-      security_notes: Can terminate or modify developer environments.
+      security_notes: Terminate or alter active developer environments across the org (operational disruption/DoS).
     - access: read
       severity: Informational
-  needs_investigation: true
+      security_notes: View org Codespaces lifecycle states and retention policies.
+  needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Codespaces secrets
   api_key: organization_codespaces_secrets
   category: organization
@@ -145,13 +157,14 @@
   access_levels:
     - access: write
       severity: Critical
-      security_notes: Exposes secrets to developer environments.
+      security_notes: Overwrite shared development environment secrets to intercept cloud tokens and backend credentials.
     - access: read
-      severity: Critical
-      security_notes: Exposes secrets to developer environments.
+      severity: Low
+      security_notes: Does not return plaintext secrets (exposes secret names and repository assignments only). Reconnaissance only.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Codespaces settings
   api_key: organization_codespaces_settings
   category: organization
@@ -159,18 +172,14 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: |-
-        Configuration manipulation - Need to see what this could contain
-        Secret Extraction via Access Policy Manipulation
-        Data Exposure via Port Forwarding Policies
-        Cryptojacking and Financial Exhaustion
-        Unauthorized Access to Private Repositories
+      security_notes: Manipulate port forwarding policies, allowed machine sizes, and base container image access controls.
     - access: read
       severity: Low
-      security_notes: Reconnaissance and Information disclosure
+      security_notes: Reconnaissance into default codespace networking, base images, and developer container constraints.
   needs_investigation: false
   doc_status: documented
   impact_plane: control
+  platform_availability: all
 - name: Copilot agent settings
   api_key: organization_copilot_agent_settings
   category: organization
@@ -178,27 +187,29 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Could expand the Copilot coding agent's blast radius to sensitive repositories it shouldn't touch.
+      security_notes: Expand Copilot coding agent scope to sensitive or restricted repositories containing confidential code.
     - access: read
-      severity: High
-      security_notes: Could expand the Copilot coding agent's blast radius to sensitive repositories it shouldn't touch.
+      severity: Low
+      security_notes: Reconnaissance identifying which repositories are excluded or indexed by Copilot agents.
   needs_investigation: false
   doc_status: unconfirmed_key
   impact_plane: data_execution
+  platform_availability: all
 - name: Copilot content exclusion
   api_key: organization_copilot_content_exclusion
   category: organization
   overview: Manage which files/paths are excluded from Copilot's context, org-wide. UNCONFIRMED KEY; verify before use in automated rules.
   access_levels:
     - access: write
-      severity: Medium
-      security_notes: Write access could remove exclusions protecting sensitive files, exposing them to Copilot's context window.
+      severity: High
+      security_notes: Remove content exclusion paths protecting sensitive logic, secrets, or internal algorithms from Copilot ingestion.
     - access: read
       severity: Medium
-      security_notes: Write access could remove exclusions protecting sensitive files, exposing them to Copilot's context window.
+      security_notes: Directly maps out the organization's most sensitive source code files, paths, and internal directories.
   needs_investigation: false
   doc_status: unconfirmed_key
   impact_plane: data_execution
+  platform_availability: all
 - name: Copilot metrics
   api_key: organization_copilot_metrics
   category: organization
@@ -206,10 +217,11 @@
   access_levels:
     - access: read
       severity: Low
-      security_notes: Information disclosure only (usage stats, not code content).
+      security_notes: Information disclosure regarding developer adoption, acceptance rates, and active language telemetry.
   needs_investigation: false
   doc_status: documented
   impact_plane: governance_identity
+  platform_availability: all
 - name: Copilot seat management
   api_key: organization_copilot_seat_management
   category: organization
@@ -217,27 +229,29 @@
   access_levels:
     - access: write
       severity: Medium
-      security_notes: Could grant/revoke Copilot access as a billing-abuse or denial-of-service vector against developers.
+      security_notes: Assign or revoke licenses for developers (financial manipulation or developer disruption).
     - access: read
-      severity: Medium
-      security_notes: Could grant/revoke Copilot access as a billing-abuse or denial-of-service vector against developers.
+      severity: Low
+      security_notes: Reconnaissance on active Copilot users and team seat assignments.
   needs_investigation: false
   doc_status: disputed
   impact_plane: governance_identity
+  platform_availability: all
 - name: Copilot Spaces
   api_key: organization_copilot_spaces
   category: organization
   overview: Manage Copilot Spaces (curated context collections) for the organization. UNCONFIRMED KEY; verify before use in automated rules.
   access_levels:
     - access: write
-      severity: Medium
-      security_notes: Could inject malicious/misleading context into a shared Copilot Space used by many developers (indirect prompt injection vector).
+      severity: High
+      security_notes: Inject poisoned context, fake SDK guides, or backdoored patterns into shared developer context (Indirect Prompt Injection).
     - access: read
-      severity: Medium
-      security_notes: Could inject malicious/misleading context into a shared Copilot Space used by many developers (indirect prompt injection vector).
+      severity: Low
+      security_notes: Reconnaissance into curated developer context spaces and documentation sources.
   needs_investigation: false
   doc_status: unconfirmed_key
   impact_plane: data_execution
+  platform_availability: all
 - name: Custom organization roles
   api_key: organization_custom_org_roles
   category: organization
@@ -245,27 +259,29 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Can create hidden, over-privileged organization roles to establish persistence.
+      security_notes: Create over-privileged custom organization roles to establish stealthy persistence or escalate privileges.
     - access: read
-      severity: High
-      security_notes: Can create hidden, over-privileged organization roles to establish persistence.
+      severity: Medium
+      security_notes: Reconnaissance into custom org permissions; identifies over-privileged custom roles to target for takeover.
   needs_investigation: false
   doc_status: documented
   impact_plane: control
+  platform_availability: all
 - name: Custom properties
   api_key: organization_custom_properties
   category: organization
   overview: Manage custom organization properties.
   access_levels:
     - access: write
-      severity: Low
-      security_notes: Configuration manipulation.
+      severity: Medium
+      security_notes: Manipulate repository metadata properties used for automated policy enforcement, CI/CD triggering, or compliance tagging.
     - access: read
       severity: Low
-      security_notes: Configuration manipulation.
+      security_notes: Reconnaissance on organizational property values and repository classification tags.
   needs_investigation: false
   doc_status: documented
   impact_plane: control
+  platform_availability: all
 - name: Custom repository roles
   api_key: organization_custom_roles
   category: organization
@@ -273,13 +289,14 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Can create hidden, over-privileged roles to establish persistence.
+      security_notes: Create or alter custom repository roles to grant excessive permissions across repos without triggering standard admin alerts.
     - access: read
-      severity: High
-      security_notes: Can create hidden, over-privileged roles to establish persistence.
+      severity: Medium
+      security_notes: Enumerate custom repository role permissions to find privilege escalation paths.
   needs_investigation: false
   doc_status: documented
   impact_plane: control
+  platform_availability: all
 - name: Dependabot secrets
   api_key: organization_dependabot_secrets
   category: organization
@@ -287,27 +304,29 @@
   access_levels:
     - access: write
       severity: Critical
-      security_notes: Allows pivoting via compromised dependency update PRs.
+      security_notes: Allows supply chain tampering; overwrite dependency update secrets to pivot to internal package registries.
     - access: read
-      severity: Critical
-      security_notes: Allows pivoting via compromised dependency update PRs.
+      severity: Low
+      security_notes: Does not return plaintext secrets (lists secret names and repository visibility). Reconnaissance only.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Dependabot variables
   api_key: organization_dependabot_variables
   category: organization
   overview: Manage organization-level Dependabot variables.
   access_levels:
     - access: write
-      severity: Medium
-      security_notes: Configuration manipulation.
+      severity: High
+      security_notes: 'Supply chain tampering: alter registry URLs (e.g. NPM_CONFIG_REGISTRY) to force runners to authenticate to attacker servers and leak tokens.'
     - access: read
-      severity: Medium
-      security_notes: Configuration manipulation.
+      severity: Low
+      security_notes: Reconnaissance on package registry endpoints and internal package feed URLs.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Events
   api_key: organization_events
   category: organization
@@ -319,34 +338,37 @@
   needs_investigation: false
   doc_status: documented
   impact_plane: governance_identity
+  platform_availability: all
 - name: Webhooks
   api_key: organization_hooks
   category: organization
   overview: Manage organization-level webhooks.
   access_levels:
     - access: write
-      severity: Medium
-      security_notes: Can exfiltrate org-wide activity data.
+      severity: High
+      security_notes: Create organization-wide webhooks to exfiltrate all event payloads (pushes, PR diffs, issue contents) in real time.
     - access: read
-      severity: Medium
-      security_notes: Can exfiltrate org-wide activity data.
+      severity: Low
+      security_notes: Enumerate configured webhook endpoints and subscribed events.
   needs_investigation: false
   doc_status: documented
   impact_plane: control
+  platform_availability: all
 - name: Knowledge bases
   api_key: organization_knowledge_bases
   category: organization
   overview: Manage organization Copilot knowledge bases.
   access_levels:
     - access: write
-      severity: Low
-      security_notes: Could poison Copilot's retrieved context with misleading documentation (indirect prompt injection vector) - worth a closer look given AI-assistant use cases.
+      severity: High
+      security_notes: Poison RAG/Copilot knowledge bases with insecure code patterns, backdoored snippet advice, or misleading guidelines.
     - access: read
-      severity: Low
-      security_notes: Could poison Copilot's retrieved context with misleading documentation (indirect prompt injection vector) - worth a closer look given AI-assistant use cases.
+      severity: Medium
+      security_notes: Access proprietary technical architecture documents, runbooks, and internal guides indexed for Copilot.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Network configurations
   api_key: organization_network_configurations
   category: organization
@@ -354,13 +376,14 @@
   access_levels:
     - access: write
       severity: Medium
-      security_notes: Could redirect Actions runner network traffic through an attacker-controlled configuration.
+      security_notes: Redirect Actions runner network routing or alter VPC gateway attachments.
     - access: read
-      severity: Medium
-      security_notes: Could redirect Actions runner network traffic through an attacker-controlled configuration.
+      severity: Low
+      security_notes: Reconnaissance into runner network configurations, subnet IDs, and cloud connectivity setups.
   needs_investigation: false
   doc_status: unconfirmed_key
   impact_plane: control
+  platform_availability: all
 - name: Packages
   api_key: organization_packages
   category: organization
@@ -368,13 +391,14 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Write access can push malicious images/packages to internal registries org-wide, beyond a single repository's blast radius.
+      security_notes: Push malicious packages or backdoored images across the organization to execute dependency substitution attacks.
     - access: read
-      severity: High
-      security_notes: Write access can push malicious images/packages to internal registries org-wide, beyond a single repository's blast radius.
+      severity: Low
+      security_notes: Enumerate internal package names, versions, and dependencies (accelerates dependency confusion attacks).
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Personal access token requests
   api_key: organization_personal_access_token_requests
   category: organization
@@ -382,27 +406,29 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Could approve malicious token requests for persistence.
+      security_notes: Approve unauthorized high-privilege fine-grained PAT requests for persistent backdoor access.
     - access: read
-      severity: High
-      security_notes: Could approve malicious token requests for persistence.
+      severity: Low
+      security_notes: View pending token requests, requested scopes, and applicant identities.
   needs_investigation: false
   doc_status: documented
   impact_plane: governance_identity
+  platform_availability: all
 - name: Personal access tokens
   api_key: organization_personal_access_tokens
   category: organization
   overview: Manage fine-grained PATs in the org.
   access_levels:
     - access: write
-      severity: High
-      security_notes: Could revoke legitimate tokens (DoS) or manipulate scope.
+      severity: Critical
+      security_notes: Revoke active PATs across the organization (DoS) or manipulate token permissions and scopes.
     - access: read
-      severity: High
-      security_notes: Could revoke legitimate tokens (DoS) or manipulate scope.
+      severity: Medium
+      security_notes: Enumerate active PAT grants, expiration dates, owners, and repository scopes across the entire organization.
   needs_investigation: false
   doc_status: documented
   impact_plane: governance_identity
+  platform_availability: all
 - name: Plan
   api_key: organization_plan
   category: organization
@@ -410,24 +436,26 @@
   access_levels:
     - access: read
       severity: Low
-      security_notes: Information disclosure.
+      security_notes: Reconnaissance into organization subscription plan and feature limits.
   needs_investigation: false
   doc_status: documented
   impact_plane: governance_identity
+  platform_availability: all
 - name: Pre-receive hooks
   api_key: organization_pre_receive_hooks
   category: organization
   overview: Manage pre-receive hooks for the organization (GitHub Enterprise Server).
   access_levels:
     - access: write
-      severity: High
-      security_notes: Pre-receive hooks run server-side on every push; a malicious hook is a direct path to arbitrary code execution on the Git server infrastructure.
+      severity: Critical
+      security_notes: (GHES only) Direct server-side script execution on the Git backend appliance (Remote Code Execution risk).
     - access: read
-      severity: High
-      security_notes: Pre-receive hooks run server-side on every push; a malicious hook is a direct path to arbitrary code execution on the Git server infrastructure.
+      severity: Medium
+      security_notes: (GHES only) Inspect server-side pre-receive scripts to discover logic flaws and push policy bypasses.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: ghes_only
 - name: Private registries
   api_key: organization_private_registries
   category: organization
@@ -435,13 +463,14 @@
   access_levels:
     - access: write
       severity: Critical
-      security_notes: Write access could overwrite registry credentials to redirect builds to a malicious package source (dependency substitution).
+      security_notes: Overwrite package registry configurations to redirect build pipelines to malicious dependency mirrors.
     - access: read
-      severity: Critical
-      security_notes: Write access could overwrite registry credentials to redirect builds to a malicious package source (dependency substitution).
+      severity: Low
+      security_notes: Lists configured private package registries (URLs, usernames, auth types). Excludes raw passwords/tokens.
   needs_investigation: false
   doc_status: unconfirmed_key
   impact_plane: data_execution
+  platform_availability: all
 - name: Projects
   api_key: organization_projects
   category: organization
@@ -449,13 +478,14 @@
   access_levels:
     - access: write
       severity: Low
-      security_notes: Project tracking manipulation.
+      security_notes: Manipulate project tracking boards and workflows.
     - access: read
-      severity: Low
-      security_notes: Project tracking manipulation.
+      severity: Informational
+      security_notes: Reconnaissance on project status and task roadmaps.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Secrets
   api_key: organization_secrets
   category: organization
@@ -463,13 +493,14 @@
   access_levels:
     - access: write
       severity: Critical
-      security_notes: Blast radius spans the entire organization's CI/CD pipelines.
+      security_notes: Overwrite shared Actions secrets or manipulate CI/CD pipelines to exfiltrate production credentials.
     - access: read
-      severity: Critical
-      security_notes: Blast radius spans the entire organization's CI/CD pipelines.
+      severity: Low
+      security_notes: Does not return plaintext secrets (lists secret names and repository access policies). Reconnaissance only.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Self-hosted runners
   api_key: organization_self_hosted_runners
   category: organization
@@ -477,13 +508,14 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Could register malicious runners (Runner Poisoning) to steal OIDC tokens or secrets.
+      security_notes: Register rogue self-hosted runners (Runner Poisoning) to execute malicious jobs and harvest CI/CD tokens.
     - access: read
-      severity: High
-      security_notes: Could register malicious runners (Runner Poisoning) to steal OIDC tokens or secrets.
+      severity: Low
+      security_notes: Reconnaissance into runner infrastructure, OS platforms, labels, and online availability.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Blocking users
   api_key: organization_user_blocking
   category: organization
@@ -491,12 +523,14 @@
   access_levels:
     - access: write
       severity: Medium
-      security_notes: Prevent incident response?
+      security_notes: Could block external security researchers from disclosing vulnerabilities or disrupt contributor access.
     - access: read
       severity: Informational
-  needs_investigation: true
+      security_notes: Information disclosure on org-level blocked user lists.
+  needs_investigation: false
   doc_status: documented
   impact_plane: governance_identity
+  platform_availability: all
 - name: Team discussions
   api_key: team_discussions
   category: organization
@@ -504,10 +538,11 @@
   access_levels:
     - access: write
       severity: Low
-      security_notes: Nuisance vector.
+      security_notes: Spam/nuisance vector; post unwanted messages in internal team boards.
     - access: read
-      severity: Low
-      security_notes: Nuisance vector.
+      severity: Informational
+      security_notes: Information disclosure of internal team discussion topics.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all

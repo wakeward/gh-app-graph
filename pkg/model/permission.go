@@ -87,4 +87,7 @@ type Permission struct {
 	NeedsInvestigation bool                `yaml:"needs_investigation" json:"needs_investigation"`
 	DocStatus          DocStatus           `yaml:"doc_status" json:"doc_status"`
 	ImpactPlane        ImpactPlane         `yaml:"impact_plane" json:"impact_plane"`
+	// PlatformAvailability is "all" unless the permission is documented as
+	// GitHub Enterprise Server-only (e.g. pre-receive hooks).
+	PlatformAvailability PlatformAvailability `yaml:"platform_availability,omitempty" json:"platform_availability,omitempty"`
 }

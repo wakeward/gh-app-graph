@@ -22,6 +22,7 @@ import (
 	"github.com/wakeward/gh-app-graph/pkg/fileio"
 	"github.com/wakeward/gh-app-graph/pkg/graph"
 	"github.com/wakeward/gh-app-graph/pkg/model"
+	"github.com/wakeward/gh-app-graph/pkg/platform"
 )
 
 func main() {
@@ -40,6 +41,11 @@ func main() {
 	known, err := loadKnownAPIKeys(*permissionsDir)
 	if err != nil {
 		fail("load permissions", err)
+	}
+
+	ghesKeys, err := loadGHESOnlyKeys(*permissionsDir)
+	if err != nil {
+		fail("load GHES-only permissions", err)
 	}
 
 	rows, err := readCSV(*csvPath)
@@ -66,6 +72,7 @@ func main() {
 	}
 	for i := range combos {
 		combos[i].OverlapsTechnicalDependency = comboOverlapsDependency(combos[i], overlap)
+		combos[i].PlatformAvailability = inferComboPlatform(combos[i], ghesKeys)
 		validateGrants(&combos[i], known, &warnings)
 	}
 
@@ -91,6 +98,14 @@ func loadKnownAPIKeys(dir string) (map[string]struct{}, error) {
 		known[p.APIKey] = struct{}{}
 	}
 	return known, nil
+}
+
+func loadGHESOnlyKeys(dir string) (map[string]struct{}, error) {
+	perms, err := graph.LoadPermissionsDir(dir)
+	if err != nil {
+		return nil, err
+	}
+	return platform.GHESOnlyKeys(perms), nil
 }
 
 func validateGrants(combo *model.ToxicCombination, known map[string]struct{}, warnings *[]string) {

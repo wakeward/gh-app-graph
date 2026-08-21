@@ -1,6 +1,7 @@
-# DRAFT - NOT CANONICAL. Seeded from an incomplete working spreadsheet plus
-# Enterprise UI observations. Severity/impact_plane are starting notes only.
-# Reconcile or replace once fetch-inventory + detect-overlap land.
+# DRAFT Repository permissions - NOT CANONICAL
+# Seeded by cmd/migrate-csv from an incomplete working spreadsheet plus Enterprise
+# UI observations. Severity/impact_plane are starting notes only. Replace or reconcile
+# once fetch-inventory and detect-overlap produce the real endpoint graph.
 # See data/permissions/README.md
 - name: Actions
   api_key: actions
@@ -9,27 +10,29 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Write access allows triggering workflows with malicious inputs or altering artifacts.
+      security_notes: Trigger arbitrary workflow runs with malicious input parameters or tamper with workflow artifacts.
     - access: read
-      severity: High
-      security_notes: Write access allows triggering workflows with malicious inputs or altering artifacts.
+      severity: Low
+      security_notes: Download workflow artifacts and inspect CI/CD execution logs.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Actions variables
   api_key: actions_variables
   category: repository
   overview: Manage repository Actions and Dependabot variables.
   access_levels:
     - access: write
-      severity: Medium
-      security_notes: Could manipulate CI/CD logic dependent on variables.
+      severity: High
+      security_notes: Manipulate build configuration variables to alter deployment targets or inject script parameters.
     - access: read
-      severity: Medium
-      security_notes: Could manipulate CI/CD logic dependent on variables.
+      severity: Low
+      security_notes: Information disclosure of repository build configuration variables.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Administration
   api_key: administration
   category: repository
@@ -37,13 +40,14 @@
   access_levels:
     - access: write
       severity: Critical
-      security_notes: Full control over the repository lifecycle. Attackers can disable branch protections to force-merge bad code.
+      security_notes: 'Full repo lifecycle control: disable branch protections, force-merge code, delete repos, or change private repos to public.'
     - access: read
-      severity: Critical
-      security_notes: Full control over the repository lifecycle. Attackers can disable branch protections to force-merge bad code.
+      severity: Medium
+      security_notes: Reconnaissance on branch protection rules, required approval counts, and collaborator permissions.
   needs_investigation: false
   doc_status: documented
   impact_plane: control
+  platform_availability: all
 - name: Agent secrets
   api_key: agent_secrets
   category: repository
@@ -51,27 +55,29 @@
   access_levels:
     - access: write
       severity: Critical
-      security_notes: Write access allows overwriting secrets used by agent-driven automation to pivot to other systems.
+      security_notes: Overwrite agent secrets to alter repository automated agent behaviors or redirect credentials.
     - access: read
-      severity: Critical
-      security_notes: Write access allows overwriting secrets used by agent-driven automation to pivot to other systems.
+      severity: Low
+      security_notes: Does not return plaintext secrets (lists secret names and update dates). Reconnaissance only.
   needs_investigation: false
   doc_status: unconfirmed_key
   impact_plane: data_execution
+  platform_availability: all
 - name: Agent variables
   api_key: agent_variables
   category: repository
   overview: Manage repository-level variables for agent tasks. UNCONFIRMED KEY; verify before use in automated rules.
   access_levels:
     - access: write
-      severity: Medium
-      security_notes: Configuration manipulation of agent-driven automation.
+      severity: High
+      security_notes: 'Supply chain tampering: manipulate runtime variables passed to repository agent tasks.'
     - access: read
-      severity: Medium
-      security_notes: Configuration manipulation of agent-driven automation.
+      severity: Low
+      security_notes: Reconnaissance into repository agent configuration parameters.
   needs_investigation: false
   doc_status: unconfirmed_key
   impact_plane: data_execution
+  platform_availability: all
 - name: Attestations
   api_key: attestations
   category: repository
@@ -79,13 +85,14 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Write access could allow forging or deleting attestations, undermining SLSA/provenance trust in the software supply chain.
+      security_notes: Forge or delete SLSA provenance attestations and artifact signing records, undermining supply chain verification.
     - access: read
-      severity: High
-      security_notes: Write access could allow forging or deleting attestations, undermining SLSA/provenance trust in the software supply chain.
+      severity: Informational
+      security_notes: Inspect published build attestations and provenance bundles (typically public/standard data).
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Checks
   api_key: checks
   category: repository
@@ -93,23 +100,26 @@
   access_levels:
     - access: write
       severity: Medium
-      security_notes: Can be used to forge a 'passing' CI pipeline, bypassing deployment gates.
+      security_notes: Forge passing check statuses to bypass required CI/CD status checks and force-merge unvetted code.
     - access: read
-      severity: Medium
-      security_notes: Can be used to forge a 'passing' CI pipeline, bypassing deployment gates.
+      severity: Low
+      security_notes: Inspect test execution outputs and check run results.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Code quality
   api_key: code_quality
   category: repository
   overview: View code quality findings for the repository. UNCONFIRMED KEY; verify before use in automated rules.
   access_levels:
     - access: read
-      severity: Unknown
-  needs_investigation: true
+      severity: Medium
+      security_notes: Discloses internal code quality issues, logic flaws, and unpatched weaknesses before fixes are deployed.
+  needs_investigation: false
   doc_status: unconfirmed_key
   impact_plane: data_execution
+  platform_availability: all
 - name: Codespaces metadata
   api_key: codespaces_metadata
   category: repository
@@ -117,10 +127,11 @@
   access_levels:
     - access: read
       severity: Low
-      security_notes: Read-only reconnaissance of dev environment configuration.
+      security_notes: Reconnaissance on devcontainer specifications and machine sizing.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Content references
   api_key: content_references
   category: repository
@@ -128,13 +139,14 @@
   access_levels:
     - access: write
       severity: Low
-      security_notes: Primarily used for rich link previews; limited blast radius beyond spam/phishing content injection.
+      security_notes: 'Phishing/spam vector: inject customized visual link previews into issue threads.'
     - access: read
-      severity: Low
-      security_notes: Primarily used for rich link previews; limited blast radius beyond spam/phishing content injection.
+      severity: Informational
+      security_notes: Read content references; negligible security impact.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Contents
   api_key: contents
   category: repository
@@ -142,13 +154,14 @@
   access_levels:
     - access: write
       severity: Critical
-      security_notes: Write access allows direct source code modification (supply chain poisoning). Read access allows exfiltration of IP.
+      security_notes: 'Direct source code modification: inject backdoors into production branches, alter release tags, and poison supply chain.'
     - access: read
-      severity: Critical
-      security_notes: Write access allows direct source code modification (supply chain poisoning). Read access allows exfiltration of IP.
+      severity: High
+      security_notes: Exfiltrate proprietary source code, internal algorithms, and embedded config files; review code to discover zero-days.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Copilot agent settings
   api_key: copilot_agent_settings
   category: repository
@@ -156,10 +169,11 @@
   access_levels:
     - access: read
       severity: Low
-      security_notes: Read-only reconnaissance of agent configuration.
+      security_notes: Reconnaissance on repo-specific AI agent permissions and rules.
   needs_investigation: false
   doc_status: unconfirmed_key
   impact_plane: data_execution
+  platform_availability: all
 - name: Dependabot secrets
   api_key: dependabot_secrets
   category: repository
@@ -167,13 +181,14 @@
   access_levels:
     - access: write
       severity: Critical
-      security_notes: Write access allows overwriting secrets used by dependency-update PRs to pivot to CI/CD or cloud credentials.
+      security_notes: Overwrite Dependabot secrets to intercept tokens during automated dependency PR runs.
     - access: read
-      severity: Critical
-      security_notes: Write access allows overwriting secrets used by dependency-update PRs to pivot to CI/CD or cloud credentials.
+      severity: Low
+      security_notes: Does not return plaintext secrets (lists secret names and timestamps). Reconnaissance only.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Deployments
   api_key: deployments
   category: repository
@@ -181,13 +196,14 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Write access could allow triggering unauthorized deployments to production.
+      security_notes: Trigger unauthorized deployment runs or forge successful deployment statuses to circumvent deployment gates.
     - access: read
-      severity: High
-      security_notes: Write access could allow triggering unauthorized deployments to production.
+      severity: Low
+      security_notes: Reconnaissance into deployment environments, URLs, and deployment history.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Discussions
   api_key: discussions
   category: repository
@@ -195,13 +211,14 @@
   access_levels:
     - access: write
       severity: Low
-      security_notes: Primarily a spam/phishing vector.
+      security_notes: Post spam/phishing comments or alter discussion threads.
     - access: read
       severity: Low
-      security_notes: Primarily a spam/phishing vector.
+      security_notes: Read internal repository discussions and design decisions.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Environments
   api_key: environments
   category: repository
@@ -209,27 +226,29 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Can manipulate approval requirements for production deployments.
+      security_notes: Alter deployment protection rules, remove required reviewers, and modify environment secrets access.
     - access: read
-      severity: High
-      security_notes: Can manipulate approval requirements for production deployments.
+      severity: Low
+      security_notes: Enumerate deployment environment names and protection rules.
   needs_investigation: false
   doc_status: documented
   impact_plane: control
+  platform_availability: all
 - name: Issues
   api_key: issues
   category: repository
   overview: Manage issues, assignees, labels, and milestones.
   access_levels:
     - access: write
-      severity: Low
-      security_notes: Can inject XSS payloads into developer workflow tools or spam issue trackers.
+      severity: Medium
+      security_notes: Close legitimate issues, alter bug reports, or inject malicious instructions into issue discussions.
     - access: read
       severity: Low
-      security_notes: Can inject XSS payloads into developer workflow tools or spam issue trackers.
+      security_notes: Read private issues, internal bug reports, and customer-reported security problems.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Merge queues
   api_key: merge_queues
   category: repository
@@ -237,24 +256,26 @@
   access_levels:
     - access: write
       severity: Medium
-      security_notes: Could disrupt CI/CD flow or force bad code into the queue.
+      security_notes: Manipulate merge queue order, remove entries, or force queued pull requests.
     - access: read
-      severity: Medium
-      security_notes: Could disrupt CI/CD flow or force bad code into the queue.
+      severity: Low
+      security_notes: Inspect merge queue status and pending branches.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Metadata
   api_key: metadata
   category: repository
   overview: Access basic repository metadata. (Mandatory baseline).
   access_levels:
     - access: read
-      severity: Low
-      security_notes: Baseline visibility. Cannot see code, just names, labels, and configurations.
+      severity: Informational
+      security_notes: Mandatory baseline permission for all GitHub Apps (grants basic read access to repo name, description, owner, stars). Negligible attack surface.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Packages
   api_key: packages
   category: repository
@@ -262,13 +283,14 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Write access can push malicious images/packages to internal registries.
+      security_notes: Direct supply-chain vector allowing publication of backdoored package versions or overwriting package release tags.
     - access: read
-      severity: High
-      security_notes: Write access can push malicious images/packages to internal registries.
+      severity: Low
+      security_notes: Enumeration of internal package naming conventions, versions, and dependencies (dependency confusion reconnaissance).
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Pages
   api_key: pages
   category: repository
@@ -276,13 +298,14 @@
   access_levels:
     - access: write
       severity: Medium
-      security_notes: Could be used to deface documentation or host malicious payloads.
+      security_notes: Deploy malicious HTML/JS on the organization's public/private Pages site (XSS/phishing vector).
     - access: read
-      severity: Medium
-      security_notes: Could be used to deface documentation or host malicious payloads.
+      severity: Low
+      security_notes: Inspect Pages configuration and build status.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Pull Requests
   api_key: pull_requests
   category: repository
@@ -290,13 +313,14 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Write access allows an app to approve its own malicious PRs.
+      security_notes: Create, merge, or close pull requests; approve malicious PRs if automated approval rules exist.
     - access: read
-      severity: High
-      security_notes: Write access allows an app to approve its own malicious PRs.
+      severity: Low
+      security_notes: Read pull request code diffs and reviewer comments on private repositories.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Security advisories
   api_key: repository_advisories
   category: repository
@@ -304,13 +328,14 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Write access could allow an attacker to prematurely disclose an unpatched vulnerability, or suppress/alter a legitimate advisory before a fix ships.
+      security_notes: Tamper with draft security advisories, publish uncoordinated vulnerability disclosures, or alter CVE metadata.
     - access: read
       severity: High
-      security_notes: Write access could allow an attacker to prematurely disclose an unpatched vulnerability, or suppress/alter a legitimate advisory before a fix ships.
+      security_notes: Direct access to private draft security advisories and zero-day reports before public coordinated disclosure.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Custom properties
   api_key: repository_custom_properties
   category: repository
@@ -318,41 +343,44 @@
   access_levels:
     - access: write
       severity: Low
-      security_notes: Configuration manipulation.
+      security_notes: Manipulate repository custom metadata tags used for automated categorizations.
     - access: read
-      severity: Low
-      security_notes: Configuration manipulation.
+      severity: Informational
+      security_notes: Read repository custom metadata tags.
   needs_investigation: false
   doc_status: documented
   impact_plane: control
+  platform_availability: all
 - name: Webhooks
   api_key: repository_hooks
   category: repository
   overview: Manage repository webhooks.
   access_levels:
     - access: write
-      severity: Medium
-      security_notes: Write access allows exfiltrating event payloads to external servers.
+      severity: High
+      security_notes: Configure repository webhooks to stream repository events, commits, and PR contents to external listener.
     - access: read
-      severity: Medium
-      security_notes: Write access allows exfiltrating event payloads to external servers.
+      severity: Low
+      security_notes: Enumerate repository webhook endpoints and subscribed events.
   needs_investigation: false
   doc_status: documented
   impact_plane: control
+  platform_availability: all
 - name: Pre-receive hooks
   api_key: repository_pre_receive_hooks
   category: repository
   overview: Manage pre-receive hooks scoped to a specific repository (GitHub Enterprise Server).
   access_levels:
     - access: write
-      severity: High
-      security_notes: 'Same as the organization-level equivalent, scoped to one repository: a malicious hook executes server-side on every push.'
+      severity: Critical
+      security_notes: (GHES only) Direct server-side script execution on the Git backend appliance (Remote Code Execution risk).
     - access: read
-      severity: High
-      security_notes: 'Same as the organization-level equivalent, scoped to one repository: a malicious hook executes server-side on every push.'
+      severity: Medium
+      security_notes: (GHES only) Inspects server-side push validation scripts to discover bypasses in repository push policies.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: ghes_only
 - name: Projects
   api_key: repository_projects
   category: repository
@@ -360,13 +388,14 @@
   access_levels:
     - access: write
       severity: Low
-      security_notes: Project tracking manipulation.
+      security_notes: Project tracking and backlog manipulation / nuisance vector.
     - access: read
-      severity: Low
-      security_notes: Project tracking manipulation.
+      severity: Informational
+      security_notes: Basic visibility into project boards, issue roadmaps, and sprint backlogs.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Secret scanning alerts
   api_key: secret_scanning_alerts
   category: repository
@@ -374,13 +403,14 @@
   access_levels:
     - access: write
       severity: High
-      security_notes: Attackers could read alerts to find leaked credentials before you revoke them.
+      security_notes: Dismiss or resolve active secret scanning alerts to conceal exposed credentials.
     - access: read
       severity: High
-      security_notes: Attackers could read alerts to find leaked credentials before you revoke them.
+      security_notes: Discloses detected secret locations, secret types, and exposed token metadata on unpatched branches.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Secrets
   api_key: secrets
   category: repository
@@ -388,13 +418,14 @@
   access_levels:
     - access: write
       severity: Critical
-      security_notes: Write access allows overwriting secrets to capture data or pivot to cloud providers.
+      security_notes: Overwrite repository CI/CD secrets to pivot or exfiltrate production cloud credentials.
     - access: read
-      severity: Critical
-      security_notes: Write access allows overwriting secrets to capture data or pivot to cloud providers.
+      severity: Low
+      security_notes: Does not return plaintext secrets (lists secret names and updated dates). Reconnaissance only.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Code scanning alerts
   api_key: security_events
   category: repository
@@ -402,27 +433,29 @@
   access_levels:
     - access: write
       severity: Medium
-      security_notes: Write access allows an attacker to dismiss or suppress valid security alerts.
+      security_notes: Dismiss or suppress active SAST/CodeQL alerts to conceal newly introduced vulnerabilities.
     - access: read
       severity: Medium
-      security_notes: Write access allows an attacker to dismiss or suppress valid security alerts.
+      security_notes: Discloses detailed SAST findings, vulnerable code snippets, and exact sink locations on unpatched branches.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Single file
   api_key: single_file
   category: repository
   overview: Legacy permission allowing access to a single, named file in the repository (predates fine-grained permissions).
   access_levels:
     - access: write
-      severity: Medium
-      security_notes: Legacy apps using this permission can read/write one arbitrary named file per install - low blast radius per install, but the file path itself (e.g. a CI config) could still be sensitive.
+      severity: High
+      security_notes: Targeted modification of sensitive configuration files (e.g. .github/workflows/*.yml, package.json, or environment files) if scoped to critical paths.
     - access: read
       severity: Medium
-      security_notes: Legacy apps using this permission can read/write one arbitrary named file per install - low blast radius per install, but the file path itself (e.g. a CI config) could still be sensitive.
+      security_notes: Reading sensitive config files or application secrets targeted within the app's single-file path scope.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Commit statuses
   api_key: statuses
   category: repository
@@ -430,13 +463,14 @@
   access_levels:
     - access: write
       severity: Medium
-      security_notes: Can be used to forge passing statuses to force-merge bad code.
+      security_notes: Forge passing commit statuses to satisfy branch protection requirements and merge unauthorized code.
     - access: read
-      severity: Medium
-      security_notes: Can be used to forge passing statuses to force-merge bad code.
+      severity: Low
+      security_notes: Enumerate commit status labels and status check target URLs.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Dependabot alerts
   api_key: vulnerability_alerts
   category: repository
@@ -444,13 +478,14 @@
   access_levels:
     - access: write
       severity: Medium
-      security_notes: Attackers could suppress alerts, leaving vulnerable dependencies in place.
+      security_notes: Dismiss or close active Dependabot vulnerability alerts to leave vulnerable dependencies unpatched.
     - access: read
       severity: Medium
-      security_notes: Attackers could suppress alerts, leaving vulnerable dependencies in place.
+      security_notes: Discloses known vulnerable third-party dependencies, CVE identifiers, and CVSS scores on private repositories.
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all
 - name: Workflows
   api_key: workflows
   category: repository
@@ -458,10 +493,11 @@
   access_levels:
     - access: write
       severity: Critical
-      security_notes: Modifying a workflow file allows arbitrary code execution within the CI environment.
+      security_notes: Directly inject malicious steps, shell commands, or credential harvesting logic into CI/CD YAML files.
     - access: read
-      severity: Critical
-      security_notes: Modifying a workflow file allows arbitrary code execution within the CI environment.
+      severity: Medium
+      security_notes: Read workflow YAML definitions to identify vulnerable triggers (e.g. pull_request_target injection vectors).
   needs_investigation: false
   doc_status: documented
   impact_plane: data_execution
+  platform_availability: all

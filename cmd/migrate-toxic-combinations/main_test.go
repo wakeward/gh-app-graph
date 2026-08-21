@@ -49,23 +49,23 @@ func TestParseCombination_OrAlternatives(t *testing.T) {
 	}
 }
 
-func TestParseCombination_SingleOrSegmentSkippedInBuild(t *testing.T) {
+func TestParseCombination_SingleGrantVariantsIncludedInBuild(t *testing.T) {
 	known := testKnownKeys()
 	rows := []csvRow{{
 		Technique:   "Organization Takeover",
 		Combination: "Organization administration: write (or Members: write)",
-		Risk:        "Org-level catastrophic blast radius.",
+		Risk:        "Critical",
 		ExploitPath: "Invite malicious owners.",
 	}}
 	combos, warnings, err := buildFromCSV(rows, known)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(combos) != 0 {
-		t.Fatalf("expected single-permission variants to be skipped, got %d combos", len(combos))
+	if len(warnings) != 0 {
+		t.Fatalf("unexpected warnings: %v", warnings)
 	}
-	if len(warnings) != 2 {
-		t.Fatalf("expected 2 skip warnings, got %d: %v", len(warnings), warnings)
+	if len(combos) != 2 {
+		t.Fatalf("expected 2 single-grant toxic combinations, got %d", len(combos))
 	}
 }
 

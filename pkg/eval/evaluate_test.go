@@ -99,6 +99,27 @@ func TestEvaluate_NoOverlapIsNeitherMatchNorNearMiss(t *testing.T) {
 	}
 }
 
+func TestEvaluate_SingleGrantNoNearMissWhenAbsent(t *testing.T) {
+	orgTakeover := model.ToxicCombination{
+		ID:          "organization-takeover",
+		Technique:   "Organization Takeover",
+		BlastRadius: model.BlastRadiusCritical,
+		Permissions: []model.PermissionGrant{
+			{APIKey: "organization_administration", Access: model.AccessWrite},
+		},
+	}
+	perms := model.AppPermissionSet{Permissions: map[string]string{"metadata": "read"}}
+
+	result := Evaluate(perms, []model.ToxicCombination{orgTakeover})
+
+	if len(result.Matches) != 0 {
+		t.Fatalf("expected 0 matches, got %d", len(result.Matches))
+	}
+	if len(result.NearMisses) != 0 {
+		t.Fatalf("single-grant combo should not produce a near miss when absent, got %d", len(result.NearMisses))
+	}
+}
+
 func TestEvaluate_HighestBlastAcrossMultipleMatches(t *testing.T) {
 	mediumCombo := model.ToxicCombination{
 		ID:          "medium-combo",

@@ -16,7 +16,9 @@ type Match struct {
 }
 
 // NearMiss is a toxic combination missing exactly one permission grant to be
-// fully satisfied - useful for "one permission away from X" warnings.
+// fully satisfied - useful for "one permission away from X" warnings. Only
+// applies to multi-grant combinations; single-grant entries are either a
+// full match or not applicable.
 type NearMiss struct {
 	Combination model.ToxicCombination
 	Missing     []model.PermissionGrant
@@ -50,7 +52,9 @@ func Evaluate(perms model.AppPermissionSet, combos []model.ToxicCombination) Res
 				result.HighestBlast = combo.BlastRadius
 			}
 		case 1:
-			result.NearMisses = append(result.NearMisses, NearMiss{Combination: combo, Missing: missing})
+			if len(combo.Permissions) >= 2 {
+				result.NearMisses = append(result.NearMisses, NearMiss{Combination: combo, Missing: missing})
+			}
 		}
 	}
 	return result

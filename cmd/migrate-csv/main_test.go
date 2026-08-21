@@ -66,6 +66,16 @@ func TestParseAccess(t *testing.T) {
 	}
 }
 
+func TestInferPlatformAvailability_GHES(t *testing.T) {
+	ghesLevels := []model.AccessLevelDetail{{SecurityNotes: "(GHES only) Direct server-side script execution."}}
+	if got := inferPlatformAvailability("Manage pre-receive hooks (GitHub Enterprise Server).", ghesLevels); got != model.PlatformGHESOnly {
+		t.Errorf("got %q, want ghes_only", got)
+	}
+	if got := inferPlatformAvailability("Access repository contents.", nil); got != model.PlatformAll {
+		t.Errorf("got %q, want all", got)
+	}
+}
+
 func TestInferDocStatus(t *testing.T) {
 	cases := []struct {
 		overview string

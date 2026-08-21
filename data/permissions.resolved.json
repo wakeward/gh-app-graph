@@ -1,10 +1,10 @@
 {
   "build_meta": {
-    "built_at": "2026-08-13T19:38:53.34319793Z",
+    "built_at": "2026-08-21T19:19:56.052005287Z",
     "github_docs_api_version": "2026-03-10",
     "permission_count": 106,
     "dependency_edge_count": 20,
-    "toxic_combination_count": 6,
+    "toxic_combination_count": 23,
     "draft_data_notice": "permissions metadata is DRAFT seed data; dependencies include auto-detected Type A overlaps from octokit/app-permissions (subset of live GitHub permissions)."
   },
   "permissions": [
@@ -17,17 +17,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Write access allows triggering workflows with malicious inputs or altering artifacts."
+          "security_notes": "Trigger arbitrary workflow runs with malicious input parameters or tamper with workflow artifacts."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Write access allows triggering workflows with malicious inputs or altering artifacts."
+          "severity": "Low",
+          "security_notes": "Download workflow artifacts and inspect CI/CD execution logs."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Actions variables",
@@ -37,18 +38,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Medium",
-          "security_notes": "Could manipulate CI/CD logic dependent on variables."
+          "severity": "High",
+          "security_notes": "Manipulate build configuration variables to alter deployment targets or inject script parameters."
         },
         {
           "access": "read",
-          "severity": "Medium",
-          "security_notes": "Could manipulate CI/CD logic dependent on variables."
+          "severity": "Low",
+          "security_notes": "Information disclosure of repository build configuration variables."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Administration",
@@ -59,17 +61,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Full control over the repository lifecycle. Attackers can disable branch protections to force-merge bad code."
+          "security_notes": "Full repo lifecycle control: disable branch protections, force-merge code, delete repos, or change private repos to public."
         },
         {
           "access": "read",
-          "severity": "Critical",
-          "security_notes": "Full control over the repository lifecycle. Attackers can disable branch protections to force-merge bad code."
+          "severity": "Medium",
+          "security_notes": "Reconnaissance on branch protection rules, required approval counts, and collaborator permissions."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Agent secrets",
@@ -80,17 +83,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Write access allows overwriting secrets used by agent-driven automation to pivot to other systems."
+          "security_notes": "Overwrite agent secrets to alter repository automated agent behaviors or redirect credentials."
         },
         {
           "access": "read",
-          "severity": "Critical",
-          "security_notes": "Write access allows overwriting secrets used by agent-driven automation to pivot to other systems."
+          "severity": "Low",
+          "security_notes": "Does not return plaintext secrets (lists secret names and update dates). Reconnaissance only."
         }
       ],
       "needs_investigation": false,
       "doc_status": "unconfirmed_key",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Agent variables",
@@ -100,18 +104,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Medium",
-          "security_notes": "Configuration manipulation of agent-driven automation."
+          "severity": "High",
+          "security_notes": "Supply chain tampering: manipulate runtime variables passed to repository agent tasks."
         },
         {
           "access": "read",
-          "severity": "Medium",
-          "security_notes": "Configuration manipulation of agent-driven automation."
+          "severity": "Low",
+          "security_notes": "Reconnaissance into repository agent configuration parameters."
         }
       ],
       "needs_investigation": false,
       "doc_status": "unconfirmed_key",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Attestations",
@@ -122,17 +127,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Write access could allow forging or deleting attestations, undermining SLSA/provenance trust in the software supply chain."
+          "security_notes": "Forge or delete SLSA provenance attestations and artifact signing records, undermining supply chain verification."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Write access could allow forging or deleting attestations, undermining SLSA/provenance trust in the software supply chain."
+          "severity": "Informational",
+          "security_notes": "Inspect published build attestations and provenance bundles (typically public/standard data)."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Blocking users",
@@ -143,16 +149,18 @@
         {
           "access": "write",
           "severity": "Low",
-          "security_notes": "Nuisance vector - Assume it cannot block Admins"
+          "security_notes": "Nuisance vector - Cannot block organization administrators or alter repo access policies."
         },
         {
           "access": "read",
-          "severity": "Informational"
+          "severity": "Informational",
+          "security_notes": "Read-only list of blocked users; negligible security impact."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Checks",
@@ -163,17 +171,18 @@
         {
           "access": "write",
           "severity": "Medium",
-          "security_notes": "Can be used to forge a 'passing' CI pipeline, bypassing deployment gates."
+          "security_notes": "Forge passing check statuses to bypass required CI/CD status checks and force-merge unvetted code."
         },
         {
           "access": "read",
-          "severity": "Medium",
-          "security_notes": "Can be used to forge a 'passing' CI pipeline, bypassing deployment gates."
+          "severity": "Low",
+          "security_notes": "Inspect test execution outputs and check run results."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Code quality",
@@ -183,12 +192,14 @@
       "access_levels": [
         {
           "access": "read",
-          "severity": "Unknown"
+          "severity": "Medium",
+          "security_notes": "Discloses internal code quality issues, logic flaws, and unpatched weaknesses before fixes are deployed."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "unconfirmed_key",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Codespaces",
@@ -199,17 +210,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Spin up malicious compute environments as the user"
+          "security_notes": "Spin up malicious compute environments as the user, leading to potential cryptojacking or pivoting."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "Enumerate user environments to potential target for future exploitation"
+          "security_notes": "Enumerate user environments to identify machine configurations and target setups for future exploitation."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Codespaces lifecycle admin",
@@ -220,17 +232,18 @@
         {
           "access": "write",
           "severity": "Medium",
-          "security_notes": "Distrupt or deny development for a user"
+          "security_notes": "Disrupt or deny development environments for a targeted developer (DoS)."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "Enumerate user development workflows"
+          "security_notes": "Enumerate developer development workflows, machine activity, and lifecycle policies."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Codespaces metadata",
@@ -241,12 +254,13 @@
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "Read-only reconnaissance of dev environment configuration."
+          "security_notes": "Reconnaissance on devcontainer specifications and machine sizing."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Codespaces secrets",
@@ -257,17 +271,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Exfiltrate or overwrite personal environment secrets"
+          "security_notes": "Overwrite personal environment secrets to redirect external service connections and capture sensitive tokens in flight."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Exfiltrate personal environment secrets"
+          "severity": "Low",
+          "security_notes": "Does not expose plaintext secrets (GitHub API only exposes secret names and update timestamps). Reconnaissance only."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Codespaces user secrets",
@@ -278,17 +293,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Exfiltrate or overwrite personal environment secrets across all of the user's codespaces."
+          "security_notes": "Overwrite personal environment secrets across all of the user's codespaces to hijack downstream integrations."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Exfiltrate personal environment secrets across all of the user's codespaces"
+          "severity": "Low",
+          "security_notes": "Does not expose plaintext secrets (API returns secret names and updated dates only). Reconnaissance only."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Content references",
@@ -299,17 +315,18 @@
         {
           "access": "write",
           "severity": "Low",
-          "security_notes": "Primarily used for rich link previews; limited blast radius beyond spam/phishing content injection."
+          "security_notes": "Phishing/spam vector: inject customized visual link previews into issue threads."
         },
         {
           "access": "read",
-          "severity": "Low",
-          "security_notes": "Primarily used for rich link previews; limited blast radius beyond spam/phishing content injection."
+          "severity": "Informational",
+          "security_notes": "Read content references; negligible security impact."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Contents",
@@ -320,17 +337,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Write access allows direct source code modification (supply chain poisoning). Read access allows exfiltration of IP."
+          "security_notes": "Direct source code modification: inject backdoors into production branches, alter release tags, and poison supply chain."
         },
         {
           "access": "read",
-          "severity": "Critical",
-          "security_notes": "Write access allows direct source code modification (supply chain poisoning). Read access allows exfiltration of IP."
+          "severity": "High",
+          "security_notes": "Exfiltrate proprietary source code, internal algorithms, and embedded config files; review code to discover zero-days."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Copilot agent settings",
@@ -341,12 +359,13 @@
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "Read-only reconnaissance of agent configuration."
+          "security_notes": "Reconnaissance on repo-specific AI agent permissions and rules."
         }
       ],
       "needs_investigation": false,
       "doc_status": "unconfirmed_key",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Copilot messages",
@@ -357,12 +376,13 @@
         {
           "access": "read",
           "severity": "High",
-          "security_notes": "Read access could exfiltrate proprietary code snippets or sensitive content pasted into Copilot Chat"
+          "security_notes": "Exfiltrates proprietary code snippets, business logic, internal architectures, or secrets pasted into Copilot Chat."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Dependabot secrets",
@@ -373,17 +393,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Write access allows overwriting secrets used by dependency-update PRs to pivot to CI/CD or cloud credentials."
+          "security_notes": "Overwrite Dependabot secrets to intercept tokens during automated dependency PR runs."
         },
         {
           "access": "read",
-          "severity": "Critical",
-          "security_notes": "Write access allows overwriting secrets used by dependency-update PRs to pivot to CI/CD or cloud credentials."
+          "severity": "Low",
+          "security_notes": "Does not return plaintext secrets (lists secret names and timestamps). Reconnaissance only."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Deployments",
@@ -394,17 +415,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Write access could allow triggering unauthorized deployments to production."
+          "security_notes": "Trigger unauthorized deployment runs or forge successful deployment statuses to circumvent deployment gates."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Write access could allow triggering unauthorized deployments to production."
+          "severity": "Low",
+          "security_notes": "Reconnaissance into deployment environments, URLs, and deployment history."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Discussions",
@@ -415,17 +437,18 @@
         {
           "access": "write",
           "severity": "Low",
-          "security_notes": "Primarily a spam/phishing vector."
+          "security_notes": "Post spam/phishing comments or alter discussion threads."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "Primarily a spam/phishing vector."
+          "security_notes": "Read internal repository discussions and design decisions."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Email addresses",
@@ -436,18 +459,19 @@
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "User enumeration and reconnaissance"
+          "security_notes": "Discloses verified primary and backup email addresses; used for spear-phishing and user enumeration."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Enterprise AI controls",
       "api_key": "enterprise_ai_controls",
       "category": "enterprise",
-      "overview": "Manage enterprise-wide AI controls configuration. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "overview": "Manage enterprise-wide AI controls configuration. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
       "access_levels": [
         {
           "access": "read",
@@ -468,7 +492,7 @@
       "name": "Enterprise Copilot metrics",
       "api_key": "enterprise_copilot_metrics",
       "category": "enterprise",
-      "overview": "View enterprise Copilot metrics. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "overview": "View enterprise Copilot metrics. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
       "access_levels": [
         {
           "access": "read",
@@ -489,7 +513,7 @@
       "name": "Copilot usage records",
       "api_key": "enterprise_copilot_usage_records",
       "category": "enterprise",
-      "overview": "View enterprise Copilot API usage records. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "overview": "View enterprise Copilot API usage records. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
       "access_levels": [
         {
           "access": "read",
@@ -510,7 +534,7 @@
       "name": "Enterprise credentials",
       "api_key": "enterprise_credentials",
       "category": "enterprise",
-      "overview": "View and manage enterprise credentials. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "overview": "View and manage enterprise credentials. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
       "access_levels": [
         {
           "access": "read",
@@ -531,7 +555,7 @@
       "name": "Enterprise custom organization roles",
       "api_key": "enterprise_custom_organization_roles",
       "category": "enterprise",
-      "overview": "Create, edit, delete and list custom organization roles at the enterprise level. View system organization roles. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "overview": "Create, edit, delete and list custom organization roles at the enterprise level. View system organization roles. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
       "access_levels": [
         {
           "access": "read",
@@ -556,24 +580,25 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Low",
-          "security_notes": "Configuration manipulation. [FI]"
+          "severity": "Medium",
+          "security_notes": "Manipulate enterprise-wide metadata schemas and property definitions used for automated security policies and repository governance."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "User enumeration and reconnaissance"
+          "security_notes": "Reconnaissance on enterprise repository metadata schemas, business units, and compliance tags."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "undocumented_preview",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Custom enterprise roles",
       "api_key": "enterprise_custom_roles",
       "category": "enterprise",
-      "overview": "Manage enterprise custom roles and assignments. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "overview": "Manage enterprise custom roles and assignments. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
       "access_levels": [
         {
           "access": "read",
@@ -594,7 +619,7 @@
       "name": "Enterprise innersource vulnerabilities",
       "api_key": "enterprise_innersource_vulnerabilities",
       "category": "enterprise",
-      "overview": "View and manage innersource vulnerabilities across the enterprise. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "overview": "View and manage innersource vulnerabilities across the enterprise. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
       "access_levels": [
         {
           "access": "read",
@@ -615,7 +640,7 @@
       "name": "Enterprise custom properties for organizations",
       "api_key": "enterprise_organization_custom_properties",
       "category": "enterprise",
-      "overview": "View organization custom properties and administer definitions at the enterprise level. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "overview": "View organization custom properties and administer definitions at the enterprise level. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
       "access_levels": [
         {
           "access": "read",
@@ -641,17 +666,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Controls the blast radius of enterprise apps, allowing attackers to expand app scope to sensitive repos"
+          "security_notes": "Expand app permissions to sensitive enterprise repositories, escalating blast radius across the organization."
         },
         {
           "access": "read",
-          "severity": "Unknown",
-          "security_notes": "Controls the blast radius of enterprise apps, allowing attackers to expand app scope to sensitive repos."
+          "severity": "Medium",
+          "security_notes": "Enumerate which sensitive repositories have enterprise app integrations installed; maps high-value targets."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "undocumented_preview",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Organization installations",
@@ -662,23 +688,24 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Allows lateral movement across multiple organizations by silently installing/uninstalling apps."
+          "security_notes": "Silently install/uninstall enterprise apps across all member organizations to achieve enterprise-wide persistence."
         },
         {
           "access": "read",
-          "severity": "Unknown",
-          "security_notes": "Allows lateral movement across multiple organizations by silently installing/uninstalling apps."
+          "severity": "Medium",
+          "security_notes": "Maps all installed GitHub Apps across all enterprise orgs; exposes security tooling, bot accounts, and vendor footprint."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "undocumented_preview",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Enterprise organizations",
       "api_key": "enterprise_organizations",
       "category": "enterprise",
-      "overview": "Create and remove enterprise organizations. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "overview": "Create and remove enterprise organizations. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
       "access_levels": [
         {
           "access": "read",
@@ -699,7 +726,7 @@
       "name": "Enterprise people",
       "api_key": "enterprise_people",
       "category": "enterprise",
-      "overview": "Manage user access to the enterprise. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "overview": "Manage user access to the enterprise. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
       "access_levels": [
         {
           "access": "read",
@@ -725,23 +752,24 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Complete identity manipulation vector. Attackers can provision rogue accounts bypassing standard SSO."
+          "security_notes": "Provision rogue accounts, alter group memberships, and bypass IdP authentication controls across the enterprise."
         },
         {
           "access": "read",
-          "severity": "Unknown",
-          "security_notes": "Complete identity manipulation vector. Attackers can provision rogue accounts bypassing standard SSO."
+          "severity": "High",
+          "security_notes": "Exposes full enterprise directory, employee usernames, emails, department structures, and SAML metadata."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "undocumented_preview",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Enterprise single sign-on",
       "api_key": "enterprise_single_sign_on",
       "category": "enterprise",
-      "overview": "View and manage enterprise single sign-on configuration. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "overview": "View and manage enterprise single sign-on configuration. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
       "access_levels": [
         {
           "access": "read",
@@ -762,7 +790,7 @@
       "name": "Enterprise teams",
       "api_key": "enterprise_teams",
       "category": "enterprise",
-      "overview": "Create, edit, remove and view enterprise teams. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
+      "overview": "Create, edit, remove and view enterprise teams. (No public API key confirmed. Seeded from the GitHub App creation UI's \"Enterprise permissions\" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)",
       "access_levels": [
         {
           "access": "read",
@@ -788,17 +816,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Can manipulate approval requirements for production deployments."
+          "security_notes": "Alter deployment protection rules, remove required reviewers, and modify environment secrets access."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Can manipulate approval requirements for production deployments."
+          "severity": "Low",
+          "security_notes": "Enumerate deployment environment names and protection rules."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Followers",
@@ -808,16 +837,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Informational"
+          "severity": "Informational",
+          "security_notes": "Social graph manipulation / nuisance vector."
         },
         {
           "access": "read",
-          "severity": "Informational"
+          "severity": "Informational",
+          "security_notes": "Public social graph enumeration; negligible security impact."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Gists",
@@ -828,17 +860,18 @@
         {
           "access": "write",
           "severity": "Medium",
-          "security_notes": "Could alter code snippets or host malicious scripts under a trusted user's name"
+          "security_notes": "Alter code snippets, host malicious scripts/payloads, or phish under a trusted user's name."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "User reconnaissance"
+          "security_notes": "Read secret gists and user snippets to discover exposed credentials, internal notes, or draft code."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Git signing SSH public keys",
@@ -849,17 +882,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Could inject a key to forge signed commits as the user, undermining commit provenance"
+          "security_notes": "Inject an attacker-controlled public key to forge signed commits under the user identity, bypassing provenance checks."
         },
         {
           "access": "read",
-          "severity": "Unknown",
-          "security_notes": "What does RO allow? [FI]"
+          "severity": "Low",
+          "security_notes": "Returns public signing keys and key IDs. Cannot forge signatures without the private key; allows developer identity mapping."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "GPG keys",
@@ -870,17 +904,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Could inject a GPG key to forge signed commits/tags as the user, or delete legitimate keys to break verification"
+          "security_notes": "Inject a GPG public key to forge commit/tag signatures as the user, or delete legitimate keys to break signature verification."
         },
         {
           "access": "read",
-          "severity": "Unknown",
-          "security_notes": "What does RO allow? [FI]"
+          "severity": "Low",
+          "security_notes": "Returns public GPG keys, key IDs, and subkey capabilities. Cannot forge GPG signatures without the corresponding private key."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Interaction limits",
@@ -891,16 +926,18 @@
         {
           "access": "write",
           "severity": "Low",
-          "security_notes": "Could be used to lock out legitimate contributors (nuisance/DoS); limited security impact"
+          "security_notes": "Lock out legitimate contributors (nuisance/DoS); limited security impact."
         },
         {
           "access": "read",
-          "severity": "Informational"
+          "severity": "Informational",
+          "security_notes": "View active rate-limiting and interaction restrictions on personal repositories."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Issues",
@@ -910,18 +947,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Low",
-          "security_notes": "Can inject XSS payloads into developer workflow tools or spam issue trackers."
+          "severity": "Medium",
+          "security_notes": "Close legitimate issues, alter bug reports, or inject malicious instructions into issue discussions."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "Can inject XSS payloads into developer workflow tools or spam issue trackers."
+          "security_notes": "Read private issues, internal bug reports, and customer-reported security problems."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Git SSH keys",
@@ -932,17 +970,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Could add an attacker-controlled SSH key to impersonate the user for git operations against any repo they can access"
+          "security_notes": "Add an attacker-controlled SSH key to impersonate the user across any git operations and repositories they have access to."
         },
         {
           "access": "read",
-          "severity": "Unknown",
-          "security_notes": "What does RO allow? [FI]"
+          "severity": "Low",
+          "security_notes": "Returns public SSH keys. Cannot authenticate to git operations; useful for cross-referencing keys across external breaches."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Members",
@@ -953,17 +992,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Allows adding an attacker's identity directly to the org, bypassing IdP."
+          "security_notes": "Add attacker accounts directly to the organization, bypass SSO/IdP provisioning, or alter team administration rights."
         },
         {
           "access": "read",
-          "severity": "Critical",
-          "security_notes": "Allows adding an attacker's identity directly to the org, bypassing IdP."
+          "severity": "Medium",
+          "security_notes": "Enumerate member list, team hierarchies, and identify privileged administrators for targeted social engineering."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Merge queues",
@@ -974,17 +1014,18 @@
         {
           "access": "write",
           "severity": "Medium",
-          "security_notes": "Could disrupt CI/CD flow or force bad code into the queue."
+          "security_notes": "Manipulate merge queue order, remove entries, or force queued pull requests."
         },
         {
           "access": "read",
-          "severity": "Medium",
-          "security_notes": "Could disrupt CI/CD flow or force bad code into the queue."
+          "severity": "Low",
+          "security_notes": "Inspect merge queue status and pending branches."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Metadata",
@@ -994,13 +1035,14 @@
       "access_levels": [
         {
           "access": "read",
-          "severity": "Low",
-          "security_notes": "Baseline visibility. Cannot see code, just names, labels, and configurations."
+          "severity": "Informational",
+          "security_notes": "Mandatory baseline permission for all GitHub Apps (grants basic read access to repo name, description, owner, stars). Negligible attack surface."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Notifications",
@@ -1011,17 +1053,18 @@
         {
           "access": "write",
           "severity": "Low",
-          "security_notes": "Could suppress security or review notifications to hide actions [FI]"
+          "security_notes": "Mark security or review notifications as read to suppress awareness of suspicious activity."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "User enumeration and reconnaissance [FI]"
+          "security_notes": "Reconnaissance into user notifications, pull requests, issues, and repository activity."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "disputed",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Actions variables",
@@ -1031,18 +1074,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Medium",
-          "security_notes": "Could manipulate CI/CD logic dependent on variables across the organization such as manipulate endpoint or inject variables. Specalative and the impact is project dependant."
+          "severity": "High",
+          "security_notes": "Manipulate CI/CD environment variables across all organization pipelines (e.g. redirect build targets, alter registries)."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "Information disclosure"
+          "security_notes": "Information disclosure of non-secret configuration variables, infrastructure URLs, and build flags."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Administration",
@@ -1063,7 +1107,8 @@
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Agent secrets",
@@ -1078,13 +1123,14 @@
         },
         {
           "access": "read",
-          "severity": "Critical",
+          "severity": "Low",
           "security_notes": "Blast radius spans agent-driven automation across the whole organization - same class of risk as organization Actions secrets."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "unconfirmed_key",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Agent variables",
@@ -1094,18 +1140,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Medium",
-          "security_notes": "Configuration manipulation of agent-driven automation."
+          "severity": "High",
+          "security_notes": "Alter agent runtime configurations, endpoint URLs, and system context to induce prompt injection or rogue actions."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "Information disclosure"
+          "security_notes": "Reconnaissance into autonomous agent configurations and org-level automated tasks."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "unconfirmed_key",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Announcement banners",
@@ -1116,17 +1163,18 @@
         {
           "access": "write",
           "severity": "Low",
-          "security_notes": "Primarily a defacement/phishing vector (could post a fake banner directing users to a malicious link)."
+          "security_notes": "Defacement or spear-phishing vector (posting fake org-wide alerts directing developers to malicious login portals)."
         },
         {
           "access": "read",
           "severity": "Informational",
-          "security_notes": "Information disclosure (speculative)"
+          "security_notes": "Reconnaissance on active internal org communications."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "API Insights",
@@ -1137,12 +1185,13 @@
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "Reconnaissance"
+          "security_notes": "Reconnaissance on internal API traffic patterns, rate limits, and active automation clients."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Campaigns",
@@ -1152,18 +1201,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Informational",
-          "security_notes": "LOW. Could disrupt org-wide vulnerability remediation tracking, but no direct code/secret access."
+          "severity": "Low",
+          "security_notes": "Disrupt org-wide security remediation tracking, close remediation initiatives prematurely, or alter campaign scopes."
         },
         {
           "access": "read",
-          "severity": "Informational",
-          "security_notes": "LOW. Could disrupt org-wide vulnerability remediation tracking, but no direct code/secret access."
+          "severity": "Low",
+          "security_notes": "Discloses org-wide security vulnerability remediation status, outstanding tech debt, and targeted CVEs."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "unconfirmed_key",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Codespaces",
@@ -1174,17 +1224,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Could deploy malicious codespaces inside the org network boundary."
+          "security_notes": "Spin up unauthorized compute instances inside the org boundary for compute hijacking or internal network pivoting."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "Reconnaissance"
+          "security_notes": "Reconnaissance into active developer Codespaces and compute usage across the org."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Codespaces lifecycle admin",
@@ -1195,16 +1246,18 @@
         {
           "access": "write",
           "severity": "Medium",
-          "security_notes": "Can terminate or modify developer environments."
+          "security_notes": "Terminate or alter active developer environments across the org (operational disruption/DoS)."
         },
         {
           "access": "read",
-          "severity": "Informational"
+          "severity": "Informational",
+          "security_notes": "View org Codespaces lifecycle states and retention policies."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Codespaces secrets",
@@ -1215,17 +1268,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Exposes secrets to developer environments."
+          "security_notes": "Overwrite shared development environment secrets to intercept cloud tokens and backend credentials."
         },
         {
           "access": "read",
-          "severity": "Critical",
-          "security_notes": "Exposes secrets to developer environments."
+          "severity": "Low",
+          "security_notes": "Does not return plaintext secrets (exposes secret names and repository assignments only). Reconnaissance only."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Codespaces settings",
@@ -1236,17 +1290,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Configuration manipulation - Need to see what this could contain\nSecret Extraction via Access Policy Manipulation\nData Exposure via Port Forwarding Policies\nCryptojacking and Financial Exhaustion\nUnauthorized Access to Private Repositories"
+          "security_notes": "Manipulate port forwarding policies, allowed machine sizes, and base container image access controls."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "Reconnaissance and Information disclosure"
+          "security_notes": "Reconnaissance into default codespace networking, base images, and developer container constraints."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Copilot agent settings",
@@ -1257,17 +1312,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Could expand the Copilot coding agent's blast radius to sensitive repositories it shouldn't touch."
+          "security_notes": "Expand Copilot coding agent scope to sensitive or restricted repositories containing confidential code."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Could expand the Copilot coding agent's blast radius to sensitive repositories it shouldn't touch."
+          "severity": "Low",
+          "security_notes": "Reconnaissance identifying which repositories are excluded or indexed by Copilot agents."
         }
       ],
       "needs_investigation": false,
       "doc_status": "unconfirmed_key",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Copilot content exclusion",
@@ -1277,18 +1333,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Medium",
-          "security_notes": "Write access could remove exclusions protecting sensitive files, exposing them to Copilot's context window."
+          "severity": "High",
+          "security_notes": "Remove content exclusion paths protecting sensitive logic, secrets, or internal algorithms from Copilot ingestion."
         },
         {
           "access": "read",
           "severity": "Medium",
-          "security_notes": "Write access could remove exclusions protecting sensitive files, exposing them to Copilot's context window."
+          "security_notes": "Directly maps out the organization's most sensitive source code files, paths, and internal directories."
         }
       ],
       "needs_investigation": false,
       "doc_status": "unconfirmed_key",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Copilot metrics",
@@ -1299,12 +1356,13 @@
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "Information disclosure only (usage stats, not code content)."
+          "security_notes": "Information disclosure regarding developer adoption, acceptance rates, and active language telemetry."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Copilot seat management",
@@ -1315,17 +1373,18 @@
         {
           "access": "write",
           "severity": "Medium",
-          "security_notes": "Could grant/revoke Copilot access as a billing-abuse or denial-of-service vector against developers."
+          "security_notes": "Assign or revoke licenses for developers (financial manipulation or developer disruption)."
         },
         {
           "access": "read",
-          "severity": "Medium",
-          "security_notes": "Could grant/revoke Copilot access as a billing-abuse or denial-of-service vector against developers."
+          "severity": "Low",
+          "security_notes": "Reconnaissance on active Copilot users and team seat assignments."
         }
       ],
       "needs_investigation": false,
       "doc_status": "disputed",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Copilot Spaces",
@@ -1335,18 +1394,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Medium",
-          "security_notes": "Could inject malicious/misleading context into a shared Copilot Space used by many developers (indirect prompt injection vector)."
+          "severity": "High",
+          "security_notes": "Inject poisoned context, fake SDK guides, or backdoored patterns into shared developer context (Indirect Prompt Injection)."
         },
         {
           "access": "read",
-          "severity": "Medium",
-          "security_notes": "Could inject malicious/misleading context into a shared Copilot Space used by many developers (indirect prompt injection vector)."
+          "severity": "Low",
+          "security_notes": "Reconnaissance into curated developer context spaces and documentation sources."
         }
       ],
       "needs_investigation": false,
       "doc_status": "unconfirmed_key",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Custom organization roles",
@@ -1357,17 +1417,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Can create hidden, over-privileged organization roles to establish persistence."
+          "security_notes": "Create over-privileged custom organization roles to establish stealthy persistence or escalate privileges."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Can create hidden, over-privileged organization roles to establish persistence."
+          "severity": "Medium",
+          "security_notes": "Reconnaissance into custom org permissions; identifies over-privileged custom roles to target for takeover."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Custom properties",
@@ -1377,18 +1438,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Low",
-          "security_notes": "Configuration manipulation."
+          "severity": "Medium",
+          "security_notes": "Manipulate repository metadata properties used for automated policy enforcement, CI/CD triggering, or compliance tagging."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "Configuration manipulation."
+          "security_notes": "Reconnaissance on organizational property values and repository classification tags."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Custom repository roles",
@@ -1399,17 +1461,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Can create hidden, over-privileged roles to establish persistence."
+          "security_notes": "Create or alter custom repository roles to grant excessive permissions across repos without triggering standard admin alerts."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Can create hidden, over-privileged roles to establish persistence."
+          "severity": "Medium",
+          "security_notes": "Enumerate custom repository role permissions to find privilege escalation paths."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Dependabot secrets",
@@ -1420,17 +1483,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Allows pivoting via compromised dependency update PRs."
+          "security_notes": "Allows supply chain tampering; overwrite dependency update secrets to pivot to internal package registries."
         },
         {
           "access": "read",
-          "severity": "Critical",
-          "security_notes": "Allows pivoting via compromised dependency update PRs."
+          "severity": "Low",
+          "security_notes": "Does not return plaintext secrets (lists secret names and repository visibility). Reconnaissance only."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Dependabot variables",
@@ -1440,18 +1504,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Medium",
-          "security_notes": "Configuration manipulation."
+          "severity": "High",
+          "security_notes": "Supply chain tampering: alter registry URLs (e.g. NPM_CONFIG_REGISTRY) to force runners to authenticate to attacker servers and leak tokens."
         },
         {
           "access": "read",
-          "severity": "Medium",
-          "security_notes": "Configuration manipulation."
+          "severity": "Low",
+          "security_notes": "Reconnaissance on package registry endpoints and internal package feed URLs."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Events",
@@ -1467,7 +1532,8 @@
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Webhooks",
@@ -1477,18 +1543,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Medium",
-          "security_notes": "Can exfiltrate org-wide activity data."
+          "severity": "High",
+          "security_notes": "Create organization-wide webhooks to exfiltrate all event payloads (pushes, PR diffs, issue contents) in real time."
         },
         {
           "access": "read",
-          "severity": "Medium",
-          "security_notes": "Can exfiltrate org-wide activity data."
+          "severity": "Low",
+          "security_notes": "Enumerate configured webhook endpoints and subscribed events."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Knowledge bases",
@@ -1498,18 +1565,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Low",
-          "security_notes": "Could poison Copilot's retrieved context with misleading documentation (indirect prompt injection vector) - worth a closer look given AI-assistant use cases."
+          "severity": "High",
+          "security_notes": "Poison RAG/Copilot knowledge bases with insecure code patterns, backdoored snippet advice, or misleading guidelines."
         },
         {
           "access": "read",
-          "severity": "Low",
-          "security_notes": "Could poison Copilot's retrieved context with misleading documentation (indirect prompt injection vector) - worth a closer look given AI-assistant use cases."
+          "severity": "Medium",
+          "security_notes": "Access proprietary technical architecture documents, runbooks, and internal guides indexed for Copilot."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Network configurations",
@@ -1520,17 +1588,18 @@
         {
           "access": "write",
           "severity": "Medium",
-          "security_notes": "Could redirect Actions runner network traffic through an attacker-controlled configuration."
+          "security_notes": "Redirect Actions runner network routing or alter VPC gateway attachments."
         },
         {
           "access": "read",
-          "severity": "Medium",
-          "security_notes": "Could redirect Actions runner network traffic through an attacker-controlled configuration."
+          "severity": "Low",
+          "security_notes": "Reconnaissance into runner network configurations, subnet IDs, and cloud connectivity setups."
         }
       ],
       "needs_investigation": false,
       "doc_status": "unconfirmed_key",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Packages",
@@ -1541,17 +1610,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Write access can push malicious images/packages to internal registries org-wide, beyond a single repository's blast radius."
+          "security_notes": "Push malicious packages or backdoored images across the organization to execute dependency substitution attacks."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Write access can push malicious images/packages to internal registries org-wide, beyond a single repository's blast radius."
+          "severity": "Low",
+          "security_notes": "Enumerate internal package names, versions, and dependencies (accelerates dependency confusion attacks)."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Personal access token requests",
@@ -1562,17 +1632,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Could approve malicious token requests for persistence."
+          "security_notes": "Approve unauthorized high-privilege fine-grained PAT requests for persistent backdoor access."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Could approve malicious token requests for persistence."
+          "severity": "Low",
+          "security_notes": "View pending token requests, requested scopes, and applicant identities."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Personal access tokens",
@@ -1582,18 +1653,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "High",
-          "security_notes": "Could revoke legitimate tokens (DoS) or manipulate scope."
+          "severity": "Critical",
+          "security_notes": "Revoke active PATs across the organization (DoS) or manipulate token permissions and scopes."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Could revoke legitimate tokens (DoS) or manipulate scope."
+          "severity": "Medium",
+          "security_notes": "Enumerate active PAT grants, expiration dates, owners, and repository scopes across the entire organization."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Plan",
@@ -1604,12 +1676,13 @@
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "Information disclosure."
+          "security_notes": "Reconnaissance into organization subscription plan and feature limits."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Pre-receive hooks",
@@ -1619,18 +1692,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "High",
-          "security_notes": "Pre-receive hooks run server-side on every push; a malicious hook is a direct path to arbitrary code execution on the Git server infrastructure."
+          "severity": "Critical",
+          "security_notes": "(GHES only) Direct server-side script execution on the Git backend appliance (Remote Code Execution risk)."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Pre-receive hooks run server-side on every push; a malicious hook is a direct path to arbitrary code execution on the Git server infrastructure."
+          "severity": "Medium",
+          "security_notes": "(GHES only) Inspect server-side pre-receive scripts to discover logic flaws and push policy bypasses."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "ghes_only"
     },
     {
       "name": "Private registries",
@@ -1641,17 +1715,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Write access could overwrite registry credentials to redirect builds to a malicious package source (dependency substitution)."
+          "security_notes": "Overwrite package registry configurations to redirect build pipelines to malicious dependency mirrors."
         },
         {
           "access": "read",
-          "severity": "Critical",
-          "security_notes": "Write access could overwrite registry credentials to redirect builds to a malicious package source (dependency substitution)."
+          "severity": "Low",
+          "security_notes": "Lists configured private package registries (URLs, usernames, auth types). Excludes raw passwords/tokens."
         }
       ],
       "needs_investigation": false,
       "doc_status": "unconfirmed_key",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Projects",
@@ -1662,17 +1737,18 @@
         {
           "access": "write",
           "severity": "Low",
-          "security_notes": "Project tracking manipulation."
+          "security_notes": "Manipulate project tracking boards and workflows."
         },
         {
           "access": "read",
-          "severity": "Low",
-          "security_notes": "Project tracking manipulation."
+          "severity": "Informational",
+          "security_notes": "Reconnaissance on project status and task roadmaps."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Secrets",
@@ -1683,17 +1759,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Blast radius spans the entire organization's CI/CD pipelines."
+          "security_notes": "Overwrite shared Actions secrets or manipulate CI/CD pipelines to exfiltrate production credentials."
         },
         {
           "access": "read",
-          "severity": "Critical",
-          "security_notes": "Blast radius spans the entire organization's CI/CD pipelines."
+          "severity": "Low",
+          "security_notes": "Does not return plaintext secrets (lists secret names and repository access policies). Reconnaissance only."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Self-hosted runners",
@@ -1704,17 +1781,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Could register malicious runners (Runner Poisoning) to steal OIDC tokens or secrets."
+          "security_notes": "Register rogue self-hosted runners (Runner Poisoning) to execute malicious jobs and harvest CI/CD tokens."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Could register malicious runners (Runner Poisoning) to steal OIDC tokens or secrets."
+          "severity": "Low",
+          "security_notes": "Reconnaissance into runner infrastructure, OS platforms, labels, and online availability."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Blocking users",
@@ -1725,16 +1803,18 @@
         {
           "access": "write",
           "severity": "Medium",
-          "security_notes": "Prevent incident response?"
+          "security_notes": "Could block external security researchers from disclosing vulnerabilities or disrupt contributor access."
         },
         {
           "access": "read",
-          "severity": "Informational"
+          "severity": "Informational",
+          "security_notes": "Information disclosure on org-level blocked user lists."
         }
       ],
-      "needs_investigation": true,
+      "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Packages",
@@ -1745,17 +1825,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Write access can push malicious images/packages to internal registries."
+          "security_notes": "Direct supply-chain vector allowing publication of backdoored package versions or overwriting package release tags."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Write access can push malicious images/packages to internal registries."
+          "severity": "Low",
+          "security_notes": "Enumeration of internal package naming conventions, versions, and dependencies (dependency confusion reconnaissance)."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Pages",
@@ -1766,17 +1847,18 @@
         {
           "access": "write",
           "severity": "Medium",
-          "security_notes": "Could be used to deface documentation or host malicious payloads."
+          "security_notes": "Deploy malicious HTML/JS on the organization's public/private Pages site (XSS/phishing vector)."
         },
         {
           "access": "read",
-          "severity": "Medium",
-          "security_notes": "Could be used to deface documentation or host malicious payloads."
+          "severity": "Low",
+          "security_notes": "Inspect Pages configuration and build status."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Plan",
@@ -1792,7 +1874,8 @@
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Profile",
@@ -1803,17 +1886,18 @@
         {
           "access": "write",
           "severity": "Low",
-          "security_notes": "Defacement or social engineering"
+          "security_notes": "Profile defacement, social engineering, or inserting phishing links into user profile metadata."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "User enumeration and reconnaissance if user profile is private only"
+          "security_notes": "Reconnaissance on private profile details, company, location, and bio."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Pull Requests",
@@ -1824,17 +1908,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Write access allows an app to approve its own malicious PRs."
+          "security_notes": "Create, merge, or close pull requests; approve malicious PRs if automated approval rules exist."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Write access allows an app to approve its own malicious PRs."
+          "severity": "Low",
+          "security_notes": "Read pull request code diffs and reviewer comments on private repositories."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Security advisories",
@@ -1845,17 +1930,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Write access could allow an attacker to prematurely disclose an unpatched vulnerability, or suppress/alter a legitimate advisory before a fix ships."
+          "security_notes": "Tamper with draft security advisories, publish uncoordinated vulnerability disclosures, or alter CVE metadata."
         },
         {
           "access": "read",
           "severity": "High",
-          "security_notes": "Write access could allow an attacker to prematurely disclose an unpatched vulnerability, or suppress/alter a legitimate advisory before a fix ships."
+          "security_notes": "Direct access to private draft security advisories and zero-day reports before public coordinated disclosure."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Custom properties",
@@ -1866,17 +1952,18 @@
         {
           "access": "write",
           "severity": "Low",
-          "security_notes": "Configuration manipulation."
+          "security_notes": "Manipulate repository custom metadata tags used for automated categorizations."
         },
         {
           "access": "read",
-          "severity": "Low",
-          "security_notes": "Configuration manipulation."
+          "severity": "Informational",
+          "security_notes": "Read repository custom metadata tags."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Webhooks",
@@ -1886,18 +1973,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Medium",
-          "security_notes": "Write access allows exfiltrating event payloads to external servers."
+          "severity": "High",
+          "security_notes": "Configure repository webhooks to stream repository events, commits, and PR contents to external listener."
         },
         {
           "access": "read",
-          "severity": "Medium",
-          "security_notes": "Write access allows exfiltrating event payloads to external servers."
+          "severity": "Low",
+          "security_notes": "Enumerate repository webhook endpoints and subscribed events."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "control"
+      "impact_plane": "control",
+      "platform_availability": "all"
     },
     {
       "name": "Pre-receive hooks",
@@ -1907,18 +1995,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "High",
-          "security_notes": "Same as the organization-level equivalent, scoped to one repository: a malicious hook executes server-side on every push."
+          "severity": "Critical",
+          "security_notes": "(GHES only) Direct server-side script execution on the Git backend appliance (Remote Code Execution risk)."
         },
         {
           "access": "read",
-          "severity": "High",
-          "security_notes": "Same as the organization-level equivalent, scoped to one repository: a malicious hook executes server-side on every push."
+          "severity": "Medium",
+          "security_notes": "(GHES only) Inspects server-side push validation scripts to discover bypasses in repository push policies."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "ghes_only"
     },
     {
       "name": "Projects",
@@ -1929,17 +2018,18 @@
         {
           "access": "write",
           "severity": "Low",
-          "security_notes": "Project tracking manipulation."
+          "security_notes": "Project tracking and backlog manipulation / nuisance vector."
         },
         {
           "access": "read",
-          "severity": "Low",
-          "security_notes": "Project tracking manipulation."
+          "severity": "Informational",
+          "security_notes": "Basic visibility into project boards, issue roadmaps, and sprint backlogs."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Secret scanning alerts",
@@ -1950,17 +2040,18 @@
         {
           "access": "write",
           "severity": "High",
-          "security_notes": "Attackers could read alerts to find leaked credentials before you revoke them."
+          "security_notes": "Dismiss or resolve active secret scanning alerts to conceal exposed credentials."
         },
         {
           "access": "read",
           "severity": "High",
-          "security_notes": "Attackers could read alerts to find leaked credentials before you revoke them."
+          "security_notes": "Discloses detected secret locations, secret types, and exposed token metadata on unpatched branches."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Secrets",
@@ -1971,17 +2062,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Write access allows overwriting secrets to capture data or pivot to cloud providers."
+          "security_notes": "Overwrite repository CI/CD secrets to pivot or exfiltrate production cloud credentials."
         },
         {
           "access": "read",
-          "severity": "Critical",
-          "security_notes": "Write access allows overwriting secrets to capture data or pivot to cloud providers."
+          "severity": "Low",
+          "security_notes": "Does not return plaintext secrets (lists secret names and updated dates). Reconnaissance only."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Code scanning alerts",
@@ -1992,17 +2084,18 @@
         {
           "access": "write",
           "severity": "Medium",
-          "security_notes": "Write access allows an attacker to dismiss or suppress valid security alerts."
+          "security_notes": "Dismiss or suppress active SAST/CodeQL alerts to conceal newly introduced vulnerabilities."
         },
         {
           "access": "read",
           "severity": "Medium",
-          "security_notes": "Write access allows an attacker to dismiss or suppress valid security alerts."
+          "security_notes": "Discloses detailed SAST findings, vulnerable code snippets, and exact sink locations on unpatched branches."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Single file",
@@ -2012,18 +2105,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Medium",
-          "security_notes": "Legacy apps using this permission can read/write one arbitrary named file per install - low blast radius per install, but the file path itself (e.g. a CI config) could still be sensitive."
+          "severity": "High",
+          "security_notes": "Targeted modification of sensitive configuration files (e.g. .github/workflows/*.yml, package.json, or environment files) if scoped to critical paths."
         },
         {
           "access": "read",
           "severity": "Medium",
-          "security_notes": "Legacy apps using this permission can read/write one arbitrary named file per install - low blast radius per install, but the file path itself (e.g. a CI config) could still be sensitive."
+          "security_notes": "Reading sensitive config files or application secrets targeted within the app's single-file path scope."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Starring",
@@ -2033,18 +2127,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Medium",
-          "security_notes": "Use a legitimate account to inflate malicious repository \"trust\" and visibility and lower user trust"
+          "severity": "Low",
+          "security_notes": "Social proof manipulation (artificially inflate reputation of malicious repositories)."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "User enumeration and reconnaissance"
+          "security_notes": "Reconnaissance on user technology stack, interests, and dependencies."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Commit statuses",
@@ -2055,17 +2150,18 @@
         {
           "access": "write",
           "severity": "Medium",
-          "security_notes": "Can be used to forge passing statuses to force-merge bad code."
+          "security_notes": "Forge passing commit statuses to satisfy branch protection requirements and merge unauthorized code."
         },
         {
           "access": "read",
-          "severity": "Medium",
-          "security_notes": "Can be used to forge passing statuses to force-merge bad code."
+          "severity": "Low",
+          "security_notes": "Enumerate commit status labels and status check target URLs."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Team discussions",
@@ -2076,17 +2172,18 @@
         {
           "access": "write",
           "severity": "Low",
-          "security_notes": "Nuisance vector."
+          "security_notes": "Spam/nuisance vector; post unwanted messages in internal team boards."
         },
         {
           "access": "read",
-          "severity": "Low",
-          "security_notes": "Nuisance vector."
+          "severity": "Informational",
+          "security_notes": "Information disclosure of internal team discussion topics."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "User events",
@@ -2097,12 +2194,13 @@
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "User enumeration and reconnaissance"
+          "security_notes": "Reconnaissance on active working hours, target repositories, and commit patterns."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Dependabot alerts",
@@ -2113,17 +2211,18 @@
         {
           "access": "write",
           "severity": "Medium",
-          "security_notes": "Attackers could suppress alerts, leaving vulnerable dependencies in place."
+          "security_notes": "Dismiss or close active Dependabot vulnerability alerts to leave vulnerable dependencies unpatched."
         },
         {
           "access": "read",
           "severity": "Medium",
-          "security_notes": "Attackers could suppress alerts, leaving vulnerable dependencies in place."
+          "security_notes": "Discloses known vulnerable third-party dependencies, CVE identifiers, and CVSS scores on private repositories."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     },
     {
       "name": "Watching",
@@ -2133,18 +2232,19 @@
       "access_levels": [
         {
           "access": "write",
-          "severity": "Medium",
-          "security_notes": "Substitute a legitimate project with a typo-squatted repository with the intent of tricking the user to use it in future projects"
+          "severity": "Low",
+          "security_notes": "Manipulate user feed and repository notifications."
         },
         {
           "access": "read",
           "severity": "Low",
-          "security_notes": "User enumeration and reconnaissance"
+          "security_notes": "Reconnaissance on developer project engagements."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "governance_identity"
+      "impact_plane": "governance_identity",
+      "platform_availability": "all"
     },
     {
       "name": "Workflows",
@@ -2155,17 +2255,18 @@
         {
           "access": "write",
           "severity": "Critical",
-          "security_notes": "Modifying a workflow file allows arbitrary code execution within the CI environment."
+          "security_notes": "Directly inject malicious steps, shell commands, or credential harvesting logic into CI/CD YAML files."
         },
         {
           "access": "read",
-          "severity": "Critical",
-          "security_notes": "Modifying a workflow file allows arbitrary code execution within the CI environment."
+          "severity": "Medium",
+          "security_notes": "Read workflow YAML definitions to identify vulnerable triggers (e.g. pull_request_target injection vectors)."
         }
       ],
       "needs_investigation": false,
       "doc_status": "documented",
-      "impact_plane": "data_execution"
+      "impact_plane": "data_execution",
+      "platform_availability": "all"
     }
   ],
   "dependencies": [
@@ -2593,9 +2694,202 @@
         }
       ],
       "blast_radius": "Critical",
-      "risk_description": "Workflows: write allows the app to create or modify GitHub Actions YAML files in the .github/workflows/ directory.",
-      "exploit_path": "The attacker pushes a malicious workflow file that executes arbitrary shell commands on the GitHub-hosted runner. Because the workflow runs in the context of the repository, the attacker can use this compute environment to exfiltrate environment variables, access cloud provider credentials, or launch attacks against internal infrastructure.",
+      "risk_description": "Arbitrary Code Execution (Critical)",
+      "exploit_path": "The attacker pushes a malicious workflow file that executes arbitrary shell commands on the GitHub-hosted runner. Because the workflow runs in the context of the repository, the attacker can use this compute environment to exfiltrate environment variables or access cloud provider credentials.",
       "overlaps_technical_dependency": false,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "autonomous-gatekeeper-bypass-checks-write-contents-write-pull-requests-write",
+      "technique": "Autonomous Gatekeeper Bypass",
+      "permissions": [
+        {
+          "api_key": "pull_requests",
+          "access": "write"
+        },
+        {
+          "api_key": "checks",
+          "access": "write"
+        },
+        {
+          "api_key": "contents",
+          "access": "write"
+        }
+      ],
+      "blast_radius": "Critical",
+      "risk_description": "Autonomous Gatekeeper Bypass (Critical)",
+      "exploit_path": "Pushes malicious branch, opens PR, forges passing CI checks, and merges code bypassing branch protection and peer review.",
+      "overlaps_technical_dependency": true,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "autonomous-gatekeeper-bypass-contents-write-pull-requests-write-statuses-write",
+      "technique": "Autonomous Gatekeeper Bypass",
+      "permissions": [
+        {
+          "api_key": "pull_requests",
+          "access": "write"
+        },
+        {
+          "api_key": "statuses",
+          "access": "write"
+        },
+        {
+          "api_key": "contents",
+          "access": "write"
+        }
+      ],
+      "blast_radius": "Critical",
+      "risk_description": "Autonomous Gatekeeper Bypass (Critical)",
+      "exploit_path": "Pushes malicious branch, opens PR, forges passing CI checks, and merges code bypassing branch protection and peer review.",
+      "overlaps_technical_dependency": true,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "chatops-injection-to-ci-cd-secret-exfiltration",
+      "technique": "ChatOps Injection to CI/CD Secret Exfiltration",
+      "permissions": [
+        {
+          "api_key": "issues",
+          "access": "write"
+        },
+        {
+          "api_key": "actions",
+          "access": "write"
+        }
+      ],
+      "blast_radius": "High",
+      "risk_description": "ChatOps Injection to CI/CD Secret Exfiltration (High)",
+      "exploit_path": "Injects shell/command payloads into issue comments/titles and triggers workflow runs to dump secrets and execute untrusted code.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "ci-cd-pipeline-takeover-exfiltration-actions-write-workflows-write",
+      "technique": "CI/CD Pipeline Takeover \u0026 Exfiltration",
+      "permissions": [
+        {
+          "api_key": "workflows",
+          "access": "write"
+        },
+        {
+          "api_key": "actions",
+          "access": "write"
+        }
+      ],
+      "blast_radius": "Critical",
+      "risk_description": "CI/CD Pipeline Takeover \u0026 Exfiltration (Critical)",
+      "exploit_path": "Injects arbitrary build steps into Actions YAML and dispatches runs to exfiltrate all repository/org secrets and OIDC cloud tokens.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "ci-cd-pipeline-takeover-exfiltration-contents-write-workflows-write",
+      "technique": "CI/CD Pipeline Takeover \u0026 Exfiltration",
+      "permissions": [
+        {
+          "api_key": "workflows",
+          "access": "write"
+        },
+        {
+          "api_key": "contents",
+          "access": "write"
+        }
+      ],
+      "blast_radius": "Critical",
+      "risk_description": "CI/CD Pipeline Takeover \u0026 Exfiltration (Critical)",
+      "exploit_path": "Injects arbitrary build steps into Actions YAML and dispatches runs to exfiltrate all repository/org secrets and OIDC cloud tokens.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "copilot-rag-context-poisoning",
+      "technique": "Copilot RAG Context Poisoning",
+      "permissions": [
+        {
+          "api_key": "organization_knowledge_bases",
+          "access": "write"
+        },
+        {
+          "api_key": "organization_copilot_content_exclusion",
+          "access": "write"
+        }
+      ],
+      "blast_radius": "High",
+      "risk_description": "Copilot RAG Context Poisoning (High)",
+      "exploit_path": "Unmasks sensitive code paths to Copilot context and injects malicious coding guidelines/backdoors into shared IDE assistance.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "dependency-registry-poisoning-actions-variables-write-packages-write",
+      "technique": "Dependency Registry Poisoning",
+      "permissions": [
+        {
+          "api_key": "actions_variables",
+          "access": "write"
+        },
+        {
+          "api_key": "packages",
+          "access": "write"
+        }
+      ],
+      "blast_radius": "High",
+      "risk_description": "Dependency Registry Poisoning (High)",
+      "exploit_path": "Redirects internal registry endpoints via variables and serves backdoored packages to poison software builds org-wide.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "dependency-registry-poisoning-organization-dependabot-variables-write-packages-write",
+      "technique": "Dependency Registry Poisoning",
+      "permissions": [
+        {
+          "api_key": "organization_dependabot_variables",
+          "access": "write"
+        },
+        {
+          "api_key": "packages",
+          "access": "write"
+        }
+      ],
+      "blast_radius": "High",
+      "risk_description": "Dependency Registry Poisoning (High)",
+      "exploit_path": "Redirects internal registry endpoints via variables and serves backdoored packages to poison software builds org-wide.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "incident-response-coordination-dos",
+      "technique": "Incident Response Coordination DoS",
+      "permissions": [
+        {
+          "api_key": "members",
+          "access": "read"
+        },
+        {
+          "api_key": "blocking",
+          "access": "write"
+        },
+        {
+          "api_key": "issues",
+          "access": "write"
+        }
+      ],
+      "blast_radius": "Medium",
+      "risk_description": "Incident Response Coordination DoS (Medium)",
+      "exploit_path": "Enumerates administrators to selectively block responder accounts and tamper with active security triage issues during an active incident.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "all",
       "source": "migrate-toxic-combinations CSV"
     },
     {
@@ -2605,40 +2899,58 @@
         {
           "api_key": "organization_administration",
           "access": "write"
-        },
-        {
-          "api_key": "members",
-          "access": "write"
         }
       ],
       "blast_radius": "Critical",
-      "risk_description": "Organization administration and Members write together enable promoting attacker accounts to Org Owner and locking out legitimate admins.",
-      "exploit_path": "Promote an attacker-controlled account to Org Owner, then demote or remove legitimate admins.",
+      "risk_description": "Organization Takeover (Critical)",
+      "exploit_path": "A compromised app with Organization administration: write can invite new malicious users to the organization and promote them to Organization Owners. The attacker can then demote or remove legitimate admins, effectively locking the company out of its own source code, secrets, and deployment pipelines.",
       "overlaps_technical_dependency": false,
-      "source": "migrate-toxic-combinations writeup supplement"
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
     },
     {
-      "id": "status-check-forgery-merge",
-      "technique": "Status Check Forgery Merge",
+      "id": "persistent-repository-exfiltration-tap-contents-read-repository-hooks-write",
+      "technique": "Persistent Repository Exfiltration Tap",
       "permissions": [
         {
-          "api_key": "checks",
+          "api_key": "repository_hooks",
           "access": "write"
         },
         {
-          "api_key": "pull_requests",
-          "access": "write"
+          "api_key": "contents",
+          "access": "read"
         }
       ],
       "blast_radius": "High",
-      "risk_description": "Checks: write can forge required status results; Pull requests: write can open and merge changes without human review when combined.",
-      "exploit_path": "Create a pull request, mark required checks as passed via the Checks API, and merge without legitimate CI or human approval.",
+      "risk_description": "Persistent Repository Exfiltration Tap (High)",
+      "exploit_path": "Configures an external webhook listener on repo events (pushes, PRs, comments) to continuously stream code diffs and comments out-of-band.",
       "overlaps_technical_dependency": false,
-      "source": "migrate-toxic-combinations writeup supplement"
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
     },
     {
-      "id": "stealth-backdoor",
-      "technique": "Stealth Backdoor",
+      "id": "persistent-repository-exfiltration-tap-issues-read-repository-hooks-write",
+      "technique": "Persistent Repository Exfiltration Tap",
+      "permissions": [
+        {
+          "api_key": "repository_hooks",
+          "access": "write"
+        },
+        {
+          "api_key": "issues",
+          "access": "read"
+        }
+      ],
+      "blast_radius": "High",
+      "risk_description": "Persistent Repository Exfiltration Tap (High)",
+      "exploit_path": "Configures an external webhook listener on repo events (pushes, PRs, comments) to continuously stream code diffs and comments out-of-band.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "ransomware-code-destruction",
+      "technique": "Ransomware \u0026 Code Destruction",
       "permissions": [
         {
           "api_key": "administration",
@@ -2650,28 +2962,126 @@
         }
       ],
       "blast_radius": "Critical",
-      "risk_description": "Administration: write allows the app to manage repository settings, including branch protection rules",
-      "exploit_path": "An attacker can use the App to temporarily delete branch protection rules (like \"require pull request reviews\" or \"require status checks\"), push malicious code directly to the main branch using Contents: write, and then re-enable the protection rules. This allows them to inject backdoors into production code entirely undetected by standard developer workflows.",
+      "risk_description": "Ransomware \u0026 Code Destruction (Critical)",
+      "exploit_path": "An attacker uses the App to wipe production source code branches, delete release tags, and replace the entire commit tree with a ransom note. Because the app has Administration rights, it can also delete branch protections to force-push the destruction.",
       "overlaps_technical_dependency": true,
+      "platform_availability": "all",
       "source": "migrate-toxic-combinations CSV"
     },
     {
-      "id": "supply-chain-poisoning-via-releases-deployments",
+      "id": "real-time-data-tap-contents-read-organization-hooks-write",
+      "technique": "Real-Time Data Tap",
+      "permissions": [
+        {
+          "api_key": "organization_hooks",
+          "access": "write"
+        },
+        {
+          "api_key": "contents",
+          "access": "read"
+        }
+      ],
+      "blast_radius": "High",
+      "risk_description": "Real-Time Data Tap (High)",
+      "exploit_path": "Establishes a silent data exfiltration pipeline (webhook) for all repository code changes, PR comments, and issue data, requiring only read access to the underlying code.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "real-time-data-tap-contents-read-repository-hooks-write",
+      "technique": "Real-Time Data Tap",
+      "permissions": [
+        {
+          "api_key": "repository_hooks",
+          "access": "write"
+        },
+        {
+          "api_key": "contents",
+          "access": "read"
+        }
+      ],
+      "blast_radius": "High",
+      "risk_description": "Real-Time Data Tap (High)",
+      "exploit_path": "Establishes a silent data exfiltration pipeline (webhook) for all repository code changes, PR comments, and issue data, requiring only read access to the underlying code.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "runner-poisoning-credential-theft",
+      "technique": "Runner Poisoning \u0026 Credential Theft",
+      "permissions": [
+        {
+          "api_key": "organization_self_hosted_runners",
+          "access": "write"
+        },
+        {
+          "api_key": "actions",
+          "access": "write"
+        }
+      ],
+      "blast_radius": "Critical",
+      "risk_description": "Runner Poisoning \u0026 Credential Theft (Critical)",
+      "exploit_path": "Attaches an attacker-controlled runner to the org and dispatches privileged workflows to harvest enterprise cloud tokens.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "server-side-remote-code-execution",
+      "technique": "Server-Side Remote Code Execution",
+      "permissions": [
+        {
+          "api_key": "repository_pre_receive_hooks",
+          "access": "write"
+        },
+        {
+          "api_key": "contents",
+          "access": "write"
+        }
+      ],
+      "blast_radius": "Critical",
+      "risk_description": "Server-Side Remote Code Execution (Critical)",
+      "exploit_path": "(GHES only) Deploys malicious hook scripts that execute directly on the Git server infrastructure during push events.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "ghes_only",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "stealth-administrative-persistence",
+      "technique": "Stealth Administrative Persistence",
+      "permissions": [
+        {
+          "api_key": "organization_custom_roles",
+          "access": "write"
+        },
+        {
+          "api_key": "members",
+          "access": "write"
+        }
+      ],
+      "blast_radius": "Critical",
+      "risk_description": "Stealth Administrative Persistence (Critical)",
+      "exploit_path": "Creates custom roles with elevated capabilities and binds them to external or secondary collaborator accounts to evade Owner alerts.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "supply-chain-poisoning-via-releases-contents",
       "technique": "Supply Chain Poisoning via Releases",
       "permissions": [
         {
           "api_key": "contents",
           "access": "write"
-        },
-        {
-          "api_key": "deployments",
-          "access": "write"
         }
       ],
-      "blast_radius": "High",
-      "risk_description": "Allows an attacker to manipulate the final artifacts delivered to customers, bypassing the actual source code.",
-      "exploit_path": "Instead of modifying the source code (which might be audited), the attacker waits for a legitimate build to complete, then uses the App to overwrite the release artifact (e.g., an npm package, a Docker image, or a compiled binary) with a maliciously compiled version.",
+      "blast_radius": "Critical",
+      "risk_description": "Supply Chain Poisoning via Releases (Critical)",
+      "exploit_path": "Instead of modifying the source code (which might be audited), the attacker waits for a legitimate build to complete, then uses the App to overwrite the compiled GitHub Release artifact (via contents: write) or the container/npm package (via packages: write) with a maliciously compiled version.",
       "overlaps_technical_dependency": false,
+      "platform_availability": "all",
       "source": "migrate-toxic-combinations CSV"
     },
     {
@@ -2679,18 +3089,55 @@
       "technique": "Supply Chain Poisoning via Releases",
       "permissions": [
         {
-          "api_key": "contents",
-          "access": "write"
-        },
-        {
           "api_key": "packages",
           "access": "write"
         }
       ],
-      "blast_radius": "High",
-      "risk_description": "Allows an attacker to manipulate the final artifacts delivered to customers, bypassing the actual source code.",
-      "exploit_path": "Instead of modifying the source code (which might be audited), the attacker waits for a legitimate build to complete, then uses the App to overwrite the release artifact (e.g., an npm package, a Docker image, or a compiled binary) with a maliciously compiled version.",
+      "blast_radius": "Critical",
+      "risk_description": "Supply Chain Poisoning via Releases (Critical)",
+      "exploit_path": "Instead of modifying the source code (which might be audited), the attacker waits for a legitimate build to complete, then uses the App to overwrite the compiled GitHub Release artifact (via contents: write) or the container/npm package (via packages: write) with a maliciously compiled version.",
       "overlaps_technical_dependency": false,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "targeted-supply-chain-poisoning-via-single-file",
+      "technique": "Targeted Supply Chain Poisoning via Single File",
+      "permissions": [
+        {
+          "api_key": "single_file",
+          "access": "write"
+        },
+        {
+          "api_key": "pull_requests",
+          "access": "write"
+        }
+      ],
+      "blast_radius": "High",
+      "risk_description": "Targeted Supply Chain Poisoning via Single File (High)",
+      "exploit_path": "Injects backdoored dependencies or changes build configs in a specific path (e.g. package.json) and opens automated PRs to slip past review.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "all",
+      "source": "migrate-toxic-combinations CSV"
+    },
+    {
+      "id": "workflow-variable-poisoning-out-of-band-leak",
+      "technique": "Workflow Variable Poisoning \u0026 Out-of-Band Leak",
+      "permissions": [
+        {
+          "api_key": "contents",
+          "access": "read"
+        },
+        {
+          "api_key": "actions_variables",
+          "access": "write"
+        }
+      ],
+      "blast_radius": "High",
+      "risk_description": "Workflow Variable Poisoning \u0026 Out-of-Band Leak (High)",
+      "exploit_path": "Audits Actions YAML to locate external endpoints consuming non-secret variables, then updates variables to point to an attacker server to capture tokens sent in headers.",
+      "overlaps_technical_dependency": false,
+      "platform_availability": "all",
       "source": "migrate-toxic-combinations CSV"
     }
   ]

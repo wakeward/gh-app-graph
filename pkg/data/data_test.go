@@ -7,8 +7,8 @@ func TestLoadToxicCombinations_EmbeddedCatalog(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(combos) != 6 {
-		t.Fatalf("expected 6 embedded toxic combinations, got %d", len(combos))
+	if len(combos) != 23 {
+		t.Fatalf("expected 23 embedded toxic combinations, got %d", len(combos))
 	}
 }
 

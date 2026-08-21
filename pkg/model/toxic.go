@@ -16,12 +16,12 @@ type PermissionGrant struct {
 	Access AccessLevel `yaml:"access" json:"access"`
 }
 
-// ToxicCombination is a named attack technique unlocked by two or more
-// independently-grantable permissions being co-present on the same identity.
-// Each permission in the set is safe (or at least reviewed) on its own; the
-// combination is what creates the attack path. This is distinct from a
-// DependencyEdge, which is a technical prerequisite - an endpoint that
-// literally will not work without another permission.
+// ToxicCombination is a named attack technique an app installation enables.
+// Most entries require two or more independently-grantable permissions
+// co-present on the same identity; single-grant entries are also valid when
+// the technique/exploit path is worth surfacing explicitly (users often
+// accept a scope without understanding what it unlocks).
+// This is distinct from a DependencyEdge, which is a technical prerequisite.
 type ToxicCombination struct {
 	ID                          string            `yaml:"id" json:"id"`
 	Technique                   string            `yaml:"technique" json:"technique"`
@@ -30,5 +30,6 @@ type ToxicCombination struct {
 	RiskDescription             string            `yaml:"risk_description" json:"risk_description"`
 	ExploitPath                 string            `yaml:"exploit_path" json:"exploit_path"`
 	OverlapsTechnicalDependency bool              `yaml:"overlaps_technical_dependency" json:"overlaps_technical_dependency"`
+	PlatformAvailability        PlatformAvailability `yaml:"platform_availability,omitempty" json:"platform_availability,omitempty"`
 	Source                      string            `yaml:"source" json:"source"`
 }

@@ -96,10 +96,17 @@ func readCSV(path string) ([]csvRow, error) {
 	for i, h := range header {
 		idx[strings.TrimSpace(h)] = i
 	}
-	required := []string{"Permission Group", "Permission Name", "API Key", "Access Level", "Overview", "Severity", "Initial Security Thoughts", "Further Investigation?"}
+	required := []string{"Permission Group", "Permission Name", "API Key", "Access Level", "Overview", "Severity", "Further Investigation?"}
 	for _, col := range required {
 		if _, ok := idx[col]; !ok {
 			return nil, fmt.Errorf("missing expected column %q", col)
+		}
+	}
+	notesCol := "Security Context"
+	if _, ok := idx[notesCol]; !ok {
+		notesCol = "Initial Security Thoughts"
+		if _, ok := idx[notesCol]; !ok {
+			return nil, fmt.Errorf("missing expected column %q or %q", "Security Context", "Initial Security Thoughts")
 		}
 	}
 
@@ -124,7 +131,7 @@ func readCSV(path string) ([]csvRow, error) {
 			AccessText:    strings.TrimSpace(get(rec, "Access Level")),
 			Overview:      strings.TrimSpace(get(rec, "Overview")),
 			SeverityCol:   strings.TrimSpace(get(rec, "Severity")),
-			Notes:         strings.TrimSpace(get(rec, "Initial Security Thoughts")),
+			Notes:         strings.TrimSpace(get(rec, notesCol)),
 			FurtherInvest: strings.TrimSpace(get(rec, "Further Investigation?")),
 		})
 	}
@@ -185,14 +192,15 @@ func buildPermissions(rows []csvRow) ([]model.Permission, []string, error) {
 			plane = model.ImpactPlaneDataExecution
 		}
 		permissions = append(permissions, model.Permission{
-			Name:               g.name,
-			APIKey:             key,
-			Category:           strings.ToLower(g.group),
-			Overview:           g.overview,
-			AccessLevels:       g.levels,
-			NeedsInvestigation: g.needsInvestigation,
-			DocStatus:          inferDocStatus(g.overview),
-			ImpactPlane:        plane,
+			Name:                 g.name,
+			APIKey:               key,
+			Category:             strings.ToLower(g.group),
+			Overview:             g.overview,
+			AccessLevels:         g.levels,
+			NeedsInvestigation:   g.needsInvestigation,
+			DocStatus:            inferDocStatus(g.overview),
+			ImpactPlane:          plane,
+			PlatformAvailability: inferPlatformAvailability(g.overview, g.levels),
 		})
 	}
 	return permissions, warnings, nil
@@ -254,6 +262,17 @@ func parseSeverity(severityCol, notes string) (model.Severity, string, bool) {
 		return sev, rest, true
 	}
 	return "", trimmed, false
+}
+
+func inferPlatformAvailability(overview string, levels []model.AccessLevelDetail) model.PlatformAvailability {
+	text := strings.ToLower(overview)
+	for _, level := range levels {
+		text += " " + strings.ToLower(level.SecurityNotes)
+	}
+	if strings.Contains(text, "github enterprise server") || strings.Contains(text, "ghes only") {
+		return model.PlatformGHESOnly
+	}
+	return model.PlatformAll
 }
 
 func inferDocStatus(overview string) model.DocStatus {

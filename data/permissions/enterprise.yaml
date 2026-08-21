@@ -1,11 +1,12 @@
-# DRAFT - NOT CANONICAL. Seeded from an incomplete working spreadsheet plus
-# Enterprise UI observations. Severity/impact_plane are starting notes only.
-# Reconcile or replace once fetch-inventory + detect-overlap land.
+# DRAFT Enterprise permissions - NOT CANONICAL
+# Seeded by cmd/migrate-csv from an incomplete working spreadsheet plus Enterprise
+# UI observations. Severity/impact_plane are starting notes only. Replace or reconcile
+# once fetch-inventory and detect-overlap produce the real endpoint graph.
 # See data/permissions/README.md
 - name: Enterprise AI controls
   api_key: enterprise_ai_controls
   category: enterprise
-  overview: Manage enterprise-wide AI controls configuration. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
+  overview: Manage enterprise-wide AI controls configuration. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
   access_levels:
     - access: read
       severity: Low
@@ -19,7 +20,7 @@
 - name: Enterprise Copilot metrics
   api_key: enterprise_copilot_metrics
   category: enterprise
-  overview: View enterprise Copilot metrics. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
+  overview: View enterprise Copilot metrics. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
   access_levels:
     - access: read
       severity: Low
@@ -33,7 +34,7 @@
 - name: Copilot usage records
   api_key: enterprise_copilot_usage_records
   category: enterprise
-  overview: View enterprise Copilot API usage records. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
+  overview: View enterprise Copilot API usage records. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
   access_levels:
     - access: read
       severity: Low
@@ -47,7 +48,7 @@
 - name: Enterprise credentials
   api_key: enterprise_credentials
   category: enterprise
-  overview: View and manage enterprise credentials. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
+  overview: View and manage enterprise credentials. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
   access_levels:
     - access: read
       severity: High
@@ -61,7 +62,7 @@
 - name: Enterprise custom organization roles
   api_key: enterprise_custom_organization_roles
   category: enterprise
-  overview: Create, edit, delete and list custom organization roles at the enterprise level. View system organization roles. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
+  overview: Create, edit, delete and list custom organization roles at the enterprise level. View system organization roles. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
   access_levels:
     - access: read
       severity: Medium
@@ -78,18 +79,19 @@
   overview: Manage enterprise custom properties. (Preview)
   access_levels:
     - access: write
-      severity: Low
-      security_notes: Configuration manipulation. [FI]
+      severity: Medium
+      security_notes: Manipulate enterprise-wide metadata schemas and property definitions used for automated security policies and repository governance.
     - access: read
       severity: Low
-      security_notes: User enumeration and reconnaissance
-  needs_investigation: true
+      security_notes: Reconnaissance on enterprise repository metadata schemas, business units, and compliance tags.
+  needs_investigation: false
   doc_status: undocumented_preview
   impact_plane: control
+  platform_availability: all
 - name: Custom enterprise roles
   api_key: enterprise_custom_roles
   category: enterprise
-  overview: Manage enterprise custom roles and assignments. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
+  overview: Manage enterprise custom roles and assignments. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
   access_levels:
     - access: read
       severity: Medium
@@ -103,7 +105,7 @@
 - name: Enterprise innersource vulnerabilities
   api_key: enterprise_innersource_vulnerabilities
   category: enterprise
-  overview: View and manage innersource vulnerabilities across the enterprise. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
+  overview: View and manage innersource vulnerabilities across the enterprise. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
   access_levels:
     - access: read
       severity: Low
@@ -117,7 +119,7 @@
 - name: Enterprise custom properties for organizations
   api_key: enterprise_organization_custom_properties
   category: enterprise
-  overview: View organization custom properties and administer definitions at the enterprise level. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
+  overview: View organization custom properties and administer definitions at the enterprise level. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
   access_levels:
     - access: read
       severity: Low
@@ -135,13 +137,14 @@
   access_levels:
     - access: write
       severity: Critical
-      security_notes: Controls the blast radius of enterprise apps, allowing attackers to expand app scope to sensitive repos
+      security_notes: Expand app permissions to sensitive enterprise repositories, escalating blast radius across the organization.
     - access: read
-      severity: Unknown
-      security_notes: Controls the blast radius of enterprise apps, allowing attackers to expand app scope to sensitive repos.
-  needs_investigation: true
+      severity: Medium
+      security_notes: Enumerate which sensitive repositories have enterprise app integrations installed; maps high-value targets.
+  needs_investigation: false
   doc_status: undocumented_preview
   impact_plane: control
+  platform_availability: all
 - name: Organization installations
   api_key: enterprise_organization_installations
   category: enterprise
@@ -149,17 +152,18 @@
   access_levels:
     - access: write
       severity: Critical
-      security_notes: Allows lateral movement across multiple organizations by silently installing/uninstalling apps.
+      security_notes: Silently install/uninstall enterprise apps across all member organizations to achieve enterprise-wide persistence.
     - access: read
-      severity: Unknown
-      security_notes: Allows lateral movement across multiple organizations by silently installing/uninstalling apps.
-  needs_investigation: true
+      severity: Medium
+      security_notes: Maps all installed GitHub Apps across all enterprise orgs; exposes security tooling, bot accounts, and vendor footprint.
+  needs_investigation: false
   doc_status: undocumented_preview
   impact_plane: control
+  platform_availability: all
 - name: Enterprise organizations
   api_key: enterprise_organizations
   category: enterprise
-  overview: Create and remove enterprise organizations. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
+  overview: Create and remove enterprise organizations. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
   access_levels:
     - access: read
       severity: High
@@ -173,7 +177,7 @@
 - name: Enterprise people
   api_key: enterprise_people
   category: enterprise
-  overview: Manage user access to the enterprise. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
+  overview: Manage user access to the enterprise. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
   access_levels:
     - access: read
       severity: High
@@ -191,17 +195,18 @@
   access_levels:
     - access: write
       severity: Critical
-      security_notes: Complete identity manipulation vector. Attackers can provision rogue accounts bypassing standard SSO.
+      security_notes: Provision rogue accounts, alter group memberships, and bypass IdP authentication controls across the enterprise.
     - access: read
-      severity: Unknown
-      security_notes: Complete identity manipulation vector. Attackers can provision rogue accounts bypassing standard SSO.
-  needs_investigation: true
+      severity: High
+      security_notes: Exposes full enterprise directory, employee usernames, emails, department structures, and SAML metadata.
+  needs_investigation: false
   doc_status: undocumented_preview
   impact_plane: governance_identity
+  platform_availability: all
 - name: Enterprise single sign-on
   api_key: enterprise_single_sign_on
   category: enterprise
-  overview: View and manage enterprise single sign-on configuration. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
+  overview: View and manage enterprise single sign-on configuration. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
   access_levels:
     - access: read
       severity: High
@@ -215,7 +220,7 @@
 - name: Enterprise teams
   api_key: enterprise_teams
   category: enterprise
-  overview: Create, edit, remove and view enterprise teams. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, 2026-07-27 capture. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
+  overview: Create, edit, remove and view enterprise teams. (No public API key confirmed. Seeded from the GitHub App creation UI's "Enterprise permissions" screen, observed 2026-07-27. api_key is a placeholder derived from the UI label pending real endpoint/manifest confirmation.)
   access_levels:
     - access: read
       severity: Medium
