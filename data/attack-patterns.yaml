@@ -1,0 +1,646 @@
+# GitHub App attack patterns - draft catalog
+#
+# Status: seed for theorizing session. Cross-links toxic combinations (capability)
+# with actor paths (likelihood context). Do not treat as canonical until reviewed.
+#
+# Optional fields:
+#   sources[]         - URLs to prior art (blog posts, incident writeups)
+#   app_provenance[]  - marketplace | third_party_direct | internal_custom | enterprise
+#   install_level[]   - enterprise | organization | repository
+#   pattern_scope     - app_install | execution_plane | vendor_integration |
+#                       platform_defect | infrastructure
+#
+# See docs/attack-patterns/README.md, docs/methodology.md, and
+# docs/attack-patterns/red-team-series-mapping.md
+- id: initial-access-marketplace-typosquat
+  tactic: initial_access
+  name: Marketplace app typosquat or vendor confusion
+  description: >
+    An adversary publishes a GitHub App whose name, slug, or listing mimics a
+    trusted vendor or internal tool. Developers or owners install it believing
+    it is legitimate, granting requested permissions without review.
+  scenario_refs:
+    - S1
+  app_provenance:
+    - marketplace
+    - third_party_direct
+  install_level:
+    - organization
+  actor_preconditions:
+    - Attacker can register a GitHub App and list it on Marketplace or distribute an install URL
+    - Organization Owner (or Enterprise Owner at enterprise scope) completes installation
+  execution_preconditions:
+    - Victim org installs the typosquat app
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - Org app allow lists
+    - Require security review for new Marketplace installs
+  observable_artifacts:
+    - integration_installation.create
+  sources:
+    - https://wakeward.uk/security/20240513_red_team_github_1/
+  validation_status: desk_trace_draft
+- id: initial-access-phishing-security-app
+  tactic: initial_access
+  name: Phishing-driven install of fake security app
+  description: >
+    Social engineering (e.g. issue mentions, notification emails from
+    notifications@github.com) convinces a maintainer to install a rogue App
+    disguised as official security tooling. Once granted write and
+    administration scopes, the app executes repository destruction or extortion.
+  scenario_refs:
+    - S1
+  app_provenance:
+    - third_party_direct
+  install_level:
+    - organization
+  actor_preconditions:
+    - Ability to trigger credible GitHub notifications or direct contact with an Organization Owner
+  execution_preconditions:
+    - Organization Owner completes App installation OAuth flow (repository admin path insufficient if app requests administration or org-level permissions)
+  toxic_combination_ids:
+    - ransomware-code-destruction
+  enterprise_controls_that_reduce_likelihood:
+    - App approval policies
+    - Restrict third-party applications
+    - Security awareness on App install prompts
+  observable_artifacts:
+    - integration_installation.create
+  sources:
+    - https://wakeward.uk/security/20240513_red_team_github_1/
+    - https://astrix.security/learn/blog/nhi-attacks-making-waves-insights-on-latest-5-incidents/
+  validation_status: field_observed
+- id: initial-access-marketplace-install-clickthrough
+  tactic: initial_access
+  name: Marketplace install without permission review
+  description: >
+    A user installs a Marketplace App through routine click-through, treating
+    Marketplace presence as implicit trust and not comparing requested
+    permissions against least-privilege expectations.
+  scenario_refs:
+    - S1
+  app_provenance:
+    - marketplace
+  install_level:
+    - organization
+  actor_preconditions:
+    - Organization Owner (or Enterprise Owner for enterprise-scoped install) with Marketplace install rights
+  execution_preconditions:
+    - Install completes with full requested permission set
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - Mandatory permission review checklist
+    - gh-app-check org baseline before/after install
+  observable_artifacts:
+    - integration_installation.create
+  sources:
+    - https://wakeward.uk/security/20240513_red_team_github_1/
+  validation_status: desk_trace_draft
+- id: initial-access-internal-app-registration
+  tactic: app_registration
+  name: Internal org app registered by developer
+  description: >
+    A developer (or compromised developer account) registers an organization
+    GitHub App with elevated requested permissions. The app cannot act until an
+    org owner approves installation, but the manifest is attacker-controlled.
+  scenario_refs:
+    - S1
+  app_provenance:
+    - internal_custom
+  install_level:
+    - organization
+  actor_preconditions:
+    - Party can register a GitHub App (org member or enterprise-owned app developer)
+  execution_preconditions:
+    - Organization Owner approves installation (App Manager alone is insufficient at enterprise level)
+  toxic_combination_ids:
+    - organization-takeover
+  enterprise_controls_that_reduce_likelihood:
+    - Restrict who can register org apps
+    - App approval policies
+  observable_artifacts:
+    - integration_installation.create
+  sources:
+    - https://wakeward.uk/security/20240513_red_team_github_1/
+  validation_status: desk_trace_draft
+- id: initial-access-direct-install-link
+  tactic: initial_access
+  name: Direct OAuth install link (non-Marketplace)
+  description: >
+    A third-party or malicious App is installed via a direct GitHub App OAuth
+    install URL (vendor documentation, email, chat, or issue comment) rather
+    than through Marketplace discovery. The user may not associate the action
+    with installing a persistent integration.
+  scenario_refs:
+    - S1
+  app_provenance:
+    - third_party_direct
+  install_level:
+    - organization
+  actor_preconditions:
+    - Attacker controls or distributes an App install URL
+    - Organization Owner completes installation (unless manifest qualifies for repository-admin path; see installation-gates.md)
+  execution_preconditions:
+    - Victim completes the GitHub App installation OAuth flow
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - Restrict third-party App installations
+    - App approval policies
+  observable_artifacts:
+    - integration_installation.create
+  sources:
+    - https://wakeward.uk/security/20240513_red_team_github_1/
+  validation_status: desk_trace_draft
+- id: credential-access-leaked-app-private-key
+  tactic: credential_access
+  name: Leaked GitHub App private key in repository
+  description: >
+    A GitHub App private key (or webhook/client secret) is committed to a
+    repository or gist. GitHub may auto-revoke exposed App credentials, but an
+    attacker with the material can mint installation tokens for existing
+    installations until the key is rotated.
+  scenario_refs:
+    - S2b
+  app_provenance:
+    - internal_custom
+    - third_party_direct
+  actor_preconditions:
+    - Read access to repository or gist containing App credentials
+  execution_preconditions:
+    - App credentials not yet rotated or revoked
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - Secret scanning and push protection
+    - Key rotation after exposure
+  observable_artifacts:
+    - secret_scanning_alert.create
+  sources:
+    - https://docs.github.com/en/apps/using-github-apps/reviewing-and-revoking-authorization-of-github-apps
+  validation_status: desk_trace_draft
+- id: initial-access-repository-admin-install
+  tactic: initial_access
+  name: Repository admin install (constrained manifest)
+  description: >
+    A repository admin installs a GitHub App without Organization Owner
+    involvement. GitHub only allows this when the App requests zero
+    organization-level permissions, does not request repository administration
+    write, and the org has not blocked repository admins from installing apps.
+    Access is limited to repositories where the installer is admin.
+  scenario_refs:
+    - S1
+  app_provenance:
+    - marketplace
+    - third_party_direct
+    - internal_custom
+  install_level:
+    - repository
+  actor_preconditions:
+    - Installer is repository admin on target repos
+    - App manifest excludes org-level permissions and administration write
+    - Org policy allows repository admins to install apps
+  execution_preconditions:
+    - Install completes with repository-scoped selection only
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - Org setting preventing repository admins from installing apps
+    - Require Organization Owner approval for all app installs
+  observable_artifacts:
+    - integration_installation.create
+    - integration_installation.repositories_added
+  sources:
+    - docs/installation-gates.md
+  validation_status: desk_trace_draft
+- id: initial-access-enterprise-owner-install
+  tactic: initial_access
+  name: Enterprise owner enterprise-wide install
+  description: >
+    An Enterprise Owner installs a GitHub App at enterprise scope. App Manager
+    role alone cannot install at enterprise level. Third-party Apps requesting
+    enterprise_organization_installations or
+    enterprise_organization_installation_repositories cannot be installed on
+    an enterprise unless that enterprise owns the App.
+  scenario_refs:
+    - S1
+  app_provenance:
+    - enterprise
+    - internal_custom
+  install_level:
+    - enterprise
+  actor_preconditions:
+    - Installer is Enterprise Owner (not App Manager alone)
+  execution_preconditions:
+    - Enterprise-wide installation completes
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - Enterprise app approval policies
+    - Restrict enterprise app installs to enterprise-owned apps for sensitive enterprise permissions
+  observable_artifacts:
+    - integration_installation.create (enterprise - verify audit event)
+  sources:
+    - docs/installation-gates.md
+  validation_status: desk_trace_draft
+- id: initial-access-owner-approval
+  tactic: initial_access
+  name: Organization owner approval of elevated app
+  description: >
+    A party registers or controls a GitHub App manifest with elevated requested
+    permissions and obtains an org installation only after an Organization Owner
+    approves the install or upgrade. Required for org-level permissions,
+    repository administration write, and org-wide repository selection.
+  scenario_refs:
+    - S1
+  app_provenance:
+    - marketplace
+    - third_party_direct
+    - internal_custom
+  install_level:
+    - organization
+  actor_preconditions:
+    - Can create or modify a GitHub App manifest, or control the publisher account
+    - Can persuade or routine-trick an Organization Owner into approving install
+  execution_preconditions:
+    - Installation completes with declared permissions
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - GitHub App approval policies (Enterprise)
+    - Restrict third-party app access
+    - Require SSO for org membership
+  observable_artifacts:
+    - integration_installation.create (audit log - verify event name per tier)
+    - integration_installation.repositories_added
+  sources:
+    - https://wakeward.uk/security/20240513_red_team_github_1/
+  validation_status: theoretical
+- id: permission-acquisition-publisher-upgrade
+  tactic: permission_acquisition
+  name: Publisher manifest upgrade re-approval
+  description: >
+    A benign app is installed with narrow permissions. The external publisher
+    later expands the requested permission set; the org must re-approve. Owners
+    may click through without security review.
+  scenario_refs:
+    - S2a
+  app_provenance:
+    - marketplace
+    - third_party_direct
+  actor_preconditions:
+    - External app publisher, or compromised publisher infrastructure
+  execution_preconditions:
+    - Org owner re-approves expanded permissions
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - App approval policies requiring admin review on permission changes
+    - Drift monitoring (future gh-app-check phase)
+  observable_artifacts:
+    - integration_installation.new_permissions_accepted (verify)
+  validation_status: theoretical
+- id: execution-abuse-declared-scopes
+  tactic: execution
+  name: Abuse within unchanged declared scopes
+  description: >
+    The installed permission set does not change. The app backend exercises
+    already-granted scopes maliciously. Static Phase 1 audit shows the same
+    risk before and after abuse begins.
+  scenario_refs:
+    - S2b
+  actor_preconditions:
+    - Compromised publisher backend or malicious publisher intent
+  execution_preconditions:
+    - Valid installation token or app credentials
+  toxic_combination_ids:
+    - arbitrary-code-execution
+    - ransomware-code-destruction
+    - organization-takeover
+  enterprise_controls_that_reduce_likelihood:
+    - Least-privilege install review
+    - Repository selection limited to required repos
+  observable_artifacts:
+    - API activity from app installation (audit log categories vary by plan)
+  validation_status: theoretical
+- id: defense-evasion-ephemeral-admin-change
+  tactic: defense_evasion
+  name: Ephemeral branch protection or permission change
+  description: >
+    An actor with administration and contents write temporarily weakens branch
+    protection, pushes malicious changes, then restores settings to reduce
+    visibility in normal developer workflows.
+  scenario_refs:
+    - S3
+  actor_preconditions:
+    - Org owner, app with repo admin+contents write, or compromised admin account
+  execution_preconditions:
+    - administration write and contents write on target repository
+  toxic_combination_ids:
+    - ransomware-code-destruction
+  enterprise_controls_that_reduce_likelihood:
+    - Audit log streaming and alerting on branch protection changes
+    - Required reviewers cannot be bypassed by apps (policy review)
+  observable_artifacts:
+    - branch_protection_rule.destroy (verify)
+    - push events to default branch outside merge queue
+  validation_status: theoretical
+- id: impact-portfolio-spray
+  tactic: impact
+  name: Portfolio of narrow apps masking collective exposure
+  description: >
+    Many apps each with modest scopes are installed across teams. No single
+    app triggers god-mode rules, but combined access covers secrets, CI, and
+    production repositories.
+  scenario_refs:
+    - S4
+  actor_preconditions:
+    - Decentralized install rights or repeated social engineering
+  execution_preconditions:
+    - Multiple installations across the org
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - Centralized app inventory review
+    - Org-wide app allow lists
+  observable_artifacts:
+    - Count of active integrations over time
+  validation_status: theoretical
+- id: initial-access-selected-repo-secrets
+  tactic: initial_access
+  name: Selected-repo install on high-value target
+  description: >
+    Attacker obtains install on selected repositories only, targeting those
+    with production secrets, release tags, or deployment workflows rather
+    than requesting org-wide access upfront.
+  scenario_refs:
+    - S1
+  app_provenance:
+    - marketplace
+    - third_party_direct
+    - internal_custom
+  install_level:
+    - organization
+    - repository
+  actor_preconditions:
+    - Organization Owner approves org install with selected repos, OR repository admin uses constrained manifest path on target repo
+  execution_preconditions:
+    - Installation includes target repo in selection
+  toxic_combination_ids:
+    - ci-cd-pipeline-takeover-exfiltration-actions-write-workflows-write
+    - supply-chain-poisoning-via-releases-contents
+  enterprise_controls_that_reduce_likelihood:
+    - Restrict who can install apps on sensitive repos
+    - Environment protection rules on deployment targets
+  observable_artifacts:
+    - integration_installation.repositories_added
+  validation_status: theoretical
+- id: execution-workflow-dispatch-abuse
+  tactic: execution
+  name: Malicious workflow dispatch via actions write
+  description: >
+    With actions and workflows write, an app triggers or modifies CI runs to
+    exfiltrate secrets available to the workflow context.
+  scenario_refs:
+    - S2b
+  actor_preconditions:
+    - Installed app with CI-related writes
+  execution_preconditions:
+    - Workflows can access org or repo secrets in target repositories
+  toxic_combination_ids:
+    - ci-cd-pipeline-takeover-exfiltration-actions-write-workflows-write
+    - runner-poisoning-credential-theft
+  enterprise_controls_that_reduce_likelihood:
+    - OIDC over long-lived cloud secrets where possible
+    - Self-hosted runner isolation and approval
+  observable_artifacts:
+    - workflow_run events
+  validation_status: theoretical
+- id: initial-access-marketplace-verification-paradox
+  tactic: initial_access
+  name: Marketplace verification mistaken for security review
+  description: >
+    An administrator installs a Marketplace App because the listing shows
+    verification (domain TXT, 2FA on publisher org), treating platform
+    identity checks as endorsement of secure backend handling and least
+    privilege. Verification does not audit PEM storage, callback validation,
+    or manifest minimization.
+  scenario_refs:
+    - S1
+  pattern_scope: app_install
+  app_provenance:
+    - marketplace
+  install_level:
+    - organization
+  actor_preconditions:
+    - Organization Owner or delegated installer trusts verification badge
+  execution_preconditions:
+    - Install completes with full requested permission set without separate review
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - Mandatory permission review independent of Marketplace badge
+    - gh-app-check org capability baseline before/after install
+  observable_artifacts:
+    - integration_installation.create
+  sources:
+    - docs/marketplace-trust-limitations.md
+    - docs/references/ecosystem-research-synthesis.md
+  validation_status: desk_trace_draft
+- id: credential-access-prt-fork-iatt-exfiltration
+  tactic: credential_access
+  name: pull_request_target fork checkout exfiltrates App installation token
+  description: >
+    A workflow triggered by pull_request_target runs in the base repository
+    context with secrets access, mints an Installation Access Token via
+    actions/create-github-app-token, then checks out the fork HEAD and executes
+    untrusted code. Attacker code reads git-credentials temp files and exfiltrates
+    the IAT, enabling direct API abuse within installed scopes.
+  scenario_refs:
+    - S5
+  pattern_scope: execution_plane
+  app_provenance:
+    - internal_custom
+  actor_preconditions:
+    - Repository workflow uses pull_request_target with App PEM in secrets
+    - Attacker can open a fork PR to trigger the workflow
+  execution_preconditions:
+    - Checkout uses head ref; build step runs fork code with token on disk
+  toxic_combination_ids:
+    - ci-cd-pipeline-takeover-exfiltration-actions-write-workflows-write
+    - supply-chain-poisoning-via-releases-contents
+  enterprise_controls_that_reduce_likelihood:
+    - Zizmor or equivalent workflow static analysis
+    - Never pass App tokens to checkout of untrusted refs
+    - pull_request instead of pull_request_target where possible
+  observable_artifacts:
+    - workflow_run events from fork PR
+    - outbound network from runner (if monitored)
+  sources:
+    - https://github.com/advisories/GHSA-9g93-rxr5-xhqw
+    - docs/credential-lifecycle.md
+  validation_status: field_observed
+- id: execution-ai-agent-external-bot-trust
+  tactic: execution
+  name: Workflow trusts any GitHub App bot identity
+  description: >
+    CI workflows gate AI or automation triggers on write access or a bot allow
+    list, but treat any actor ending in [bot] as trusted. An attacker-owned
+    GitHub App on an unrelated repository can open issues or PRs on the target,
+    passing the check and triggering privileged agent workflows.
+  scenario_refs:
+    - S5
+  pattern_scope: execution_plane
+  app_provenance:
+    - third_party_direct
+    - marketplace
+  actor_preconditions:
+    - Attacker can register and install their own GitHub App
+    - Target repo workflow uses permissive bot trust (e.g. allow all [bot] actors)
+  execution_preconditions:
+    - Attacker App opens issue or PR on target repository
+  toxic_combination_ids:
+    - ci-cd-pipeline-takeover-exfiltration-actions-write-workflows-write
+  enterprise_controls_that_reduce_likelihood:
+    - Allow-list specific App slugs by installation ID
+    - Require org-owned App installations for automation triggers
+  observable_artifacts:
+    - issues.opened / pull_request events from external App
+    - workflow_run triggered by issue_comment or issue
+  sources:
+    - docs/references/ecosystem-research-synthesis.md
+  validation_status: desk_trace_draft
+- id: execution-indirect-prompt-injection-agent
+  tactic: execution
+  name: Indirect prompt injection via issue or PR body to agent App
+  description: >
+    A GitHub App-backed AI agent ingests untrusted issue, PR, or comment text
+    as instructions. Attacker embeds prompt injection to exfiltrate environment
+    variables, OIDC request tokens, or repository content via the agent's tools
+    and write permissions within the workflow container.
+  scenario_refs:
+    - S5
+  pattern_scope: execution_plane
+  app_provenance:
+    - marketplace
+    - third_party_direct
+  actor_preconditions:
+    - Agent workflow runs with id-token write or secrets in environment
+    - Attacker can supply issue or PR body text (often via external bot trust path)
+  execution_preconditions:
+    - Agent executes injected instructions using granted App or OIDC credentials
+  toxic_combination_ids:
+    - ci-cd-pipeline-takeover-exfiltration-actions-write-workflows-write
+  enterprise_controls_that_reduce_likelihood:
+    - Restrict which actors trigger agent workflows
+    - Sandboxed tool allow lists; no raw environ exfil paths
+  observable_artifacts:
+    - Public issue comments containing exfiltrated token fragments
+    - workflow_run with agent action from untrusted actor
+  sources:
+    - docs/references/ecosystem-research-synthesis.md
+  validation_status: desk_trace_draft
+- id: credential-access-vendor-install-callback-binding
+  tactic: credential_access
+  name: Vendor mishandles GitHub App install OAuth callback
+  description: >
+    A third-party platform integrating via GitHub Apps accepts install callbacks
+    without validating OAuth state or session ownership, binding a victim org
+    installation ID (and sometimes client_secret, webhook_secret, or PEM) to an
+    attacker-controlled tenant. Examples include missing state verification and
+    trusting attacker-supplied organizationId in decoded state.
+  scenario_refs:
+    - S6
+  pattern_scope: vendor_integration
+  app_provenance:
+    - third_party_direct
+  actor_preconditions:
+    - Attacker can reach vendor setup callback URL
+  execution_preconditions:
+    - Victim org completes legitimate GitHub App install while attacker poisons callback
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - Prefer org-owned Apps over vendor-hosted App credentials
+    - Review vendor GitHub integration architecture before granting org access
+  observable_artifacts:
+    - integration_installation.create on victim org
+    - Vendor-side project record pointing to attacker tenant (vendor logs)
+  sources:
+    - CVE-2026-30920
+    - CVE-2026-72871
+    - docs/references/ecosystem-research-synthesis.md
+  validation_status: field_observed
+- id: credential-access-webhook-handler-ssrf-jwt
+  tactic: credential_access
+  name: Webhook handler SSRF exfiltrates App JWT before signature verify
+  description: >
+    A self-hosted or vendor controller processes GitHub webhooks by minting an
+    App JWT and requesting an installation token using a host taken from attacker-
+    controlled headers (e.g. X-GitHub-Enterprise-Host) before verifying webhook
+    signatures. Attacker captures the JWT and mints IATs against the real GitHub API.
+  scenario_refs:
+    - S6
+  pattern_scope: vendor_integration
+  app_provenance:
+    - internal_custom
+    - enterprise
+  actor_preconditions:
+    - Attacker can POST to the webhook or setup endpoint
+  execution_preconditions:
+    - Controller forwards signed JWT to attacker-controlled host
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - Verify webhook signature before any outbound GitHub API call
+    - Hard-code expected GitHub host; ignore client-supplied enterprise host headers
+  observable_artifacts:
+    - Outbound connections from integration service to unexpected hosts
+  sources:
+    - CVE-2026-54167
+    - docs/credential-lifecycle.md
+  validation_status: field_observed
+- id: persistence-dangling-dns-oauth-webhook
+  tactic: persistence
+  name: Dangling DNS hijacks App OAuth or webhook endpoint
+  description: >
+    An org registers a GitHub App or OAuth callback URL pointing at a cloud
+    hostname. The cloud resource is deleted but the DNS CNAME remains. An
+    attacker reclaims the cloud identifier and receives OAuth codes, webhook
+    payloads, or signed delivery attempts intended for the legitimate integration.
+  scenario_refs:
+    - S6
+  pattern_scope: infrastructure
+  app_provenance:
+    - internal_custom
+    - enterprise
+  actor_preconditions:
+    - Attacker discovers dangling CNAME to decommissioned SaaS resource
+  execution_preconditions:
+    - DNS still resolves attacker-controlled endpoint for App callback or webhook URL
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - EASM monitoring for dangling DNS on integration subdomains
+    - Tear down DNS when decommissioning webhook receivers
+  observable_artifacts:
+    - OAuth callbacks or webhook deliveries to unexpected TLS cert or IP
+  sources:
+    - docs/references/ecosystem-research-synthesis.md
+  validation_status: desk_trace_draft
+- id: platform-defect-u2s-scope-creep
+  tactic: execution
+  name: Platform mis-enforces user-to-server or installation token scope
+  description: >
+    A GitHub platform defect allows tokens to act outside their installation
+    repository set or declared permission intersection (e.g. U2S write on public
+    repos not granted to the installation, or read of private issues with narrow
+    App scopes). Least-privilege install review cannot mitigate until patched.
+  scenario_refs:
+    - S2b
+  pattern_scope: platform_defect
+  app_provenance:
+    - marketplace
+    - third_party_direct
+    - internal_custom
+  actor_preconditions:
+    - Attacker holds intercepted U2S token or exploits platform bug
+  execution_preconditions:
+    - Vulnerable GitHub version or service deployed
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - Timely GHES patches and GitHub.com advisory monitoring
+  observable_artifacts:
+    - API activity from user identity on repos outside installation scope
+  sources:
+    - docs/references/platform-cves-app-adjacent.md
+  validation_status: field_observed

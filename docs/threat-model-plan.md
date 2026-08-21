@@ -1,6 +1,6 @@
 # GitHub App threat model - planning document
 
-**Status:** planning only - not methodology, not tooling changes.
+**Status:** planning only - methodology draft started; tooling unchanged until reviewed.
 **Owner:** Wakeward (human judgment required before any ratings are treated as canonical).
 **Tracking:** [gh-app-graph#3](https://github.com/wakeward/gh-app-graph/issues/3)
 
@@ -35,7 +35,7 @@ which gates). Implementation in YAML, `methodology.md`, lab traces, and
 |---|---|---|---|
 | Standalone severity | How bad is this permission alone? | `data/permissions/*.yaml` | Draft seed |
 | Technical dependency | What else must be granted for an endpoint to work? | `dependencies-manual.yaml`, generated overlap/scrape | Partial |
-| Toxic combination | What named technique unlocks when permissions co-occur? | `data/toxic-combinations.yaml` (6 entries) | Curated bootstrap |
+| Toxic combination | What named technique unlocks when permissions co-occur? | `data/toxic-combinations.yaml` (23 entries) | Curated; review in progress |
 | Control-plane snapshot | What is installed in an org right now? | `gh-app-check` Phase 1 | Implemented |
 | Actor / likelihood / validation | Who enables this, how likely, proven how? | **Not modeled yet** | This plan |
 
@@ -48,9 +48,9 @@ Impact     ≈ f(blast_radius, repository_selection, reachable secrets/data)
 Likelihood ≈ f(initial_access_path, enterprise_controls, detectability)
 ```
 
-**`gh-app-check org` ranks impact (capabilities installed).** It does not yet
-rank likelihood. The threat model must say that explicitly until actor context
-is layered in.
+**`gh-app-check org` ranks impact (capabilities installed).** It does not rank
+likelihood and does not assess user install authorization. Install gates live in
+[`installation-gates.md`](installation-gates.md) for blog and manual review only.
 
 Three different meanings of "additional permissions required to exploit":
 
@@ -78,6 +78,7 @@ before treating any list as ~90% coverage.
 | **Actor** | Developer (or compromised dev) who can create/edit an app definition |
 | **Path** | Register app with elevated requested permissions → persuade or routine-approve an org owner → installation lands |
 | **Enabling event** | Installation approval (human/process gate) |
+| **Install gates** | Reference only (blog, likelihood reasoning). See [`installation-gates.md`](installation-gates.md). Not in `gh-app-check` output. |
 | **Capability vs likelihood** | Manifest shows intent; impact is latent until install |
 | **Related toxic combos** | Any combo - depends on what was approved |
 | **Detection (investigate)** | `integration_installation.*` audit events; who approved |
@@ -113,7 +114,7 @@ Two sub-variants to keep separate:
 |---|---|
 | **Actor** | Org owner, app manager, or compromised high-privilege account |
 | **Path** | Temporarily widen permissions or use already-wide grants → act → revert settings to reduce visibility |
-| **Example technique** | `stealth-backdoor` (`administration:write` + `contents:write`) - branch protection off, push, protection restored |
+| **Example technique** | `ransomware-code-destruction` (`administration:write` + `contents:write`) - branch protection off, push, protection restored |
 | **Enabling event** | App permission change and/or repository settings change |
 | **Detection (investigate)** | Correlate branch protection events with app permission updates |
 | **Validation** | Not yet run |
@@ -127,6 +128,28 @@ Two sub-variants to keep separate:
 | **Model note** | Governance / portfolio effect - not a new per-permission severity score |
 | **Gap** | Org-level aggregation; inventory + drift over time |
 | **Validation** | Not yet run |
+
+### S5 - Execution plane: workflow and agent abuse
+
+| Field | Notes |
+|---|---|
+| **Actor** | Fork PR author, external GitHub App publisher, or prompt injection via issue body |
+| **Path** | Installed permissions unchanged; IAT minted in CI and exfiltrated (PRT + fork checkout), or agent workflow trusts `[bot]` actors |
+| **Enabling event** | Workflow run, not new install |
+| **Gap** | Phase 1 static audit unchanged; Phase 2 `trace` and workflow static analysis (Zizmor) |
+| **Patterns** | `credential-access-prt-fork-iatt-exfiltration`, `execution-ai-agent-external-bot-trust`, `execution-indirect-prompt-injection-agent` |
+| **Validation** | GHSA-9g93-rxr5-xhqw field observed; agent paths desk trace pending |
+
+### S6 - Vendor integration and infrastructure
+
+| Field | Notes |
+|---|---|
+| **Actor** | Unauthenticated callback attacker, SSRF to webhook handler, DNS hijacker |
+| **Path** | Victim org installs App correctly; vendor binding or callback endpoint is poisoned |
+| **Enabling event** | OAuth callback, webhook delivery, or dangling DNS on integration subdomain |
+| **Gap** | Outside org install audit; reference for blog and vendor review checklists |
+| **Patterns** | `credential-access-vendor-install-callback-binding`, `credential-access-webhook-handler-ssrf-jwt`, `persistence-dangling-dns-oauth-webhook` |
+| **Validation** | CVE references cited; verify before external publication |
 
 ---
 
@@ -193,7 +216,7 @@ A reviewed table of attack patterns with:
 3. **Permission change brainstorm** - upgrades, repo selection changes, suspension/reactivation, transfer of app ownership.
 4. **Execution plane** - overlap with Phase 2 (`gh-app-check trace`): workflow misuse, PEM in repo, OIDC/workload identity (if in scope).
 5. **Enterprise controls** - what reduces likelihood per path (app approval policies, SAML, audit log streaming, allow-listing).
-6. **Gap check** - compare against known public incidents, GitHub security docs, and existing six toxic combos; mark missing patterns.
+6. **Gap check** - compare against known public incidents, GitHub security docs, and existing toxic combos; mark missing patterns.
 7. **Prioritize validation** - pick 3-5 patterns for first lab traces; note license questions.
 
 ### Seed prompts (not exhaustive)
@@ -249,10 +272,10 @@ Before lab work, confirm for company and trial orgs:
 
 ## Deliverables checklist (order matters)
 
-- [ ] **This plan** reviewed and agreed
-- [ ] **Theorizing session** held; draft ATT&CK-style catalog populated
-- [ ] **`docs/methodology.md`** - severity, blast radius, confidence, actor/likelihood rules
-- [ ] **`docs/attack-patterns/`** (or single `attack-patterns.yaml`) - structured catalog cross-linked to toxic combos
+- [x] **This plan** reviewed and agreed
+- [ ] **Theorizing session** held; draft ATT&CK-style catalog populated (seed + Red Team series mapping done; session still required for gap-check)
+- [x] **`docs/methodology.md`** - severity, blast radius, confidence, actor/likelihood rules (draft started)
+- [x] **`data/attack-patterns.yaml`** + `docs/attack-patterns/` - structured catalog seed cross-linked to toxic combos
 - [ ] **Permission YAML review** - Wakeward perspective merged from spreadsheet; `needs_investigation` cleared where possible
 - [ ] **Desk traces** for top-priority patterns (validation_status updated)
 - [ ] **Company org calibration** - run `gh-app-check org` and compare to intuition (separate milestone; does not replace lab proof)
@@ -286,3 +309,4 @@ Before lab work, confirm for company and trial orgs:
 - Quarterly human review: `docs/quarterly-review-checklist.md`
 - Control-plane auditor: [`gh-app-check`](https://github.com/wakeward/gh-app-check) Phase 1
 - Drift guard backlog: [`gh-app-check/docs/BACKLOG.md`](https://github.com/wakeward/gh-app-check/blob/main/docs/BACKLOG.md)
+- Prior art (initial access): [`docs/attack-patterns/red-team-series-mapping.md`](attack-patterns/red-team-series-mapping.md) and the [Red Teaming GitHub](https://wakeward.uk/tags/github/) series

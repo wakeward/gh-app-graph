@@ -116,7 +116,9 @@ technical dependency; most don't. See `pkg/model/dependency.go` and
 a rating, and a hard requirement if this data is ever consumed outside this
 repo's own tooling.
 
-**Threat model work in progress:** see [`docs/threat-model-plan.md`](docs/threat-model-plan.md)
+**Threat model work in progress:** see [`docs/threat-model-plan.md`](docs/threat-model-plan.md),
+[`docs/methodology.md`](docs/methodology.md) (draft), [`data/attack-patterns.yaml`](data/attack-patterns.yaml),
+and blog authoring skeletons in [`docs/blog/`](docs/blog/).
 for the planned actor/likelihood catalog, theorizing session, and validation
 program (not yet canonical).
 
