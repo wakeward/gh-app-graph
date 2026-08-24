@@ -1,0 +1,30 @@
+name: Bug report
+description: Report incorrect severity, toxic match logic, or build/embed failure
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+
+  - type: input
+    id: permission-or-toxic
+    attributes:
+      label: Permission api_key or toxic combination id
+      placeholder: e.g. contents, arbitrary-code-execution
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why is the current rating wrong?
+      description: Link to GitHub docs, exploit path, or methodology gap
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: YAML snippet or go test case (synthetic permissions only)

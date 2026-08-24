@@ -56,7 +56,7 @@ result := eval.Evaluate(installationPermissions, toxicCombinations)
 This is a Go module (not the originally-considered Python project)
 specifically so this import works with no serialization boundary: shared
 Go types (`pkg/model`), a shared evaluation engine (`pkg/eval`), and
-(once built) compiled-in data via `go:embed` (`pkg/data`) - no JSON
+compiled-in data via `go:embed` (`pkg/data`) - no JSON
 round-trip, no risk of the two repos' definitions of "toxic" drifting apart.
 
 ## Repository layout
@@ -69,7 +69,7 @@ cmd/                              # one small binary per pipeline step
   build/                          # merge everything, validate, render docs/
   migrate-csv/                    # optional one-time: import a working spreadsheet as draft seed YAML
   migrate-toxic-combinations/     # one-time: import the toxic-combinations CSV + writeup
-  evaluate-app/                   # score one app's permissions against toxic-combinations.yaml
+  evaluate-app/                   # NOT YET IMPLEMENTED - score one app against toxic-combinations.yaml
 pkg/
   model/                          # shared types - import this to work with the data
   eval/                           # toxic-combination matching engine - import this to evaluate a permission set
@@ -91,8 +91,8 @@ docs/
   toxic-combinations.md           # generated
   methodology.md                  # how severity/blast_radius/confidence are assigned - see below
   quarterly-review-checklist.md   # the fixed non-scrapable checklist the quarterly Automation works through
-apps/                             # hand-written permission sets for internal apps, input to evaluate-app
-reports/                          # <app-slug>-risk-report.md output of evaluate-app
+apps/                             # example app manifests (for future evaluate-app)
+reports/                          # future evaluate-app output (not yet implemented)
 .github/workflows/
   refresh.yml                     # weekly, cheap auto-detected drift -> PR
   unit_tests.yml, lint_tests.yml, security_scan.yml, scorecard.yml
@@ -118,9 +118,9 @@ repo's own tooling.
 
 **Threat model work in progress:** see [`docs/threat-model-plan.md`](docs/threat-model-plan.md),
 [`docs/methodology.md`](docs/methodology.md) (draft), [`data/attack-patterns.yaml`](data/attack-patterns.yaml),
-and blog authoring skeletons in [`docs/blog/`](docs/blog/).
-for the planned actor/likelihood catalog, theorizing session, and validation
-program (not yet canonical).
+and blog authoring skeletons in [`docs/blog/`](docs/blog/) for the planned
+actor/likelihood catalog, theorizing session, and validation program (not yet
+canonical).
 
 **Long-term vision:** see [`docs/vision.md`](docs/vision.md) for the Marketplace
 catalog, public drift policy, blog series, and platform research program (future
@@ -133,6 +133,9 @@ go build ./...
 go vet ./...
 go test ./...
 ```
+
+Contributing: [CONTRIBUTING.md](CONTRIBUTING.md). Publish checklist:
+[`docs/PUBLISH-READINESS.md`](docs/PUBLISH-READINESS.md).
 
 ## License
 
