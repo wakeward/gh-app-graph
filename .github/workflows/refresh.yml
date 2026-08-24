@@ -37,6 +37,9 @@ jobs:
       - name: Build resolved graph and docs
         run: go run ./cmd/build
 
+      - name: Run unit tests
+        run: go test ./...
+
       - name: Create pull request on drift
         uses: peter-evans/create-pull-request@271a8d0340265f3b2b0d1089225b2a2d663b3a56 # v7.0.2
         with:
