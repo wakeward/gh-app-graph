@@ -35,7 +35,7 @@ which gates). Implementation in YAML, `methodology.md`, lab traces, and
 |---|---|---|---|
 | Standalone severity | How bad is this permission alone? | `data/permissions/*.yaml` | Draft seed |
 | Technical dependency | What else must be granted for an endpoint to work? | `dependencies-manual.yaml`, generated overlap/scrape | Partial |
-| Toxic combination | What named technique unlocks when permissions co-occur? | `data/toxic-combinations.yaml` (23 entries) | Curated; review in progress |
+| Toxic combination | What named technique unlocks when permissions co-occur? | `data/toxic-combinations.yaml` (21 entries) | Curated; review in progress |
 | Control-plane snapshot | What is installed in an org right now? | `gh-app-check` Phase 1 | Implemented |
 | Actor / likelihood / validation | Who enables this, how likely, proven how? | **Not modeled yet** | This plan |
 

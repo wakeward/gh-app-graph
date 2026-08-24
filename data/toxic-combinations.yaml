@@ -12,7 +12,7 @@
       access: write
   blast_radius: Critical
   risk_description: Arbitrary Code Execution (Critical)
-  exploit_path: The attacker pushes a malicious workflow file that executes arbitrary shell commands on the GitHub-hosted runner. Because the workflow runs in the context of the repository, the attacker can use this compute environment to exfiltrate environment variables or access cloud provider credentials.
+  exploit_path: The attacker pushes a malicious workflow file that executes arbitrary shell commands on the GitHub-hosted runner. Requires workflows:write (contents:write alone cannot modify .github/workflows/). Because the workflow runs in the context of the repository, the attacker can exfiltrate environment variables or access cloud provider credentials.
   overlaps_technical_dependency: false
   platform_availability: all
   source: migrate-toxic-combinations CSV
@@ -27,7 +27,7 @@
       access: write
   blast_radius: Critical
   risk_description: Autonomous Gatekeeper Bypass (Critical)
-  exploit_path: Pushes malicious branch, opens PR, forges passing CI checks, and merges code bypassing branch protection and peer review.
+  exploit_path: Pushes malicious branch, opens PR, forges passing CI checks, and merges code bypassing branch protection and peer review. Requires contents:write plus pull_requests:write and checks:write (or statuses:write variant).
   overlaps_technical_dependency: true
   platform_availability: all
   source: migrate-toxic-combinations CSV
@@ -42,7 +42,7 @@
       access: write
   blast_radius: Critical
   risk_description: Autonomous Gatekeeper Bypass (Critical)
-  exploit_path: Pushes malicious branch, opens PR, forges passing CI checks, and merges code bypassing branch protection and peer review.
+  exploit_path: Pushes malicious branch, opens PR, forges passing CI checks, and merges code bypassing branch protection and peer review. Requires contents:write plus pull_requests:write and checks:write (or statuses:write variant).
   overlaps_technical_dependency: true
   platform_availability: all
   source: migrate-toxic-combinations CSV
@@ -185,7 +185,7 @@
       access: write
   blast_radius: Critical
   risk_description: Ransomware & Code Destruction (Critical)
-  exploit_path: An attacker uses the App to wipe production source code branches, delete release tags, and replace the entire commit tree with a ransom note. Because the app has Administration rights, it can also delete branch protections to force-push the destruction.
+  exploit_path: An attacker uses the App to wipe production source code branches, delete release tags, and replace the entire commit tree with a ransom note. With administration:write the app can disable branch protections to force-push; contents:write alone cannot bypass protections on the default branch.
   overlaps_technical_dependency: true
   platform_availability: all
   source: migrate-toxic-combinations CSV
@@ -251,28 +251,6 @@
   blast_radius: Critical
   risk_description: Stealth Administrative Persistence (Critical)
   exploit_path: Creates custom roles with elevated capabilities and binds them to external or secondary collaborator accounts to evade Owner alerts.
-  overlaps_technical_dependency: false
-  platform_availability: all
-  source: migrate-toxic-combinations CSV
-- id: supply-chain-poisoning-via-releases-contents
-  technique: Supply Chain Poisoning via Releases
-  permissions:
-    - api_key: contents
-      access: write
-  blast_radius: Critical
-  risk_description: Supply Chain Poisoning via Releases (Critical)
-  exploit_path: 'Instead of modifying the source code (which might be audited), the attacker waits for a legitimate build to complete, then uses the App to overwrite the compiled GitHub Release artifact (via contents: write) or the container/npm package (via packages: write) with a maliciously compiled version.'
-  overlaps_technical_dependency: false
-  platform_availability: all
-  source: migrate-toxic-combinations CSV
-- id: supply-chain-poisoning-via-releases-packages
-  technique: Supply Chain Poisoning via Releases
-  permissions:
-    - api_key: packages
-      access: write
-  blast_radius: Critical
-  risk_description: Supply Chain Poisoning via Releases (Critical)
-  exploit_path: 'Instead of modifying the source code (which might be audited), the attacker waits for a legitimate build to complete, then uses the App to overwrite the compiled GitHub Release artifact (via contents: write) or the container/npm package (via packages: write) with a maliciously compiled version.'
   overlaps_technical_dependency: false
   platform_availability: all
   source: migrate-toxic-combinations CSV

@@ -153,8 +153,13 @@
   overview: Access repository contents (source code), commits, and branches.
   access_levels:
     - access: write
-      severity: Critical
-      security_notes: 'Direct source code modification: inject backdoors into production branches, alter release tags, and poison supply chain.'
+      severity: High
+      security_notes: >
+        Modify source on a branch (branch protection on default branches blocks direct
+        pushes to production). Cannot alter .github/workflows/ without workflows:write.
+        Risk remains High via build-script poisoning (package.json, Makefile) executed
+        when CI or developers check out the branch. Escalates to Critical only when
+        paired with administration:write, workflows:write, or PR/check forgery combos.
     - access: read
       severity: High
       security_notes: Exfiltrate proprietary source code, internal algorithms, and embedded config files; review code to discover zero-days.

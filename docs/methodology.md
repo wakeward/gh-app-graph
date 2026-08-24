@@ -68,6 +68,14 @@ Severity answers: *if this scope alone were granted and exercised, how bad is th
 
 It does **not** answer: *how likely is an org to grant it?*
 
+### Escalation example: `contents: write`
+
+Standalone `contents: write` is **High** (branch protection and the
+workflows/contents boundary limit direct pipeline takeover). It becomes
+**Critical** only via toxic combinations that add bypass permissions
+(`administration: write`, `workflows: write`, or PR/check forgery triples).
+See [`calibration-notes.md`](calibration-notes.md).
+
 ### Impact plane
 
 Each permission is classified into one impact plane:
@@ -107,7 +115,9 @@ A toxic combination is a **named attack technique** an installation enables.
 Most entries require two or more independently grantable permissions. Single-grant
 entries exist when the technique must be surfaced explicitly to reviewers who may
 accept a scope without understanding what it unlocks (e.g. Organization Takeover
-via `organization_administration: write` alone).
+via `organization_administration: write` alone). **Do not** add single-grant Critical
+entries when standalone permission severity already captures the risk (see
+`contents: write` in [`calibration-notes.md`](calibration-notes.md)).
 
 Fields:
 

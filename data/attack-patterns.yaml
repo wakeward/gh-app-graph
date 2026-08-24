@@ -381,7 +381,7 @@
     - Installation includes target repo in selection
   toxic_combination_ids:
     - ci-cd-pipeline-takeover-exfiltration-actions-write-workflows-write
-    - supply-chain-poisoning-via-releases-contents
+    - autonomous-gatekeeper-bypass-checks-write-contents-write-pull-requests-write
   enterprise_controls_that_reduce_likelihood:
     - Restrict who can install apps on sensitive repos
     - Environment protection rules on deployment targets
@@ -460,7 +460,7 @@
     - Checkout uses head ref; build step runs fork code with token on disk
   toxic_combination_ids:
     - ci-cd-pipeline-takeover-exfiltration-actions-write-workflows-write
-    - supply-chain-poisoning-via-releases-contents
+    - autonomous-gatekeeper-bypass-checks-write-contents-write-pull-requests-write
   enterprise_controls_that_reduce_likelihood:
     - Zizmor or equivalent workflow static analysis
     - Never pass App tokens to checkout of untrusted refs
