@@ -110,14 +110,62 @@ until reviewed.
 
 ## Toxic combinations
 
-A toxic combination is a **named attack technique** an installation enables.
+A toxic combination is a **named attack technique** an installation enables when
+**every** listed permission grant is present on that installation.
 
-Most entries require two or more independently grantable permissions. Single-grant
-entries exist when the technique must be surfaced explicitly to reviewers who may
-accept a scope without understanding what it unlocks (e.g. Organization Takeover
-via `organization_administration: write` alone). **Do not** add single-grant Critical
-entries when standalone permission severity already captures the risk (see
-`contents: write` in [`calibration-notes.md`](calibration-notes.md)).
+### Matching rule (AND, not OR)
+
+Each toxic entry lists one or more `(api_key, access)` pairs. The engine checks
+**all** of them against the installed permission map:
+
+```
+Match  ⇔  grant₁ present  AND  grant₂ present  AND  …
+```
+
+- If the combo lists `contents: write` and `workflows: write`, **both** must be
+  granted (as write) for a match. `contents: write` alone does **not** fire that combo.
+- A granted **write** satisfies a combo requirement for **read** on the same key
+  (write is strictly stronger).
+- There is no partial credit: missing one grant means no match (but may produce a
+  near miss - see below).
+
+Implementation: `pkg/eval/evaluate.go` calls `HasGrant` for each required grant.
+
+### Single-grant vs multi-grant entries
+
+| Type | When it fires | Near miss? |
+|---|---|---|
+| **Multi-grant** (most entries) | All listed grants present | Yes - if exactly one grant missing |
+| **Single-grant** (rare) | That one grant present | No - either matches or does not |
+
+Most toxics require **two or more** permissions because the technique needs
+co-granted capabilities (e.g. forge checks **and** push code **and** open PRs).
+
+Single-grant entries are reserved for cases where reviewers might accept a scope
+without understanding what it unlocks, and standalone permission severity does
+**not** already capture it. We removed single-grant Critical entries where
+standalone severity suffices (e.g. `contents: write` - see
+[`calibration-notes.md`](calibration-notes.md), [`design-decisions.md`](design-decisions.md)).
+
+### Near misses
+
+For **multi-grant** combos only: if the installation is missing **exactly one**
+required grant, the combo appears as a near miss ("one permission away from X").
+This is not a toxic match - no blast radius from that combo is applied.
+
+Single-grant combos do not generate near misses.
+
+### What toxics do not consider
+
+Toxic matching is **permissions only**. It does not use:
+
+- `repository_selection` (all vs selected)
+- Which repos are selected
+- Who approved the install
+- Publisher trust or runtime behavior
+
+Control-plane rules (all-repos, administration write, god-mode write count) apply
+**in addition** to toxic matches.
 
 Fields:
 
@@ -129,9 +177,6 @@ Fields:
 | `exploit_path` | Short narrative of the abuse chain |
 | `platform_availability` | Optional; inherits from permission grants when omitted |
 | `overlaps_technical_dependency` | True when combo includes a technical prerequisite pair |
-
-**Near misses** (multi-grant combos only): one grant away from satisfying the
-combo. Useful for upgrade-review warnings.
 
 Toxic combinations are **capability** statements. They do not encode actor
 preconditions (org owner approval, compromised publisher, etc.).
@@ -219,4 +264,5 @@ Before treating a permission row or toxic combo as canonical:
 - Credential lifecycle: [`credential-lifecycle.md`](credential-lifecycle.md)
 - Marketplace trust: [`marketplace-trust-limitations.md`](marketplace-trust-limitations.md)
 - Research synthesis: [`references/ecosystem-research-synthesis.md`](references/ecosystem-research-synthesis.md)
+- Design decisions: [`design-decisions.md`](design-decisions.md)
 - Control-plane auditor: [`gh-app-check`](https://github.com/wakeward/gh-app-check)
