@@ -4,6 +4,7 @@ package fileio
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"gopkg.in/yaml.v3"
@@ -16,9 +17,46 @@ const (
 	PrivateDirMode = 0o750
 )
 
+// validateRelativePath rejects absolute paths and traversal outside the working directory.
+func validateRelativePath(path string) (string, error) {
+	path = strings.TrimSpace(path)
+	if path == "" {
+		return "", fmt.Errorf("path is empty")
+	}
+	if filepath.IsAbs(path) {
+		return "", fmt.Errorf("absolute paths are not allowed: %s", path)
+	}
+	clean := filepath.Clean(path)
+	if clean == ".." || strings.HasPrefix(clean, ".."+string(filepath.Separator)) {
+		return "", fmt.Errorf("path escapes working directory: %s", path)
+	}
+	return clean, nil
+}
+
+func anchoredPath(path string) (string, error) {
+	rel, err := validateRelativePath(path)
+	if err != nil {
+		return "", err
+	}
+	root, err := os.Getwd()
+	if err != nil {
+		return "", fmt.Errorf("get working directory: %w", err)
+	}
+	abs := filepath.Clean(filepath.Join(root, rel))
+	root = filepath.Clean(root)
+	if abs != root && !strings.HasPrefix(abs, root+string(filepath.Separator)) {
+		return "", fmt.Errorf("path escapes working directory: %s", path)
+	}
+	return abs, nil
+}
+
 // Write writes data to path with PrivateFileMode.
 func Write(path string, data []byte) error {
-	if err := os.WriteFile(path, data, PrivateFileMode); err != nil {
+	target, err := anchoredPath(path)
+	if err != nil {
+		return err
+	}
+	if err := os.WriteFile(target, data, PrivateFileMode); err != nil { // #nosec G703 -- target from anchoredPath under cwd
 		return fmt.Errorf("write %s: %w", path, err)
 	}
 	return nil
@@ -26,7 +64,11 @@ func Write(path string, data []byte) error {
 
 // MkdirAll creates path with PrivateDirMode.
 func MkdirAll(path string) error {
-	if err := os.MkdirAll(path, PrivateDirMode); err != nil {
+	target, err := anchoredPath(path)
+	if err != nil {
+		return err
+	}
+	if err := os.MkdirAll(target, PrivateDirMode); err != nil { // #nosec G703 -- target from anchoredPath under cwd
 		return fmt.Errorf("mkdir %s: %w", path, err)
 	}
 	return nil
