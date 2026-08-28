@@ -1,0 +1,430 @@
+[
+  {
+    "id": "arbitrary-code-execution",
+    "technique": "Arbitrary Code Execution",
+    "permissions": [
+      {
+        "api_key": "workflows",
+        "access": "write"
+      },
+      {
+        "api_key": "contents",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "Critical",
+    "risk_description": "Arbitrary Code Execution (Critical)",
+    "exploit_path": "The attacker pushes a malicious workflow file that executes arbitrary shell commands on the GitHub-hosted runner. Requires workflows:write (contents:write alone cannot modify .github/workflows/). Because the workflow runs in the context of the repository, the attacker can exfiltrate environment variables or access cloud provider credentials.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "autonomous-gatekeeper-bypass-checks-write-contents-write-pull-requests-write",
+    "technique": "Autonomous Gatekeeper Bypass",
+    "permissions": [
+      {
+        "api_key": "pull_requests",
+        "access": "write"
+      },
+      {
+        "api_key": "checks",
+        "access": "write"
+      },
+      {
+        "api_key": "contents",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "Critical",
+    "risk_description": "Autonomous Gatekeeper Bypass (Critical)",
+    "exploit_path": "Pushes malicious branch, opens PR, forges passing CI checks, and merges code bypassing branch protection and peer review. Requires contents:write plus pull_requests:write and checks:write (or statuses:write variant).",
+    "overlaps_technical_dependency": true,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "autonomous-gatekeeper-bypass-contents-write-pull-requests-write-statuses-write",
+    "technique": "Autonomous Gatekeeper Bypass",
+    "permissions": [
+      {
+        "api_key": "pull_requests",
+        "access": "write"
+      },
+      {
+        "api_key": "statuses",
+        "access": "write"
+      },
+      {
+        "api_key": "contents",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "Critical",
+    "risk_description": "Autonomous Gatekeeper Bypass (Critical)",
+    "exploit_path": "Pushes malicious branch, opens PR, forges passing CI checks, and merges code bypassing branch protection and peer review. Requires contents:write plus pull_requests:write and checks:write (or statuses:write variant).",
+    "overlaps_technical_dependency": true,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "chatops-injection-to-ci-cd-secret-exfiltration",
+    "technique": "ChatOps Injection to CI/CD Secret Exfiltration",
+    "permissions": [
+      {
+        "api_key": "issues",
+        "access": "write"
+      },
+      {
+        "api_key": "actions",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "High",
+    "risk_description": "ChatOps Injection to CI/CD Secret Exfiltration (High)",
+    "exploit_path": "Injects shell/command payloads into issue comments/titles and triggers workflow runs to dump secrets and execute untrusted code.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "ci-cd-pipeline-takeover-exfiltration-actions-write-workflows-write",
+    "technique": "CI/CD Pipeline Takeover \u0026 Exfiltration",
+    "permissions": [
+      {
+        "api_key": "workflows",
+        "access": "write"
+      },
+      {
+        "api_key": "actions",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "Critical",
+    "risk_description": "CI/CD Pipeline Takeover \u0026 Exfiltration (Critical)",
+    "exploit_path": "Injects arbitrary build steps into Actions YAML and dispatches runs to exfiltrate all repository/org secrets and OIDC cloud tokens.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "ci-cd-pipeline-takeover-exfiltration-contents-write-workflows-write",
+    "technique": "CI/CD Pipeline Takeover \u0026 Exfiltration",
+    "permissions": [
+      {
+        "api_key": "workflows",
+        "access": "write"
+      },
+      {
+        "api_key": "contents",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "Critical",
+    "risk_description": "CI/CD Pipeline Takeover \u0026 Exfiltration (Critical)",
+    "exploit_path": "Injects arbitrary build steps into Actions YAML and dispatches runs to exfiltrate all repository/org secrets and OIDC cloud tokens.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "copilot-rag-context-poisoning",
+    "technique": "Copilot RAG Context Poisoning",
+    "permissions": [
+      {
+        "api_key": "organization_knowledge_bases",
+        "access": "write"
+      },
+      {
+        "api_key": "organization_copilot_content_exclusion",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "High",
+    "risk_description": "Copilot RAG Context Poisoning (High)",
+    "exploit_path": "Unmasks sensitive code paths to Copilot context and injects malicious coding guidelines/backdoors into shared IDE assistance.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "dependency-registry-poisoning-actions-variables-write-packages-write",
+    "technique": "Dependency Registry Poisoning",
+    "permissions": [
+      {
+        "api_key": "actions_variables",
+        "access": "write"
+      },
+      {
+        "api_key": "packages",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "High",
+    "risk_description": "Dependency Registry Poisoning (High)",
+    "exploit_path": "Redirects internal registry endpoints via variables and serves backdoored packages to poison software builds org-wide.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "dependency-registry-poisoning-organization-dependabot-variables-write-packages-write",
+    "technique": "Dependency Registry Poisoning",
+    "permissions": [
+      {
+        "api_key": "organization_dependabot_variables",
+        "access": "write"
+      },
+      {
+        "api_key": "packages",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "High",
+    "risk_description": "Dependency Registry Poisoning (High)",
+    "exploit_path": "Redirects internal registry endpoints via variables and serves backdoored packages to poison software builds org-wide.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "incident-response-coordination-dos",
+    "technique": "Incident Response Coordination DoS",
+    "permissions": [
+      {
+        "api_key": "members",
+        "access": "read"
+      },
+      {
+        "api_key": "blocking",
+        "access": "write"
+      },
+      {
+        "api_key": "issues",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "Medium",
+    "risk_description": "Incident Response Coordination DoS (Medium)",
+    "exploit_path": "Enumerates administrators to selectively block responder accounts and tamper with active security triage issues during an active incident.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "organization-takeover",
+    "technique": "Organization Takeover",
+    "permissions": [
+      {
+        "api_key": "organization_administration",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "Critical",
+    "risk_description": "Organization Takeover (Critical)",
+    "exploit_path": "A compromised app with organization_administration: write holds Tier 0 control of the entire org security posture. GitHub bundles org rulesets into this scope: an attacker can modify, disable, or delete organization-wide rulesets and strip branch protection across every repository at once. The same grant manages organization-level self-hosted runners, enabling registration of a malicious runner to intercept jobs, harvest secrets, or inject code into builds. It also allows changing default repository permissions (e.g. from Read to Write or Admin), instantly broadening member access org-wide. Member and owner manipulation (invite malicious users, promote to Owner, demote legitimate admins) remains a direct path to lock the org out of source code, secrets, and pipelines.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "persistent-repository-exfiltration-tap-contents-read-repository-hooks-write",
+    "technique": "Persistent Repository Exfiltration Tap",
+    "permissions": [
+      {
+        "api_key": "repository_hooks",
+        "access": "write"
+      },
+      {
+        "api_key": "contents",
+        "access": "read"
+      }
+    ],
+    "blast_radius": "High",
+    "risk_description": "Persistent Repository Exfiltration Tap (High)",
+    "exploit_path": "Configures an external webhook listener on repo events (pushes, PRs, comments) to continuously stream code diffs and comments out-of-band.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "persistent-repository-exfiltration-tap-issues-read-repository-hooks-write",
+    "technique": "Persistent Repository Exfiltration Tap",
+    "permissions": [
+      {
+        "api_key": "repository_hooks",
+        "access": "write"
+      },
+      {
+        "api_key": "issues",
+        "access": "read"
+      }
+    ],
+    "blast_radius": "High",
+    "risk_description": "Persistent Repository Exfiltration Tap (High)",
+    "exploit_path": "Configures an external webhook listener on repo events (pushes, PRs, comments) to continuously stream code diffs and comments out-of-band.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "ransomware-code-destruction",
+    "technique": "Ransomware \u0026 Code Destruction",
+    "permissions": [
+      {
+        "api_key": "administration",
+        "access": "write"
+      },
+      {
+        "api_key": "contents",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "Critical",
+    "risk_description": "Ransomware \u0026 Code Destruction (Critical)",
+    "exploit_path": "An attacker uses the App to wipe production source code branches, delete release tags, and replace the entire commit tree with a ransom note. With administration:write the app can disable branch protections to force-push; contents:write alone cannot bypass protections on the default branch.",
+    "overlaps_technical_dependency": true,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "real-time-data-tap-contents-read-organization-hooks-write",
+    "technique": "Real-Time Data Tap",
+    "permissions": [
+      {
+        "api_key": "organization_hooks",
+        "access": "write"
+      },
+      {
+        "api_key": "contents",
+        "access": "read"
+      }
+    ],
+    "blast_radius": "High",
+    "risk_description": "Real-Time Data Tap (High)",
+    "exploit_path": "Establishes a silent data exfiltration pipeline (webhook) for all repository code changes, PR comments, and issue data, requiring only read access to the underlying code.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "real-time-data-tap-contents-read-repository-hooks-write",
+    "technique": "Real-Time Data Tap",
+    "permissions": [
+      {
+        "api_key": "repository_hooks",
+        "access": "write"
+      },
+      {
+        "api_key": "contents",
+        "access": "read"
+      }
+    ],
+    "blast_radius": "High",
+    "risk_description": "Real-Time Data Tap (High)",
+    "exploit_path": "Establishes a silent data exfiltration pipeline (webhook) for all repository code changes, PR comments, and issue data, requiring only read access to the underlying code.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "runner-poisoning-credential-theft",
+    "technique": "Runner Poisoning \u0026 Credential Theft",
+    "permissions": [
+      {
+        "api_key": "organization_self_hosted_runners",
+        "access": "write"
+      },
+      {
+        "api_key": "actions",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "Critical",
+    "risk_description": "Runner Poisoning \u0026 Credential Theft (Critical)",
+    "exploit_path": "Attaches an attacker-controlled runner to the org and dispatches privileged workflows to harvest enterprise cloud tokens.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "server-side-remote-code-execution",
+    "technique": "Server-Side Remote Code Execution",
+    "permissions": [
+      {
+        "api_key": "repository_pre_receive_hooks",
+        "access": "write"
+      },
+      {
+        "api_key": "contents",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "Critical",
+    "risk_description": "Server-Side Remote Code Execution (Critical)",
+    "exploit_path": "(GHES only) Deploys malicious hook scripts that execute directly on the Git server infrastructure during push events.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "ghes_only",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "stealth-administrative-persistence",
+    "technique": "Stealth Administrative Persistence",
+    "permissions": [
+      {
+        "api_key": "organization_custom_roles",
+        "access": "write"
+      },
+      {
+        "api_key": "members",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "Critical",
+    "risk_description": "Stealth Administrative Persistence (Critical)",
+    "exploit_path": "Creates custom roles with elevated capabilities and binds them to external or secondary collaborator accounts to evade Owner alerts.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "targeted-supply-chain-poisoning-via-single-file",
+    "technique": "Targeted Supply Chain Poisoning via Single File",
+    "permissions": [
+      {
+        "api_key": "single_file",
+        "access": "write"
+      },
+      {
+        "api_key": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "High",
+    "risk_description": "Targeted Supply Chain Poisoning via Single File (High)",
+    "exploit_path": "Injects backdoored dependencies or changes build configs in a specific path (e.g. package.json) and opens automated PRs to slip past review.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  },
+  {
+    "id": "workflow-variable-poisoning-out-of-band-leak",
+    "technique": "Workflow Variable Poisoning \u0026 Out-of-Band Leak",
+    "permissions": [
+      {
+        "api_key": "contents",
+        "access": "read"
+      },
+      {
+        "api_key": "actions_variables",
+        "access": "write"
+      }
+    ],
+    "blast_radius": "High",
+    "risk_description": "Workflow Variable Poisoning \u0026 Out-of-Band Leak (High)",
+    "exploit_path": "Audits Actions YAML to locate external endpoints consuming non-secret variables, then updates variables to point to an attacker server to capture tokens sent in headers.",
+    "overlaps_technical_dependency": false,
+    "platform_availability": "all",
+    "source": "migrate-toxic-combinations CSV"
+  }
+]

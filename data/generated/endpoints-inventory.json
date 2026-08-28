@@ -1,0 +1,6337 @@
+{
+  "meta": {
+    "source_url": "https://raw.githubusercontent.com/octokit/app-permissions/main/generated/api.github.com.json",
+    "source_repo": "octokit/app-permissions",
+    "fetched_at": "2026-07-28T20:38:31.65277288Z",
+    "github_docs_api_version": "2026-03-10",
+    "permission_count": 20,
+    "endpoint_count": 440,
+    "multi_permission_endpoint_count": 90,
+    "source_limitations": "octokit/app-permissions maps endpoints to a single primary permission and currently enumerates a subset of GitHub App permissions vs the live docs/UI. Use endpoint_index multi-permission entries for Type A overlap detection; permissions absent here may still exist in GitHub docs or the App creation UI."
+  },
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/codes_of_conduct",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/codes_of_conduct/{key}",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/emojis",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/events",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/feeds",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/gitignore/templates",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/gitignore/templates/{key}",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/licenses",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/licenses/{key}",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "POST",
+      "path": "/markdown",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "POST",
+      "path": "/markdown/raw",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/meta",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/networks/{owner}/{repo}/events",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/organizations",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{org_id}/team/{team_id}/team-sync/group-mappings",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "PATCH",
+      "path": "/organizations/{org_id}/team/{team_id}/team-sync/group-mappings",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "PATCH",
+      "path": "/orgs/{org}",
+      "access": "write",
+      "permission": "organization_administration"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/cache/usage",
+      "access": "read",
+      "permission": "organization_administration"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/cache/usage-by-repository",
+      "access": "read",
+      "permission": "organization_administration"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/secrets",
+      "access": "read",
+      "permission": "secrets"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/secrets/public-key",
+      "access": "read",
+      "permission": "secrets"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/actions/secrets/{secret_name}",
+      "access": "write",
+      "permission": "secrets"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/secrets/{secret_name}",
+      "access": "read",
+      "permission": "secrets"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/actions/secrets/{secret_name}",
+      "access": "write",
+      "permission": "secrets"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/secrets/{secret_name}/repositories",
+      "access": "read",
+      "permission": "secrets"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/actions/secrets/{secret_name}/repositories",
+      "access": "write",
+      "permission": "secrets"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}",
+      "access": "write",
+      "permission": "secrets"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}",
+      "access": "write",
+      "permission": "secrets"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/blocks",
+      "access": "read",
+      "permission": "organization_user_blocking"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/blocks/{username}",
+      "access": "write",
+      "permission": "organization_user_blocking"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/blocks/{username}",
+      "access": "read",
+      "permission": "organization_user_blocking"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/blocks/{username}",
+      "access": "write",
+      "permission": "organization_user_blocking"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/code-scanning/alerts",
+      "access": "read",
+      "permission": "security_events"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/events",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/interaction-limits",
+      "access": "write",
+      "permission": "organization_administration"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/interaction-limits",
+      "access": "read",
+      "permission": "organization_administration"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/interaction-limits",
+      "access": "write",
+      "permission": "organization_administration"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/invitations",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/invitations",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/invitations/{invitation_id}/teams",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/members",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/members/{username}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/members/{username}",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/memberships/{username}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/memberships/{username}",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/memberships/{username}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/outside_collaborators",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/outside_collaborators/{username}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/outside_collaborators/{username}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/projects",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/projects",
+      "access": "write",
+      "permission": "organization_projects"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/public_members",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/public_members/{username}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/public_members/{username}",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/public_members/{username}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/repos",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/repos",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/team-sync/groups",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/team/{team_id}",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/teams",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/teams",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/projects/columns/cards/{card_id}",
+      "access": "write",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "GET",
+      "path": "/projects/columns/cards/{card_id}",
+      "access": "read",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "PATCH",
+      "path": "/projects/columns/cards/{card_id}",
+      "access": "write",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "POST",
+      "path": "/projects/columns/cards/{card_id}/moves",
+      "access": "write",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "DELETE",
+      "path": "/projects/columns/{column_id}",
+      "access": "write",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "GET",
+      "path": "/projects/columns/{column_id}",
+      "access": "read",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "PATCH",
+      "path": "/projects/columns/{column_id}",
+      "access": "write",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "GET",
+      "path": "/projects/columns/{column_id}/cards",
+      "access": "read",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "POST",
+      "path": "/projects/columns/{column_id}/cards",
+      "access": "write",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "POST",
+      "path": "/projects/columns/{column_id}/moves",
+      "access": "write",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "DELETE",
+      "path": "/projects/{project_id}",
+      "access": "write",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "GET",
+      "path": "/projects/{project_id}",
+      "access": "read",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "PATCH",
+      "path": "/projects/{project_id}",
+      "access": "write",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "POST",
+      "path": "/projects/{project_id}/cards",
+      "access": "write",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "GET",
+      "path": "/projects/{project_id}/columns",
+      "access": "read",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "POST",
+      "path": "/projects/{project_id}/columns",
+      "access": "write",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "GET",
+      "path": "/rate_limit",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "DELETE",
+      "path": "/reactions/{reaction_id}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/artifacts",
+      "access": "read",
+      "permission": "actions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/actions/artifacts/{artifact_id}",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/artifacts/{artifact_id}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/cache/usage",
+      "access": "read",
+      "permission": "actions"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/jobs/{job_id}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/jobs/{job_id}/logs",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runners",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runners/downloads",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/actions/runners/registration-token",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/actions/runners/remove-token",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/actions/runners/{runner_id}",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runners/{runner_id}",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/actions/runners/{runner_id}/labels",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runners/{runner_id}/labels",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/actions/runners/{runner_id}/labels",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/actions/runners/{runner_id}/labels",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/actions/runners/{runner_id}/labels/{name}",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runs",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/approve",
+      "access": "write",
+      "permission": "actions"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/cancel",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/jobs",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/logs",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/logs",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/rerun",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/secrets",
+      "access": "read",
+      "permission": "secrets"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/secrets/public-key",
+      "access": "read",
+      "permission": "secrets"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/actions/secrets/{name}",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/secrets/{name}",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/actions/secrets/{name}",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secret_name}",
+      "access": "write",
+      "permission": "secrets"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secret_name}",
+      "access": "read",
+      "permission": "secrets"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secret_name}",
+      "access": "write",
+      "permission": "secrets"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/workflows",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/workflows/{workflow_id}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches",
+      "access": "write",
+      "permission": "actions"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/assignees",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/assignees/{username}",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/automated-security-fixes",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/automated-security-fixes",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/rename",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/check-runs",
+      "access": "write",
+      "permission": "checks"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/check-runs/{check_run_id}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/check-runs/{check_run_id}",
+      "access": "write",
+      "permission": "checks"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/check-suites",
+      "access": "write",
+      "permission": "checks"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/check-suites/preferences",
+      "access": "write",
+      "permission": "checks"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/check-suites/{check_suite_id}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts",
+      "access": "read",
+      "permission": "security_events"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}",
+      "access": "read",
+      "permission": "security_events"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}",
+      "access": "write",
+      "permission": "security_events"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances",
+      "access": "read",
+      "permission": "security_events"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/code-scanning/analyses",
+      "access": "read",
+      "permission": "security_events"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}",
+      "access": "write",
+      "permission": "security_events"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}",
+      "access": "read",
+      "permission": "security_events"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/code-scanning/sarifs",
+      "access": "write",
+      "permission": "security_events"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}",
+      "access": "read",
+      "permission": "security_events"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/codeowners/errors",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/collaborators",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/collaborators/{username}",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/collaborators/{username}",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/collaborators/{username}",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/comments",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/comments/{comment_id}",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/comments/{comment_id}",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/comments/{comment_id}",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/comments/{comment_id}/reactions",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/comments/{comment_id}/reactions",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/commits",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/commits/{ref}/status",
+      "access": "read",
+      "permission": "statuses"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/commits/{ref}/statuses",
+      "access": "read",
+      "permission": "statuses"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/commits/{sha}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/commits/{sha}/check-runs",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/commits/{sha}/check-suites",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/commits/{sha}/comments",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/commits/{sha}/comments",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/community/code_of_conduct",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/community/profile",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/compare/{base}...{head}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/contents/{path}",
+      "access": "write",
+      "permission": "single_file"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/contents/{path}",
+      "access": "read",
+      "permission": "single_file"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/contents/{path}",
+      "access": "write",
+      "permission": "single_file"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/contributors",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/dependabot/alerts",
+      "access": "read",
+      "permission": "vulnerability_alerts"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/dependabot/alerts/{alert_number}",
+      "access": "read",
+      "permission": "vulnerability_alerts"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/dependabot/alerts/{alert_number}",
+      "access": "write",
+      "permission": "vulnerability_alerts"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/deployments",
+      "access": "read",
+      "permission": "deployments"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/deployments",
+      "access": "write",
+      "permission": "deployments"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/deployments/{deployment_id}",
+      "access": "write",
+      "permission": "deployments"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/deployments/{deployment_id}",
+      "access": "read",
+      "permission": "deployments"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/deployments/{deployment_id}/statuses",
+      "access": "read",
+      "permission": "deployments"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/deployments/{deployment_id}/statuses",
+      "access": "write",
+      "permission": "deployments"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}",
+      "access": "read",
+      "permission": "deployments"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/dispatches",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/events",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/events/issues",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/forks",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/forks",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/git/blobs",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/git/blobs/{sha}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/git/commits",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/git/commits/{commit_id}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/git/matching-refs/{ref}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/git/ref/{ref}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/git/refs",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/git/refs/{ref}",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/git/refs/{ref}",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/git/tags",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/git/tags/{tag_id}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/git/trees",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/git/trees/{sha}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/import",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/import",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/import",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/import",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/import/authors",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/import/authors/{author_id}",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/import/large_files",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/import/lfs",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/interaction-limits",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/interaction-limits",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/interaction-limits",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/invitations",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/invitations/{invitation_id}",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/invitations/{invitation_id}",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues",
+      "access": "read",
+      "permission": "issues"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues",
+      "access": "write",
+      "permission": "issues"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/comments",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/comments/{comment_id}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/comments/{comment_id}",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/issues/comments/{comment_id}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/events/{event_id}",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}",
+      "access": "read",
+      "permission": "issues"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/assignees",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/assignees",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/comments",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/comments",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/events",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/labels",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/labels",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/labels",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/labels",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/lock",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/lock",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/reactions",
+      "access": "read",
+      "permission": "issues"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/reactions",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/timeline",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/keys",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/keys",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/keys/{key_id}",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/keys/{key_id}",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/labels",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/labels",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/labels/{name}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/labels/{name}",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/labels/{name}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/languages",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/license",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/merges",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/milestones",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/milestones",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/milestones/{milestone_number}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/milestones/{milestone_number}",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/milestones/{milestone_number}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/milestones/{milestone_number}/labels",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pages",
+      "access": "read",
+      "permission": "pages"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/pages",
+      "access": "write",
+      "permission": "pages"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pages/builds",
+      "access": "read",
+      "permission": "pages"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pages/builds",
+      "access": "write",
+      "permission": "pages"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pages/builds/latest",
+      "access": "read",
+      "permission": "pages"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pages/builds/{build_id}",
+      "access": "read",
+      "permission": "pages"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pages/deployment",
+      "access": "write",
+      "permission": "pages"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pages/health",
+      "access": "write",
+      "permission": "pages"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/projects",
+      "access": "read",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/projects",
+      "access": "write",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/comments",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/comments",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/comments",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/commits",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/files",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/merge",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/merge",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments",
+      "access": "read",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events",
+      "access": "write",
+      "permission": "pull_requests"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/readme(?:/(.*))?",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/releases",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/releases/assets/{asset_id}",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases/assets/{asset_id}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/releases/assets/{asset_id}",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases/latest",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases/tags/{tag}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/releases/{release_id}",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases/{release_id}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/releases/{release_id}",
+      "access": "write",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases/{release_id}/assets",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/stargazers",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/stats/code_frequency",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/stats/commit_activity",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/stats/contributors",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/stats/participation",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/stats/punch_card",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/statuses/{sha}",
+      "access": "write",
+      "permission": "statuses"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/subscribers",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/tags",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/teams",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/topics",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/topics",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/traffic/clones",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/traffic/popular/paths",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/traffic/popular/referrers",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/traffic/views",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/transfer",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/vulnerability-alerts",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/vulnerability-alerts",
+      "access": "read",
+      "permission": "administration"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/vulnerability-alerts",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/{archive_format}/{ref}",
+      "access": "read",
+      "permission": "contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repositories",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/scim/v2/orgs/{org}/Users",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "POST",
+      "path": "/scim/v2/orgs/{org}/Users",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "DELETE",
+      "path": "/scim/v2/orgs/{org}/Users/{external_identity_guid}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/scim/v2/orgs/{org}/Users/{external_identity_guid}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "PATCH",
+      "path": "/scim/v2/orgs/{org}/Users/{external_identity_guid}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "PUT",
+      "path": "/scim/v2/orgs/{org}/Users/{external_identity_guid}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/search/code",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/search/commits",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/search/issues",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/search/labels",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/search/repositories",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/search/topics",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/search/users",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "DELETE",
+      "path": "/teams/{team_id}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "PATCH",
+      "path": "/teams/{team_id}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/discussions",
+      "access": "read",
+      "permission": "team_discussions"
+    },
+    {
+      "method": "POST",
+      "path": "/teams/{team_id}/discussions",
+      "access": "write",
+      "permission": "team_discussions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/teams/{team_id}/discussions/{discussion_number}",
+      "access": "write",
+      "permission": "team_discussions"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/discussions/{discussion_number}",
+      "access": "read",
+      "permission": "team_discussions"
+    },
+    {
+      "method": "PATCH",
+      "path": "/teams/{team_id}/discussions/{discussion_number}",
+      "access": "write",
+      "permission": "team_discussions"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments",
+      "access": "read",
+      "permission": "team_discussions"
+    },
+    {
+      "method": "POST",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments",
+      "access": "write",
+      "permission": "team_discussions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+      "access": "write",
+      "permission": "team_discussions"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+      "access": "read",
+      "permission": "team_discussions"
+    },
+    {
+      "method": "PATCH",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+      "access": "write",
+      "permission": "team_discussions"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions",
+      "access": "read",
+      "permission": "team_discussions"
+    },
+    {
+      "method": "POST",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions",
+      "access": "write",
+      "permission": "team_discussions"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/reactions",
+      "access": "read",
+      "permission": "team_discussions"
+    },
+    {
+      "method": "POST",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/reactions",
+      "access": "write",
+      "permission": "team_discussions"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/invitations",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/members",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "DELETE",
+      "path": "/teams/{team_id}/memberships/{username}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/memberships/{username}",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "PUT",
+      "path": "/teams/{team_id}/memberships/{username}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/projects",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "DELETE",
+      "path": "/teams/{team_id}/projects/{project_id}",
+      "access": "read",
+      "permission": "repository_projects"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/projects/{project_id}",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "PUT",
+      "path": "/teams/{team_id}/projects/{project_id}",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/repos",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "DELETE",
+      "path": "/teams/{team_id}/repos/{owner}/{repo}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/repos/{owner}/{repo}",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "PUT",
+      "path": "/teams/{team_id}/repos/{owner}/{repo}",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/teams",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/user/blocks",
+      "access": "read",
+      "permission": "organization_user_blocking"
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/blocks/{username}",
+      "access": "write",
+      "permission": "organization_user_blocking"
+    },
+    {
+      "method": "GET",
+      "path": "/user/blocks/{username}",
+      "access": "read",
+      "permission": "organization_user_blocking"
+    },
+    {
+      "method": "PUT",
+      "path": "/user/blocks/{username}",
+      "access": "write",
+      "permission": "organization_user_blocking"
+    },
+    {
+      "method": "GET",
+      "path": "/user/memberships/orgs",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/user/memberships/orgs/{org}",
+      "access": "read",
+      "permission": "members"
+    },
+    {
+      "method": "PATCH",
+      "path": "/user/memberships/orgs/{org}",
+      "access": "write",
+      "permission": "members"
+    },
+    {
+      "method": "GET",
+      "path": "/user/repos",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/repository_invitations/{invitation_id}",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "PATCH",
+      "path": "/user/repository_invitations/{invitation_id}",
+      "access": "write",
+      "permission": "administration"
+    },
+    {
+      "method": "GET",
+      "path": "/user/starred",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/user/subscriptions",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/users",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/events",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/events/public",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/followers",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/following",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/following/{target_user}",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/gpg_keys",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/keys",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/orgs",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/received_events",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/received_events/public",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/repos",
+      "access": "read",
+      "permission": "metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/subscriptions",
+      "access": "read",
+      "permission": "metadata"
+    }
+  ],
+  "permissions": {
+    "actions": {
+      "read": [
+        "GET /repos/{owner}/{repo}/actions/artifacts",
+        "GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}",
+        "GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip",
+        "GET /repos/{owner}/{repo}/actions/cache/usage",
+        "GET /repos/{owner}/{repo}/actions/jobs/{job_id}",
+        "GET /repos/{owner}/{repo}/actions/jobs/{job_id}/logs",
+        "GET /repos/{owner}/{repo}/actions/runs",
+        "GET /repos/{owner}/{repo}/actions/runs/{run_id}",
+        "GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts",
+        "GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs",
+        "GET /repos/{owner}/{repo}/actions/runs/{run_id}/logs",
+        "GET /repos/{owner}/{repo}/actions/workflows",
+        "GET /repos/{owner}/{repo}/actions/workflows/{workflow_id}",
+        "GET /repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs"
+      ],
+      "write": [
+        "DELETE /repos/{owner}/{repo}/actions/artifacts/{artifact_id}",
+        "DELETE /repos/{owner}/{repo}/actions/runs/{run_id}/logs",
+        "POST /repos/{owner}/{repo}/actions/runs/{run_id}/approve",
+        "POST /repos/{owner}/{repo}/actions/runs/{run_id}/cancel",
+        "POST /repos/{owner}/{repo}/actions/runs/{run_id}/rerun",
+        "POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#actions"
+    },
+    "administration": {
+      "read": [
+        "GET /repos/{owner}/{repo}/actions/runners",
+        "GET /repos/{owner}/{repo}/actions/runners/downloads",
+        "GET /repos/{owner}/{repo}/actions/runners/{runner_id}",
+        "GET /repos/{owner}/{repo}/actions/runners/{runner_id}/labels",
+        "GET /repos/{owner}/{repo}/branches/{branch}/protection",
+        "GET /repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",
+        "GET /repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",
+        "GET /repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",
+        "GET /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",
+        "GET /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+        "GET /repos/{owner}/{repo}/branches/{branch}/protection/restrictions",
+        "GET /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+        "GET /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+        "GET /repos/{owner}/{repo}/interaction-limits",
+        "GET /repos/{owner}/{repo}/invitations",
+        "GET /repos/{owner}/{repo}/keys",
+        "GET /repos/{owner}/{repo}/keys/{key_id}",
+        "GET /repos/{owner}/{repo}/teams",
+        "GET /repos/{owner}/{repo}/traffic/clones",
+        "GET /repos/{owner}/{repo}/traffic/popular/paths",
+        "GET /repos/{owner}/{repo}/traffic/popular/referrers",
+        "GET /repos/{owner}/{repo}/traffic/views",
+        "GET /repos/{owner}/{repo}/vulnerability-alerts"
+      ],
+      "write": [
+        "DELETE /repos/{owner}/{repo}",
+        "DELETE /repos/{owner}/{repo}/actions/runners/{runner_id}",
+        "DELETE /repos/{owner}/{repo}/actions/runners/{runner_id}/labels",
+        "DELETE /repos/{owner}/{repo}/actions/runners/{runner_id}/labels/{name}",
+        "DELETE /repos/{owner}/{repo}/automated-security-fixes",
+        "DELETE /repos/{owner}/{repo}/branches/{branch}/protection",
+        "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",
+        "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",
+        "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",
+        "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",
+        "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+        "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/restrictions",
+        "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+        "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+        "DELETE /repos/{owner}/{repo}/collaborators/{username}",
+        "DELETE /repos/{owner}/{repo}/interaction-limits",
+        "DELETE /repos/{owner}/{repo}/invitations/{invitation_id}",
+        "DELETE /repos/{owner}/{repo}/keys/{key_id}",
+        "DELETE /repos/{owner}/{repo}/vulnerability-alerts",
+        "DELETE /teams/{team_id}/repos/{owner}/{repo}",
+        "DELETE /user/repository_invitations/{invitation_id}",
+        "GET /repos/{owner}/{repo}/pages/health",
+        "PATCH /repos/{owner}/{repo}",
+        "PATCH /repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",
+        "PATCH /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",
+        "PATCH /repos/{owner}/{repo}/invitations/{invitation_id}",
+        "PATCH /user/repository_invitations/{invitation_id}",
+        "POST /orgs/{org}/repos",
+        "POST /repos/{owner}/{repo}/actions/runners/registration-token",
+        "POST /repos/{owner}/{repo}/actions/runners/remove-token",
+        "POST /repos/{owner}/{repo}/actions/runners/{runner_id}/labels",
+        "POST /repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",
+        "POST /repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",
+        "POST /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+        "POST /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+        "POST /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+        "POST /repos/{owner}/{repo}/branches/{branch}/rename",
+        "POST /repos/{owner}/{repo}/forks",
+        "POST /repos/{owner}/{repo}/keys",
+        "POST /repos/{owner}/{repo}/transfer",
+        "PUT /repos/{owner}/{repo}/actions/runners/{runner_id}/labels",
+        "PUT /repos/{owner}/{repo}/automated-security-fixes",
+        "PUT /repos/{owner}/{repo}/branches/{branch}/protection",
+        "PUT /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+        "PUT /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+        "PUT /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+        "PUT /repos/{owner}/{repo}/collaborators/{username}",
+        "PUT /repos/{owner}/{repo}/interaction-limits",
+        "PUT /repos/{owner}/{repo}/topics",
+        "PUT /repos/{owner}/{repo}/vulnerability-alerts",
+        "PUT /teams/{team_id}/repos/{owner}/{repo}"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#administration"
+    },
+    "checks": {
+      "read": [
+        "GET /repos/{owner}/{repo}/check-runs/{check_run_id}",
+        "GET /repos/{owner}/{repo}/check-runs/{check_run_id}/annotations",
+        "GET /repos/{owner}/{repo}/check-suites/{check_suite_id}",
+        "GET /repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs",
+        "GET /repos/{owner}/{repo}/commits/{sha}/check-runs",
+        "GET /repos/{owner}/{repo}/commits/{sha}/check-suites"
+      ],
+      "write": [
+        "PATCH /repos/{owner}/{repo}/check-runs/{check_run_id}",
+        "PATCH /repos/{owner}/{repo}/check-suites/preferences",
+        "POST /repos/{owner}/{repo}/check-runs",
+        "POST /repos/{owner}/{repo}/check-suites",
+        "POST /repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#checks"
+    },
+    "contents": {
+      "read": [
+        "GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}",
+        "GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip",
+        "GET /repos/{owner}/{repo}/actions/jobs/{job_id}",
+        "GET /repos/{owner}/{repo}/actions/jobs/{job_id}/logs",
+        "GET /repos/{owner}/{repo}/actions/runs",
+        "GET /repos/{owner}/{repo}/actions/runs/{run_id}",
+        "GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts",
+        "GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs",
+        "GET /repos/{owner}/{repo}/actions/runs/{run_id}/logs",
+        "GET /repos/{owner}/{repo}/actions/workflows",
+        "GET /repos/{owner}/{repo}/actions/workflows/{workflow_id}",
+        "GET /repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs",
+        "GET /repos/{owner}/{repo}/branches",
+        "GET /repos/{owner}/{repo}/branches/{branch}",
+        "GET /repos/{owner}/{repo}/check-runs/{check_run_id}",
+        "GET /repos/{owner}/{repo}/check-runs/{check_run_id}/annotations",
+        "GET /repos/{owner}/{repo}/check-suites/{check_suite_id}",
+        "GET /repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs",
+        "GET /repos/{owner}/{repo}/codeowners/errors",
+        "GET /repos/{owner}/{repo}/commits",
+        "GET /repos/{owner}/{repo}/commits/{sha}",
+        "GET /repos/{owner}/{repo}/commits/{sha}/check-runs",
+        "GET /repos/{owner}/{repo}/commits/{sha}/check-suites",
+        "GET /repos/{owner}/{repo}/community/code_of_conduct",
+        "GET /repos/{owner}/{repo}/compare/{base}...{head}",
+        "GET /repos/{owner}/{repo}/contents/{path}",
+        "GET /repos/{owner}/{repo}/git/blobs/{sha}",
+        "GET /repos/{owner}/{repo}/git/commits/{commit_id}",
+        "GET /repos/{owner}/{repo}/git/matching-refs/{ref}",
+        "GET /repos/{owner}/{repo}/git/ref/{ref}",
+        "GET /repos/{owner}/{repo}/git/tags/{tag_id}",
+        "GET /repos/{owner}/{repo}/git/trees/{sha}",
+        "GET /repos/{owner}/{repo}/import",
+        "GET /repos/{owner}/{repo}/import/authors",
+        "GET /repos/{owner}/{repo}/import/large_files",
+        "GET /repos/{owner}/{repo}/readme(?:/(.*))?",
+        "GET /repos/{owner}/{repo}/releases",
+        "GET /repos/{owner}/{repo}/releases/assets/{asset_id}",
+        "GET /repos/{owner}/{repo}/releases/latest",
+        "GET /repos/{owner}/{repo}/releases/tags/{tag}",
+        "GET /repos/{owner}/{repo}/releases/{release_id}",
+        "GET /repos/{owner}/{repo}/releases/{release_id}/assets",
+        "GET /repos/{owner}/{repo}/{archive_format}/{ref}",
+        "POST /repos/{owner}/{repo}/forks"
+      ],
+      "write": [
+        "DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}",
+        "DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}",
+        "DELETE /reactions/{reaction_id}",
+        "DELETE /repos/{owner}/{repo}/actions/artifacts/{artifact_id}",
+        "DELETE /repos/{owner}/{repo}/actions/runs/{run_id}/logs",
+        "DELETE /repos/{owner}/{repo}/actions/secrets/{name}",
+        "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+        "DELETE /repos/{owner}/{repo}/comments/{comment_id}",
+        "DELETE /repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}",
+        "DELETE /repos/{owner}/{repo}/git/refs/{ref}",
+        "DELETE /repos/{owner}/{repo}/import",
+        "DELETE /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}",
+        "DELETE /repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}",
+        "DELETE /repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}",
+        "DELETE /repos/{owner}/{repo}/releases/assets/{asset_id}",
+        "DELETE /repos/{owner}/{repo}/releases/{release_id}",
+        "GET /repos/{owner}/{repo}/actions/secrets",
+        "GET /repos/{owner}/{repo}/actions/secrets/public-key",
+        "GET /repos/{owner}/{repo}/actions/secrets/{name}",
+        "GET /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+        "PATCH /repos/{owner}/{repo}/comments/{comment_id}",
+        "PATCH /repos/{owner}/{repo}/git/refs/{ref}",
+        "PATCH /repos/{owner}/{repo}/import",
+        "PATCH /repos/{owner}/{repo}/import/authors/{author_id}",
+        "PATCH /repos/{owner}/{repo}/import/lfs",
+        "PATCH /repos/{owner}/{repo}/releases/assets/{asset_id}",
+        "PATCH /repos/{owner}/{repo}/releases/{release_id}",
+        "POST /repos/{owner}/{repo}/actions/runs/{run_id}/cancel",
+        "POST /repos/{owner}/{repo}/actions/runs/{run_id}/rerun",
+        "POST /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+        "POST /repos/{owner}/{repo}/branches/{branch}/rename",
+        "POST /repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest",
+        "POST /repos/{owner}/{repo}/comments/{comment_id}/reactions",
+        "POST /repos/{owner}/{repo}/commits/{sha}/comments",
+        "POST /repos/{owner}/{repo}/dispatches",
+        "POST /repos/{owner}/{repo}/git/blobs",
+        "POST /repos/{owner}/{repo}/git/commits",
+        "POST /repos/{owner}/{repo}/git/refs",
+        "POST /repos/{owner}/{repo}/git/tags",
+        "POST /repos/{owner}/{repo}/git/trees",
+        "POST /repos/{owner}/{repo}/merges",
+        "POST /repos/{owner}/{repo}/releases",
+        "PUT /repos/{owner}/{repo}/actions/secrets/{name}",
+        "PUT /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+        "PUT /repos/{owner}/{repo}/import",
+        "PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#contents"
+    },
+    "deployments": {
+      "read": [
+        "GET /repos/{owner}/{repo}/deployments",
+        "GET /repos/{owner}/{repo}/deployments/{deployment_id}",
+        "GET /repos/{owner}/{repo}/deployments/{deployment_id}/statuses",
+        "GET /repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}"
+      ],
+      "write": [
+        "DELETE /repos/{owner}/{repo}/deployments/{deployment_id}",
+        "POST /repos/{owner}/{repo}/deployments",
+        "POST /repos/{owner}/{repo}/deployments/{deployment_id}/statuses"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#deployments"
+    },
+    "issues": {
+      "read": [
+        "GET /repos/{owner}/{repo}/assignees",
+        "GET /repos/{owner}/{repo}/assignees/{username}",
+        "GET /repos/{owner}/{repo}/issues",
+        "GET /repos/{owner}/{repo}/issues/comments",
+        "GET /repos/{owner}/{repo}/issues/comments/{comment_id}",
+        "GET /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",
+        "GET /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",
+        "GET /repos/{owner}/{repo}/issues/events/{event_id}",
+        "GET /repos/{owner}/{repo}/issues/{issue_number}",
+        "GET /repos/{owner}/{repo}/issues/{issue_number}/comments",
+        "GET /repos/{owner}/{repo}/issues/{issue_number}/events",
+        "GET /repos/{owner}/{repo}/issues/{issue_number}/labels",
+        "GET /repos/{owner}/{repo}/issues/{issue_number}/reactions",
+        "GET /repos/{owner}/{repo}/issues/{issue_number}/reactions",
+        "GET /repos/{owner}/{repo}/issues/{issue_number}/timeline",
+        "GET /repos/{owner}/{repo}/labels",
+        "GET /repos/{owner}/{repo}/labels/{name}",
+        "GET /repos/{owner}/{repo}/milestones",
+        "GET /repos/{owner}/{repo}/milestones/{milestone_number}",
+        "GET /repos/{owner}/{repo}/milestones/{milestone_number}/labels"
+      ],
+      "write": [
+        "DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}",
+        "DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}",
+        "DELETE /reactions/{reaction_id}",
+        "DELETE /repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}",
+        "DELETE /repos/{owner}/{repo}/issues/comments/{comment_id}",
+        "DELETE /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}",
+        "DELETE /repos/{owner}/{repo}/issues/{issue_number}/assignees",
+        "DELETE /repos/{owner}/{repo}/issues/{issue_number}/labels",
+        "DELETE /repos/{owner}/{repo}/issues/{issue_number}/labels/{name}",
+        "DELETE /repos/{owner}/{repo}/issues/{issue_number}/lock",
+        "DELETE /repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}",
+        "DELETE /repos/{owner}/{repo}/labels/{name}",
+        "DELETE /repos/{owner}/{repo}/milestones/{milestone_number}",
+        "DELETE /repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}",
+        "PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}",
+        "PATCH /repos/{owner}/{repo}/issues/{issue_number}",
+        "PATCH /repos/{owner}/{repo}/labels/{name}",
+        "PATCH /repos/{owner}/{repo}/milestones/{milestone_number}",
+        "POST /repos/{owner}/{repo}/issues",
+        "POST /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",
+        "POST /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",
+        "POST /repos/{owner}/{repo}/issues/{issue_number}/assignees",
+        "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+        "POST /repos/{owner}/{repo}/issues/{issue_number}/labels",
+        "POST /repos/{owner}/{repo}/issues/{issue_number}/reactions",
+        "POST /repos/{owner}/{repo}/issues/{issue_number}/reactions",
+        "POST /repos/{owner}/{repo}/labels",
+        "POST /repos/{owner}/{repo}/milestones",
+        "PUT /repos/{owner}/{repo}/issues/{issue_number}/labels",
+        "PUT /repos/{owner}/{repo}/issues/{issue_number}/lock"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#issues"
+    },
+    "members": {
+      "read": [
+        "DELETE /teams/{team_id}/projects/{project_id}",
+        "GET /orgs/{org}/invitations",
+        "GET /orgs/{org}/invitations/{invitation_id}/teams",
+        "GET /orgs/{org}/memberships/{username}",
+        "GET /orgs/{org}/outside_collaborators",
+        "GET /orgs/{org}/team/{team_id}",
+        "GET /orgs/{org}/teams",
+        "GET /orgs/{org}/teams/{team_slug}",
+        "GET /teams/{team_id}/invitations",
+        "GET /teams/{team_id}/members",
+        "GET /teams/{team_id}/memberships/{username}",
+        "GET /teams/{team_id}/projects",
+        "GET /teams/{team_id}/projects/{project_id}",
+        "GET /teams/{team_id}/repos",
+        "GET /teams/{team_id}/repos/{owner}/{repo}",
+        "GET /teams/{team_id}/teams",
+        "GET /user/memberships/orgs",
+        "GET /user/memberships/orgs/{org}",
+        "PUT /teams/{team_id}/projects/{project_id}",
+        "PUT /teams/{team_id}/repos/{owner}/{repo}"
+      ],
+      "write": [
+        "DELETE /orgs/{org}/members/{username}",
+        "DELETE /orgs/{org}/memberships/{username}",
+        "DELETE /orgs/{org}/outside_collaborators/{username}",
+        "DELETE /orgs/{org}/public_members/{username}",
+        "DELETE /scim/v2/orgs/{org}/Users/{external_identity_guid}",
+        "DELETE /teams/{team_id}",
+        "DELETE /teams/{team_id}/memberships/{username}",
+        "DELETE /teams/{team_id}/repos/{owner}/{repo}",
+        "GET /organizations/{org_id}/team/{team_id}/team-sync/group-mappings",
+        "GET /orgs/{org}/team-sync/groups",
+        "GET /scim/v2/orgs/{org}/Users",
+        "GET /scim/v2/orgs/{org}/Users/{external_identity_guid}",
+        "PATCH /organizations/{org_id}/team/{team_id}/team-sync/group-mappings",
+        "PATCH /scim/v2/orgs/{org}/Users/{external_identity_guid}",
+        "PATCH /teams/{team_id}",
+        "PATCH /user/memberships/orgs/{org}",
+        "POST /orgs/{org}/invitations",
+        "POST /orgs/{org}/teams",
+        "POST /scim/v2/orgs/{org}/Users",
+        "PUT /orgs/{org}/memberships/{username}",
+        "PUT /orgs/{org}/outside_collaborators/{username}",
+        "PUT /orgs/{org}/public_members/{username}",
+        "PUT /scim/v2/orgs/{org}/Users/{external_identity_guid}",
+        "PUT /teams/{team_id}/memberships/{username}"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#members"
+    },
+    "metadata": {
+      "read": [
+        "GET /",
+        "GET /codes_of_conduct",
+        "GET /codes_of_conduct/{key}",
+        "GET /emojis",
+        "GET /events",
+        "GET /feeds",
+        "GET /gitignore/templates",
+        "GET /gitignore/templates/{key}",
+        "GET /licenses",
+        "GET /licenses/{key}",
+        "GET /meta",
+        "GET /networks/{owner}/{repo}/events",
+        "GET /organizations",
+        "GET /orgs/{org}",
+        "GET /orgs/{org}/events",
+        "GET /orgs/{org}/members",
+        "GET /orgs/{org}/members/{username}",
+        "GET /orgs/{org}/projects",
+        "GET /orgs/{org}/public_members",
+        "GET /orgs/{org}/public_members/{username}",
+        "GET /orgs/{org}/repos",
+        "GET /rate_limit",
+        "GET /repos/{owner}/{repo}",
+        "GET /repos/{owner}/{repo}/collaborators",
+        "GET /repos/{owner}/{repo}/collaborators/{username}",
+        "GET /repos/{owner}/{repo}/comments",
+        "GET /repos/{owner}/{repo}/comments/{comment_id}",
+        "GET /repos/{owner}/{repo}/comments/{comment_id}/reactions",
+        "GET /repos/{owner}/{repo}/commits/{sha}/comments",
+        "GET /repos/{owner}/{repo}/community/profile",
+        "GET /repos/{owner}/{repo}/contributors",
+        "GET /repos/{owner}/{repo}/events",
+        "GET /repos/{owner}/{repo}/events/issues",
+        "GET /repos/{owner}/{repo}/forks",
+        "GET /repos/{owner}/{repo}/languages",
+        "GET /repos/{owner}/{repo}/license",
+        "GET /repos/{owner}/{repo}/stargazers",
+        "GET /repos/{owner}/{repo}/stats/code_frequency",
+        "GET /repos/{owner}/{repo}/stats/commit_activity",
+        "GET /repos/{owner}/{repo}/stats/contributors",
+        "GET /repos/{owner}/{repo}/stats/participation",
+        "GET /repos/{owner}/{repo}/stats/punch_card",
+        "GET /repos/{owner}/{repo}/subscribers",
+        "GET /repos/{owner}/{repo}/tags",
+        "GET /repos/{owner}/{repo}/topics",
+        "GET /repositories",
+        "GET /search/code",
+        "GET /search/commits",
+        "GET /search/issues",
+        "GET /search/labels",
+        "GET /search/repositories",
+        "GET /search/topics",
+        "GET /search/users",
+        "GET /user/repos",
+        "GET /user/starred",
+        "GET /user/subscriptions",
+        "GET /users",
+        "GET /users/{username}",
+        "GET /users/{username}/events",
+        "GET /users/{username}/events/public",
+        "GET /users/{username}/followers",
+        "GET /users/{username}/following",
+        "GET /users/{username}/following/{target_user}",
+        "GET /users/{username}/gpg_keys",
+        "GET /users/{username}/keys",
+        "GET /users/{username}/orgs",
+        "GET /users/{username}/received_events",
+        "GET /users/{username}/received_events/public",
+        "GET /users/{username}/repos",
+        "GET /users/{username}/subscriptions",
+        "POST /markdown",
+        "POST /markdown/raw"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#metadata"
+    },
+    "organization_administration": {
+      "read": [
+        "GET /orgs/{org}/actions/cache/usage",
+        "GET /orgs/{org}/actions/cache/usage-by-repository",
+        "GET /orgs/{org}/interaction-limits"
+      ],
+      "write": [
+        "DELETE /orgs/{org}/interaction-limits",
+        "PATCH /orgs/{org}",
+        "PUT /orgs/{org}/interaction-limits"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#organization-administration"
+    },
+    "organization_projects": {
+      "read": [
+        "GET /projects/columns/cards/{card_id}",
+        "GET /projects/columns/{column_id}",
+        "GET /projects/columns/{column_id}/cards",
+        "GET /projects/{project_id}",
+        "GET /projects/{project_id}/columns"
+      ],
+      "write": [
+        "DELETE /projects/columns/cards/{card_id}",
+        "DELETE /projects/columns/{column_id}",
+        "DELETE /projects/{project_id}",
+        "PATCH /projects/columns/cards/{card_id}",
+        "PATCH /projects/columns/{column_id}",
+        "PATCH /projects/{project_id}",
+        "POST /orgs/{org}/projects",
+        "POST /projects/columns/cards/{card_id}/moves",
+        "POST /projects/columns/{column_id}/cards",
+        "POST /projects/columns/{column_id}/moves",
+        "POST /projects/{project_id}/cards",
+        "POST /projects/{project_id}/columns"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#organization-projects"
+    },
+    "organization_user_blocking": {
+      "read": [
+        "GET /orgs/{org}/blocks",
+        "GET /orgs/{org}/blocks/{username}"
+      ],
+      "write": [
+        "DELETE /orgs/{org}/blocks/{username}",
+        "PUT /orgs/{org}/blocks/{username}"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#organization-user-blocking"
+    },
+    "pages": {
+      "read": [
+        "GET /repos/{owner}/{repo}/pages",
+        "GET /repos/{owner}/{repo}/pages/builds",
+        "GET /repos/{owner}/{repo}/pages/builds/latest",
+        "GET /repos/{owner}/{repo}/pages/builds/{build_id}"
+      ],
+      "write": [
+        "GET /repos/{owner}/{repo}/pages/health",
+        "POST /repos/{owner}/{repo}/pages/builds",
+        "POST /repos/{owner}/{repo}/pages/deployment",
+        "PUT /repos/{owner}/{repo}/pages"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#pages"
+    },
+    "pull_requests": {
+      "read": [
+        "GET /repos/{owner}/{repo}/assignees",
+        "GET /repos/{owner}/{repo}/assignees/{username}",
+        "GET /repos/{owner}/{repo}/issues/comments",
+        "GET /repos/{owner}/{repo}/issues/comments/{comment_id}",
+        "GET /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",
+        "GET /repos/{owner}/{repo}/issues/events/{event_id}",
+        "GET /repos/{owner}/{repo}/issues/{issue_number}/comments",
+        "GET /repos/{owner}/{repo}/issues/{issue_number}/events",
+        "GET /repos/{owner}/{repo}/issues/{issue_number}/labels",
+        "GET /repos/{owner}/{repo}/issues/{issue_number}/timeline",
+        "GET /repos/{owner}/{repo}/labels",
+        "GET /repos/{owner}/{repo}/labels/{name}",
+        "GET /repos/{owner}/{repo}/milestones",
+        "GET /repos/{owner}/{repo}/milestones/{milestone_number}",
+        "GET /repos/{owner}/{repo}/milestones/{milestone_number}/labels",
+        "GET /repos/{owner}/{repo}/pulls",
+        "GET /repos/{owner}/{repo}/pulls/comments",
+        "GET /repos/{owner}/{repo}/pulls/comments/{comment_id}",
+        "GET /repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions",
+        "GET /repos/{owner}/{repo}/pulls/{pull_number}",
+        "GET /repos/{owner}/{repo}/pulls/{pull_number}/comments",
+        "GET /repos/{owner}/{repo}/pulls/{pull_number}/commits",
+        "GET /repos/{owner}/{repo}/pulls/{pull_number}/files",
+        "GET /repos/{owner}/{repo}/pulls/{pull_number}/merge",
+        "GET /repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+        "GET /repos/{owner}/{repo}/pulls/{pull_number}/reviews",
+        "GET /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+        "GET /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments"
+      ],
+      "write": [
+        "DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}",
+        "DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}",
+        "DELETE /reactions/{reaction_id}",
+        "DELETE /repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}",
+        "DELETE /repos/{owner}/{repo}/issues/comments/{comment_id}",
+        "DELETE /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}",
+        "DELETE /repos/{owner}/{repo}/issues/{issue_number}/assignees",
+        "DELETE /repos/{owner}/{repo}/issues/{issue_number}/labels",
+        "DELETE /repos/{owner}/{repo}/issues/{issue_number}/labels/{name}",
+        "DELETE /repos/{owner}/{repo}/issues/{issue_number}/lock",
+        "DELETE /repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}",
+        "DELETE /repos/{owner}/{repo}/labels/{name}",
+        "DELETE /repos/{owner}/{repo}/milestones/{milestone_number}",
+        "DELETE /repos/{owner}/{repo}/pulls/comments/{comment_id}",
+        "DELETE /repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}",
+        "DELETE /repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+        "DELETE /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+        "PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}",
+        "PATCH /repos/{owner}/{repo}/issues/{issue_number}",
+        "PATCH /repos/{owner}/{repo}/labels/{name}",
+        "PATCH /repos/{owner}/{repo}/milestones/{milestone_number}",
+        "PATCH /repos/{owner}/{repo}/pulls/comments/{comment_id}",
+        "PATCH /repos/{owner}/{repo}/pulls/{pull_number}",
+        "POST /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",
+        "POST /repos/{owner}/{repo}/issues/{issue_number}/assignees",
+        "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+        "POST /repos/{owner}/{repo}/issues/{issue_number}/labels",
+        "POST /repos/{owner}/{repo}/issues/{issue_number}/reactions",
+        "POST /repos/{owner}/{repo}/labels",
+        "POST /repos/{owner}/{repo}/milestones",
+        "POST /repos/{owner}/{repo}/pulls",
+        "POST /repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions",
+        "POST /repos/{owner}/{repo}/pulls/{pull_number}/comments",
+        "POST /repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+        "POST /repos/{owner}/{repo}/pulls/{pull_number}/reviews",
+        "POST /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events",
+        "PUT /repos/{owner}/{repo}/issues/{issue_number}/labels",
+        "PUT /repos/{owner}/{repo}/issues/{issue_number}/lock",
+        "PUT /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+        "PUT /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#pull-requests"
+    },
+    "repository_projects": {
+      "read": [
+        "DELETE /teams/{team_id}/projects/{project_id}",
+        "GET /projects/columns/cards/{card_id}",
+        "GET /projects/columns/{column_id}",
+        "GET /projects/columns/{column_id}/cards",
+        "GET /projects/{project_id}",
+        "GET /projects/{project_id}/columns",
+        "GET /repos/{owner}/{repo}/projects"
+      ],
+      "write": [
+        "DELETE /projects/columns/cards/{card_id}",
+        "DELETE /projects/columns/{column_id}",
+        "DELETE /projects/{project_id}",
+        "PATCH /projects/columns/cards/{card_id}",
+        "PATCH /projects/columns/{column_id}",
+        "PATCH /projects/{project_id}",
+        "POST /projects/columns/cards/{card_id}/moves",
+        "POST /projects/columns/{column_id}/cards",
+        "POST /projects/columns/{column_id}/moves",
+        "POST /projects/{project_id}/cards",
+        "POST /projects/{project_id}/columns",
+        "POST /repos/{owner}/{repo}/projects"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#repository-projects"
+    },
+    "secrets": {
+      "read": [
+        "GET /orgs/{org}/actions/secrets",
+        "GET /orgs/{org}/actions/secrets/public-key",
+        "GET /orgs/{org}/actions/secrets/{secret_name}",
+        "GET /orgs/{org}/actions/secrets/{secret_name}/repositories",
+        "GET /repos/{owner}/{repo}/actions/secrets",
+        "GET /repos/{owner}/{repo}/actions/secrets/public-key",
+        "GET /repos/{owner}/{repo}/actions/secrets/{secret_name}"
+      ],
+      "write": [
+        "DELETE /orgs/{org}/actions/secrets/{secret_name}",
+        "DELETE /orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}",
+        "DELETE /repos/{owner}/{repo}/actions/secrets/{secret_name}",
+        "PUT /orgs/{org}/actions/secrets/{secret_name}",
+        "PUT /orgs/{org}/actions/secrets/{secret_name}/repositories",
+        "PUT /orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}",
+        "PUT /repos/{owner}/{repo}/actions/secrets/{secret_name}"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#secrets"
+    },
+    "security_events": {
+      "read": [
+        "GET /orgs/{org}/code-scanning/alerts",
+        "GET /repos/{owner}/{repo}/code-scanning/alerts",
+        "GET /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}",
+        "GET /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances",
+        "GET /repos/{owner}/{repo}/code-scanning/analyses",
+        "GET /repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}",
+        "GET /repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}"
+      ],
+      "write": [
+        "DELETE /repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}",
+        "PATCH /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}",
+        "POST /repos/{owner}/{repo}/code-scanning/sarifs"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#code-scanning-alerts"
+    },
+    "single_file": {
+      "read": [
+        "GET /repos/{owner}/{repo}/contents/{path}"
+      ],
+      "write": [
+        "DELETE /repos/{owner}/{repo}/contents/{path}",
+        "PUT /repos/{owner}/{repo}/contents/{path}"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#single-file"
+    },
+    "statuses": {
+      "read": [
+        "GET /repos/{owner}/{repo}/commits/{ref}/status",
+        "GET /repos/{owner}/{repo}/commits/{ref}/statuses"
+      ],
+      "write": [
+        "POST /repos/{owner}/{repo}/statuses/{sha}"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#commit-statuses"
+    },
+    "team_discussions": {
+      "read": [
+        "GET /teams/{team_id}/discussions",
+        "GET /teams/{team_id}/discussions/{discussion_number}",
+        "GET /teams/{team_id}/discussions/{discussion_number}/comments",
+        "GET /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+        "GET /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions",
+        "GET /teams/{team_id}/discussions/{discussion_number}/reactions"
+      ],
+      "write": [
+        "DELETE /teams/{team_id}/discussions/{discussion_number}",
+        "DELETE /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+        "PATCH /teams/{team_id}/discussions/{discussion_number}",
+        "PATCH /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+        "POST /teams/{team_id}/discussions",
+        "POST /teams/{team_id}/discussions/{discussion_number}/comments",
+        "POST /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions",
+        "POST /teams/{team_id}/discussions/{discussion_number}/reactions"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#team-discussions"
+    },
+    "vulnerability_alerts": {
+      "read": [
+        "GET /repos/{owner}/{repo}/dependabot/alerts",
+        "GET /repos/{owner}/{repo}/dependabot/alerts/{alert_number}"
+      ],
+      "write": [
+        "PATCH /repos/{owner}/{repo}/dependabot/alerts/{alert_number}"
+      ],
+      "doc_url": "https://docs.github.com/en/free-pro-team@latest/rest/reference/permissions-required-for-github-apps/#dependabot-alerts"
+    }
+  },
+  "endpoint_index": {
+    "DELETE /orgs/{org}/actions/secrets/{secret_name}": [
+      {
+        "permission": "secrets",
+        "access": "write"
+      }
+    ],
+    "DELETE /orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}": [
+      {
+        "permission": "secrets",
+        "access": "write"
+      }
+    ],
+    "DELETE /orgs/{org}/blocks/{username}": [
+      {
+        "permission": "organization_user_blocking",
+        "access": "write"
+      }
+    ],
+    "DELETE /orgs/{org}/interaction-limits": [
+      {
+        "permission": "organization_administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /orgs/{org}/members/{username}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "DELETE /orgs/{org}/memberships/{username}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "DELETE /orgs/{org}/outside_collaborators/{username}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "DELETE /orgs/{org}/public_members/{username}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      },
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      },
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /projects/columns/cards/{card_id}": [
+      {
+        "permission": "organization_projects",
+        "access": "write"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "write"
+      }
+    ],
+    "DELETE /projects/columns/{column_id}": [
+      {
+        "permission": "organization_projects",
+        "access": "write"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "write"
+      }
+    ],
+    "DELETE /projects/{project_id}": [
+      {
+        "permission": "organization_projects",
+        "access": "write"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "write"
+      }
+    ],
+    "DELETE /reactions/{reaction_id}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      },
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/actions/artifacts/{artifact_id}": [
+      {
+        "permission": "actions",
+        "access": "write"
+      },
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/actions/runners/{runner_id}": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/actions/runners/{runner_id}/labels": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/actions/runners/{runner_id}/labels/{name}": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/actions/runs/{run_id}/logs": [
+      {
+        "permission": "actions",
+        "access": "write"
+      },
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/actions/secrets/{name}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/actions/secrets/{secret_name}": [
+      {
+        "permission": "secrets",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/automated-security-fixes": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/branches/{branch}/protection": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/required_signatures": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/restrictions": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}": [
+      {
+        "permission": "security_events",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/collaborators/{username}": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/comments/{comment_id}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      },
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/contents/{path}": [
+      {
+        "permission": "single_file",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/deployments/{deployment_id}": [
+      {
+        "permission": "deployments",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/git/refs/{ref}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/import": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/interaction-limits": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/invitations/{invitation_id}": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/issues/comments/{comment_id}": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      },
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/issues/{issue_number}/assignees": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/issues/{issue_number}/labels": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/issues/{issue_number}/labels/{name}": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/issues/{issue_number}/lock": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      },
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/keys/{key_id}": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/labels/{name}": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/milestones/{milestone_number}": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/pulls/comments/{comment_id}": [
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      },
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers": [
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}": [
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/releases/assets/{asset_id}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/releases/{release_id}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "DELETE /repos/{owner}/{repo}/vulnerability-alerts": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "DELETE /scim/v2/orgs/{org}/Users/{external_identity_guid}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "DELETE /teams/{team_id}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "DELETE /teams/{team_id}/discussions/{discussion_number}": [
+      {
+        "permission": "team_discussions",
+        "access": "write"
+      }
+    ],
+    "DELETE /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}": [
+      {
+        "permission": "team_discussions",
+        "access": "write"
+      }
+    ],
+    "DELETE /teams/{team_id}/memberships/{username}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "DELETE /teams/{team_id}/projects/{project_id}": [
+      {
+        "permission": "members",
+        "access": "read"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "read"
+      }
+    ],
+    "DELETE /teams/{team_id}/repos/{owner}/{repo}": [
+      {
+        "permission": "administration",
+        "access": "write"
+      },
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "DELETE /user/repository_invitations/{invitation_id}": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "GET /": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /codes_of_conduct": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /codes_of_conduct/{key}": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /emojis": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /events": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /feeds": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /gitignore/templates": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /gitignore/templates/{key}": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /licenses": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /licenses/{key}": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /meta": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /networks/{owner}/{repo}/events": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /organizations": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /organizations/{org_id}/team/{team_id}/team-sync/group-mappings": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "GET /orgs/{org}": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/actions/cache/usage": [
+      {
+        "permission": "organization_administration",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/actions/cache/usage-by-repository": [
+      {
+        "permission": "organization_administration",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/actions/secrets": [
+      {
+        "permission": "secrets",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/actions/secrets/public-key": [
+      {
+        "permission": "secrets",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/actions/secrets/{secret_name}": [
+      {
+        "permission": "secrets",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/actions/secrets/{secret_name}/repositories": [
+      {
+        "permission": "secrets",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/blocks": [
+      {
+        "permission": "organization_user_blocking",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/blocks/{username}": [
+      {
+        "permission": "organization_user_blocking",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/code-scanning/alerts": [
+      {
+        "permission": "security_events",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/events": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/interaction-limits": [
+      {
+        "permission": "organization_administration",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/invitations": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/invitations/{invitation_id}/teams": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/members": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/members/{username}": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/memberships/{username}": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/outside_collaborators": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/projects": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/public_members": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/public_members/{username}": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/repos": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/team-sync/groups": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "GET /orgs/{org}/team/{team_id}": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/teams": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /orgs/{org}/teams/{team_slug}": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /projects/columns/cards/{card_id}": [
+      {
+        "permission": "organization_projects",
+        "access": "read"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "read"
+      }
+    ],
+    "GET /projects/columns/{column_id}": [
+      {
+        "permission": "organization_projects",
+        "access": "read"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "read"
+      }
+    ],
+    "GET /projects/columns/{column_id}/cards": [
+      {
+        "permission": "organization_projects",
+        "access": "read"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "read"
+      }
+    ],
+    "GET /projects/{project_id}": [
+      {
+        "permission": "organization_projects",
+        "access": "read"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "read"
+      }
+    ],
+    "GET /projects/{project_id}/columns": [
+      {
+        "permission": "organization_projects",
+        "access": "read"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "read"
+      }
+    ],
+    "GET /rate_limit": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/artifacts": [
+      {
+        "permission": "actions",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}": [
+      {
+        "permission": "actions",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip": [
+      {
+        "permission": "actions",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/cache/usage": [
+      {
+        "permission": "actions",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/jobs/{job_id}": [
+      {
+        "permission": "actions",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/jobs/{job_id}/logs": [
+      {
+        "permission": "actions",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/runners": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/runners/downloads": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/runners/{runner_id}": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/runners/{runner_id}/labels": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/runs": [
+      {
+        "permission": "actions",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/runs/{run_id}": [
+      {
+        "permission": "actions",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts": [
+      {
+        "permission": "actions",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs": [
+      {
+        "permission": "actions",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/runs/{run_id}/logs": [
+      {
+        "permission": "actions",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/secrets": [
+      {
+        "permission": "contents",
+        "access": "write"
+      },
+      {
+        "permission": "secrets",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/secrets/public-key": [
+      {
+        "permission": "contents",
+        "access": "write"
+      },
+      {
+        "permission": "secrets",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/secrets/{name}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/secrets/{secret_name}": [
+      {
+        "permission": "secrets",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/workflows": [
+      {
+        "permission": "actions",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/workflows/{workflow_id}": [
+      {
+        "permission": "actions",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs": [
+      {
+        "permission": "actions",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/assignees": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/assignees/{username}": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/branches": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/branches/{branch}": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/branches/{branch}/protection": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/branches/{branch}/protection/required_signatures": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/branches/{branch}/protection/restrictions": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/check-runs/{check_run_id}": [
+      {
+        "permission": "checks",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/check-runs/{check_run_id}/annotations": [
+      {
+        "permission": "checks",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/check-suites/{check_suite_id}": [
+      {
+        "permission": "checks",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs": [
+      {
+        "permission": "checks",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/code-scanning/alerts": [
+      {
+        "permission": "security_events",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}": [
+      {
+        "permission": "security_events",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances": [
+      {
+        "permission": "security_events",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/code-scanning/analyses": [
+      {
+        "permission": "security_events",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}": [
+      {
+        "permission": "security_events",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}": [
+      {
+        "permission": "security_events",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/codeowners/errors": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/collaborators": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/collaborators/{username}": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/comments": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/comments/{comment_id}": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/comments/{comment_id}/reactions": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/commits": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/commits/{ref}/status": [
+      {
+        "permission": "statuses",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/commits/{ref}/statuses": [
+      {
+        "permission": "statuses",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/commits/{sha}": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/commits/{sha}/check-runs": [
+      {
+        "permission": "checks",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/commits/{sha}/check-suites": [
+      {
+        "permission": "checks",
+        "access": "read"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/commits/{sha}/comments": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/community/code_of_conduct": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/community/profile": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/compare/{base}...{head}": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/contents/{path}": [
+      {
+        "permission": "contents",
+        "access": "read"
+      },
+      {
+        "permission": "single_file",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/contributors": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/dependabot/alerts": [
+      {
+        "permission": "vulnerability_alerts",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/dependabot/alerts/{alert_number}": [
+      {
+        "permission": "vulnerability_alerts",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/deployments": [
+      {
+        "permission": "deployments",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/deployments/{deployment_id}": [
+      {
+        "permission": "deployments",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/deployments/{deployment_id}/statuses": [
+      {
+        "permission": "deployments",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}": [
+      {
+        "permission": "deployments",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/events": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/events/issues": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/forks": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/git/blobs/{sha}": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/git/commits/{commit_id}": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/git/matching-refs/{ref}": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/git/ref/{ref}": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/git/tags/{tag_id}": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/git/trees/{sha}": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/import": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/import/authors": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/import/large_files": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/interaction-limits": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/invitations": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/issues": [
+      {
+        "permission": "issues",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/issues/comments": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/issues/comments/{comment_id}": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/issues/events/{event_id}": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/issues/{issue_number}": [
+      {
+        "permission": "issues",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/issues/{issue_number}/comments": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/issues/{issue_number}/events": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/issues/{issue_number}/labels": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/issues/{issue_number}/reactions": [
+      {
+        "permission": "issues",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/issues/{issue_number}/timeline": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/keys": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/keys/{key_id}": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/labels": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/labels/{name}": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/languages": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/license": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/milestones": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/milestones/{milestone_number}": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/milestones/{milestone_number}/labels": [
+      {
+        "permission": "issues",
+        "access": "read"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pages": [
+      {
+        "permission": "pages",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pages/builds": [
+      {
+        "permission": "pages",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pages/builds/latest": [
+      {
+        "permission": "pages",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pages/builds/{build_id}": [
+      {
+        "permission": "pages",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pages/health": [
+      {
+        "permission": "administration",
+        "access": "write"
+      },
+      {
+        "permission": "pages",
+        "access": "write"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/projects": [
+      {
+        "permission": "repository_projects",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pulls": [
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pulls/comments": [
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pulls/comments/{comment_id}": [
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions": [
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}": [
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/comments": [
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/commits": [
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/files": [
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/merge": [
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers": [
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/reviews": [
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}": [
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments": [
+      {
+        "permission": "pull_requests",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/readme(?:/(.*))?": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/releases": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/releases/assets/{asset_id}": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/releases/latest": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/releases/tags/{tag}": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/releases/{release_id}": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/releases/{release_id}/assets": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/stargazers": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/stats/code_frequency": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/stats/commit_activity": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/stats/contributors": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/stats/participation": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/stats/punch_card": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/subscribers": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/tags": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/teams": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/topics": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/traffic/clones": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/traffic/popular/paths": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/traffic/popular/referrers": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/traffic/views": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/vulnerability-alerts": [
+      {
+        "permission": "administration",
+        "access": "read"
+      }
+    ],
+    "GET /repos/{owner}/{repo}/{archive_format}/{ref}": [
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "GET /repositories": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /scim/v2/orgs/{org}/Users": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "GET /scim/v2/orgs/{org}/Users/{external_identity_guid}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "GET /search/code": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /search/commits": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /search/issues": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /search/labels": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /search/repositories": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /search/topics": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /search/users": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /teams/{team_id}/discussions": [
+      {
+        "permission": "team_discussions",
+        "access": "read"
+      }
+    ],
+    "GET /teams/{team_id}/discussions/{discussion_number}": [
+      {
+        "permission": "team_discussions",
+        "access": "read"
+      }
+    ],
+    "GET /teams/{team_id}/discussions/{discussion_number}/comments": [
+      {
+        "permission": "team_discussions",
+        "access": "read"
+      }
+    ],
+    "GET /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}": [
+      {
+        "permission": "team_discussions",
+        "access": "read"
+      }
+    ],
+    "GET /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions": [
+      {
+        "permission": "team_discussions",
+        "access": "read"
+      }
+    ],
+    "GET /teams/{team_id}/discussions/{discussion_number}/reactions": [
+      {
+        "permission": "team_discussions",
+        "access": "read"
+      }
+    ],
+    "GET /teams/{team_id}/invitations": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /teams/{team_id}/members": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /teams/{team_id}/memberships/{username}": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /teams/{team_id}/projects": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /teams/{team_id}/projects/{project_id}": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /teams/{team_id}/repos": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /teams/{team_id}/repos/{owner}/{repo}": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /teams/{team_id}/teams": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /user/memberships/orgs": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /user/memberships/orgs/{org}": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "GET /user/repos": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /user/starred": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /user/subscriptions": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /users": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /users/{username}": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /users/{username}/events": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /users/{username}/events/public": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /users/{username}/followers": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /users/{username}/following": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /users/{username}/following/{target_user}": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /users/{username}/gpg_keys": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /users/{username}/keys": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /users/{username}/orgs": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /users/{username}/received_events": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /users/{username}/received_events/public": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /users/{username}/repos": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "GET /users/{username}/subscriptions": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "PATCH /organizations/{org_id}/team/{team_id}/team-sync/group-mappings": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "PATCH /orgs/{org}": [
+      {
+        "permission": "organization_administration",
+        "access": "write"
+      }
+    ],
+    "PATCH /projects/columns/cards/{card_id}": [
+      {
+        "permission": "organization_projects",
+        "access": "write"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "write"
+      }
+    ],
+    "PATCH /projects/columns/{column_id}": [
+      {
+        "permission": "organization_projects",
+        "access": "write"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "write"
+      }
+    ],
+    "PATCH /projects/{project_id}": [
+      {
+        "permission": "organization_projects",
+        "access": "write"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/check-runs/{check_run_id}": [
+      {
+        "permission": "checks",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/check-suites/preferences": [
+      {
+        "permission": "checks",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}": [
+      {
+        "permission": "security_events",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/comments/{comment_id}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/dependabot/alerts/{alert_number}": [
+      {
+        "permission": "vulnerability_alerts",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/git/refs/{ref}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/import": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/import/authors/{author_id}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/import/lfs": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/invitations/{invitation_id}": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/issues/{issue_number}": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/labels/{name}": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/milestones/{milestone_number}": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/pulls/comments/{comment_id}": [
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/pulls/{pull_number}": [
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/releases/assets/{asset_id}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "PATCH /repos/{owner}/{repo}/releases/{release_id}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "PATCH /scim/v2/orgs/{org}/Users/{external_identity_guid}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "PATCH /teams/{team_id}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "PATCH /teams/{team_id}/discussions/{discussion_number}": [
+      {
+        "permission": "team_discussions",
+        "access": "write"
+      }
+    ],
+    "PATCH /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}": [
+      {
+        "permission": "team_discussions",
+        "access": "write"
+      }
+    ],
+    "PATCH /user/memberships/orgs/{org}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "PATCH /user/repository_invitations/{invitation_id}": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "POST /markdown": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "POST /markdown/raw": [
+      {
+        "permission": "metadata",
+        "access": "read"
+      }
+    ],
+    "POST /orgs/{org}/invitations": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "POST /orgs/{org}/projects": [
+      {
+        "permission": "organization_projects",
+        "access": "write"
+      }
+    ],
+    "POST /orgs/{org}/repos": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "POST /orgs/{org}/teams": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "POST /projects/columns/cards/{card_id}/moves": [
+      {
+        "permission": "organization_projects",
+        "access": "write"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "write"
+      }
+    ],
+    "POST /projects/columns/{column_id}/cards": [
+      {
+        "permission": "organization_projects",
+        "access": "write"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "write"
+      }
+    ],
+    "POST /projects/columns/{column_id}/moves": [
+      {
+        "permission": "organization_projects",
+        "access": "write"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "write"
+      }
+    ],
+    "POST /projects/{project_id}/cards": [
+      {
+        "permission": "organization_projects",
+        "access": "write"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "write"
+      }
+    ],
+    "POST /projects/{project_id}/columns": [
+      {
+        "permission": "organization_projects",
+        "access": "write"
+      },
+      {
+        "permission": "repository_projects",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/actions/runners/registration-token": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/actions/runners/remove-token": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/actions/runners/{runner_id}/labels": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/actions/runs/{run_id}/approve": [
+      {
+        "permission": "actions",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/actions/runs/{run_id}/cancel": [
+      {
+        "permission": "actions",
+        "access": "write"
+      },
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/actions/runs/{run_id}/rerun": [
+      {
+        "permission": "actions",
+        "access": "write"
+      },
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches": [
+      {
+        "permission": "actions",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/branches/{branch}/protection/required_signatures": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/branches/{branch}/rename": [
+      {
+        "permission": "administration",
+        "access": "write"
+      },
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/check-runs": [
+      {
+        "permission": "checks",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/check-suites": [
+      {
+        "permission": "checks",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest": [
+      {
+        "permission": "checks",
+        "access": "write"
+      },
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/code-scanning/sarifs": [
+      {
+        "permission": "security_events",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/comments/{comment_id}/reactions": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/commits/{sha}/comments": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/deployments": [
+      {
+        "permission": "deployments",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/deployments/{deployment_id}/statuses": [
+      {
+        "permission": "deployments",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/dispatches": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/forks": [
+      {
+        "permission": "administration",
+        "access": "write"
+      },
+      {
+        "permission": "contents",
+        "access": "read"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/git/blobs": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/git/commits": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/git/refs": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/git/tags": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/git/trees": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/issues": [
+      {
+        "permission": "issues",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/issues/{issue_number}/assignees": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/issues/{issue_number}/comments": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/issues/{issue_number}/labels": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/issues/{issue_number}/reactions": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/keys": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/labels": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/merges": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/milestones": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/pages/builds": [
+      {
+        "permission": "pages",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/pages/deployment": [
+      {
+        "permission": "pages",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/projects": [
+      {
+        "permission": "repository_projects",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/pulls": [
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions": [
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/pulls/{pull_number}/comments": [
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers": [
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/pulls/{pull_number}/reviews": [
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events": [
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/releases": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/statuses/{sha}": [
+      {
+        "permission": "statuses",
+        "access": "write"
+      }
+    ],
+    "POST /repos/{owner}/{repo}/transfer": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "POST /scim/v2/orgs/{org}/Users": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "POST /teams/{team_id}/discussions": [
+      {
+        "permission": "team_discussions",
+        "access": "write"
+      }
+    ],
+    "POST /teams/{team_id}/discussions/{discussion_number}/comments": [
+      {
+        "permission": "team_discussions",
+        "access": "write"
+      }
+    ],
+    "POST /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions": [
+      {
+        "permission": "team_discussions",
+        "access": "write"
+      }
+    ],
+    "POST /teams/{team_id}/discussions/{discussion_number}/reactions": [
+      {
+        "permission": "team_discussions",
+        "access": "write"
+      }
+    ],
+    "PUT /orgs/{org}/actions/secrets/{secret_name}": [
+      {
+        "permission": "secrets",
+        "access": "write"
+      }
+    ],
+    "PUT /orgs/{org}/actions/secrets/{secret_name}/repositories": [
+      {
+        "permission": "secrets",
+        "access": "write"
+      }
+    ],
+    "PUT /orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}": [
+      {
+        "permission": "secrets",
+        "access": "write"
+      }
+    ],
+    "PUT /orgs/{org}/blocks/{username}": [
+      {
+        "permission": "organization_user_blocking",
+        "access": "write"
+      }
+    ],
+    "PUT /orgs/{org}/interaction-limits": [
+      {
+        "permission": "organization_administration",
+        "access": "write"
+      }
+    ],
+    "PUT /orgs/{org}/memberships/{username}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "PUT /orgs/{org}/outside_collaborators/{username}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "PUT /orgs/{org}/public_members/{username}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/actions/runners/{runner_id}/labels": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/actions/secrets/{name}": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/actions/secrets/{secret_name}": [
+      {
+        "permission": "secrets",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/automated-security-fixes": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/branches/{branch}/protection": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/collaborators/{username}": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/contents/{path}": [
+      {
+        "permission": "single_file",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/import": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/interaction-limits": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/issues/{issue_number}/labels": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/issues/{issue_number}/lock": [
+      {
+        "permission": "issues",
+        "access": "write"
+      },
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/pages": [
+      {
+        "permission": "pages",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge": [
+      {
+        "permission": "contents",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}": [
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals": [
+      {
+        "permission": "pull_requests",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/topics": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "PUT /repos/{owner}/{repo}/vulnerability-alerts": [
+      {
+        "permission": "administration",
+        "access": "write"
+      }
+    ],
+    "PUT /scim/v2/orgs/{org}/Users/{external_identity_guid}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "PUT /teams/{team_id}/memberships/{username}": [
+      {
+        "permission": "members",
+        "access": "write"
+      }
+    ],
+    "PUT /teams/{team_id}/projects/{project_id}": [
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ],
+    "PUT /teams/{team_id}/repos/{owner}/{repo}": [
+      {
+        "permission": "administration",
+        "access": "write"
+      },
+      {
+        "permission": "members",
+        "access": "read"
+      }
+    ]
+  }
+}
