@@ -11,13 +11,6 @@ on:
       - ".github/workflows/**"
   pull_request:
     branches: [main]
-    paths:
-      - "**.go"
-      - "go.mod"
-      - "go.sum"
-      - "data/**"
-      - "pkg/data/bundled/**"
-      - ".github/workflows/**"
 
 permissions:
   contents: read
