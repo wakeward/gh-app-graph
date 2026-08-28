@@ -1,7 +1,7 @@
 # gh-app-graph
 
 [![Unit Testing](https://github.com/wakeward/gh-app-graph/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/wakeward/gh-app-graph/actions/workflows/unit_tests.yml)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/wakeward/gh-app-graph/badge)](https://securityscorecards.dev/viewer/?uri=github.com/wakeward/gh-app-graph)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/wakeward/gh-app-graph/badge)](https://scorecard.dev/viewer/?uri=github.com/wakeward/gh-app-graph)
 [![License](https://img.shields.io/github/license/wakeward/gh-app-graph)](LICENSE)
 
 A structured data model for GitHub App permission risk: severity, technical
