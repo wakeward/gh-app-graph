@@ -44,7 +44,7 @@ jobs:
         run: go test ./...
 
       - name: Create pull request on drift
-        uses: peter-evans/create-pull-request@271a8d0340265f3b2b0d1089225b2a2d663b3a56 # v7.0.2
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           commit-message: "chore: refresh generated inventory and resolved graph"
           title: "chore: refresh generated inventory and resolved graph"
