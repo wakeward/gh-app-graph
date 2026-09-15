@@ -51,6 +51,11 @@ foundations for credible public output.
 permissions does it *request*, how does that score against our rules, and **what
 changed since yesterday?**
 
+Public manifests also carry **subscribed webhook `events`**. That plus
+permissions is enough to tag Marketplace apps as reactive (r2w + s2s) vs
+batch/s2s-only. User-to-server (u2s) is **not** visible on the public
+`/apps/{slug}` payload. See [`docs/operational-archetypes.md`](operational-archetypes.md).
+
 This is **not** the same as `gh-app-check org`:
 
 | | Marketplace catalog | `gh-app-check org` |
