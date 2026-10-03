@@ -83,7 +83,7 @@ surface and install trust mistakes**, not the full pattern catalog. Mapping:
 |---|---|---|
 | S1 | Author lacks install rights; approver gate | `initial-access-owner-approval`, `initial-access-repository-admin-install`, `initial-access-enterprise-owner-install`, provenance-specific paths |
 | S2a | Publisher expands manifest | `permission-acquisition-publisher-upgrade` |
-| S2b | Malicious use of unchanged grants | `execution-abuse-declared-scopes`, `platform-defect-u2s-scope-creep` |
+| S2b | Malicious use of unchanged grants | `execution-abuse-declared-scopes`, `platform-defect-u2s-scope-creep`, `persistence-publisher-ownership-transfer` |
 | S3 | Ephemeral settings change | `defense-evasion-ephemeral-admin-change` |
 | S4 | Portfolio of narrow Apps | `impact-portfolio-spray` |
 | S5 | Workflow / AI agent execution abuse | `credential-access-prt-fork-iatt-exfiltration`, `execution-ai-agent-external-bot-trust`, `execution-indirect-prompt-injection-agent` |

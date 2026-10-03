@@ -75,7 +75,10 @@ Install approver requirements: [`installation-gates.md`](../installation-gates.m
 ## Gaps still open (Apps only)
 
 - Enterprise App approval workflows and `enterprise_*` permission scope
-- App ownership transfer between publishers
+- App ownership transfer between publishers. **Desk 2026-10-03:**
+  `persistence-publisher-ownership-transfer`. Sender uninstall is warned
+  and was F on a personal tenant. Other installers are S2b. Do not lab
+  third-party publishers.
 - Suspended App reactivation
 - GHES-only App permissions
 - Verified audit log events for `integration_installation.*`
