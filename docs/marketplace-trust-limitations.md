@@ -56,6 +56,15 @@ every installation's **declared permissions** become immediately exercisable
 by the attacker. Phase 1 audit shows the same risk before and after compromise
 (`execution-abuse-declared-scopes`, S2b).
 
+**Permission add is a different gate.** GitHub emails installers and waits
+for approve when the publisher **adds** repository or organization
+permissions (`permission-acquisition-publisher-upgrade`, S2a). That mail
+does **not** fire for key rotation, a new backend, or **ownership
+transfer**. Transfer docs only warn if the app would be uninstalled from
+the **sender**. Own-account lab (T08): that warning held. Other
+installations following the App ID is the Apps publisher model
+(`persistence-publisher-ownership-transfer`).
+
 Mutable deployment of vendor **Actions** (separate from GitHub Apps) caused
 large-scale CI incidents (e.g. `tj-actions/changed-files`). That is adjacent
 surface - Actions supply chain, not App manifest - but the **blast radius

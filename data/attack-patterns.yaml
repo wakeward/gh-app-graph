@@ -294,6 +294,46 @@
   observable_artifacts:
     - integration_installation.new_permissions_accepted (verify)
   validation_status: theoretical
+- id: persistence-publisher-ownership-transfer
+  tactic: persistence
+  name: App registration transfer without installer re-consent
+  description: >
+    Ownership of a GitHub App registration moves to a new user or organization.
+    GitHub warns only if the transfer would uninstall the app from the
+    transferring account. Other installations are not documented to re-approve.
+    The new owner can mint installation tokens at the existing scopes (S2b).
+    Permission expansion still requires installer approval (S2a); transfer is
+    not that gate. Own-account L3 (gh-app-sec-research T08): sender=installer
+    uninstalls after recipient accept, matching the warning. Third-installer
+    persistence is expected product behavior, not a bounty cell.
+  scenario_refs:
+    - S2b
+  app_provenance:
+    - marketplace
+    - third_party_direct
+    - internal_custom
+  install_level:
+    - organization
+    - enterprise
+  actor_preconditions:
+    - Can transfer a GitHub App registration (owner or app manager), or is the recipient
+  execution_preconditions:
+    - At least one installation exists on an account that is not the transferring owner
+  toxic_combination_ids: []
+  enterprise_controls_that_reduce_likelihood:
+    - Inventory of App ID and publisher login, not only permission maps
+    - Suspend or uninstall on unexpected publisher change
+    - Limit app managers on the publisher org
+  observable_artifacts:
+    - Install page Developed-by / owner string
+    - JWT GET /app owner fields
+    - integration_installation events (verify name per plan; do not assume a transfer event exists)
+  sources:
+    - https://docs.github.com/en/apps/maintaining-github-apps/transferring-ownership-of-a-github-app
+    - https://docs.github.com/en/apps/maintaining-github-apps/modifying-a-github-app-registration
+  validation_status: partial
+  notes: >
+    Desk 2026-10-03. Do not execute against third-party publishers.
 - id: execution-abuse-declared-scopes
   tactic: execution
   name: Abuse within unchanged declared scopes
